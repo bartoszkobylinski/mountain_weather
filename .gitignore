@@ -1,0 +1,4 @@
+.vscode/
+__pycache__/
+demo_cache.sqlite
+temp.py
