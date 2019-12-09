@@ -1,0 +1,1 @@
+location = {'zakopane':'2700353'}
