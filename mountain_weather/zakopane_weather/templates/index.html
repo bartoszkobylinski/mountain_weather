@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <section>
+       {% for data in object_list %}
+        <div class="day">
+            <div class="location">
+                <h3>Zakopane, Polska</h3>
+                <h5>prognoza pogody na dzien: {{data.date}}</h5>
+            </div>
+            <div class="weather-info">
+                <div class="temp">
+                    <div class="temp-min">
+                        <h3>Min. temp.</h3>
+                        <h5>{{ data.min_temp }}&#8451;</h5>
+                    </div>
+                    <div class="temp-max">
+                        <h3>Max. temp.</h3>
+                        <h5>{{ data.max_temp }}&#8451;</h5>
+                    </div>
+                    
+                </div>
+                <div class="other">
+                    <div class="probability">
+                        <h3>Rain prob.</h3>
+                        <h5>{{ data.probability }}%</h5>
+                    </div>
+                    <div class="wind-speed">
+                        <h3>Wind speed</h3>
+                        <h5>{{ data.wind_speed }}km/h</h5>
+                    </div>
+                    
+
+                </div>
+            </div>
+            <div class="phrase">
+                <h3>Text weathercast</h3>
+                <h5>{{ data.phrase }}</h5>
+
+            </div>
+        </div>
+        {% endfor %}
+
+    </section>
+</body>
+</html>

@@ -1,7 +1,8 @@
 from django.urls import path
+from django.views.generic import TemplateView
 
-from . import views
+from zakopane_weather.views import IndexView
 
 urlpatterns = [
-    path('',views.index, name='index'),
+    path('',IndexView.as_view(template_name="index.html")),
 ]

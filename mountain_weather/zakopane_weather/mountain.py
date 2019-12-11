@@ -1,10 +1,20 @@
+import django
 import requests
 import requests_cache
 import json
 import os
 from urllib.parse import urljoin
 
-from location import location
+from zakopane_weather.location import location
+from zakopane_weather.models import Day, DailyForecast
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'project.settings'
+
+django.setup()
+
+from zakopane_weather.models import Day, DailyForecast
+
+
 
 requests_cache.install_cache('demo_cache')
 
@@ -73,3 +83,11 @@ def get_data():
     for data in detailed_weather:
         weather_data.append(data)
     return weather_data
+
+
+if __name__ == "__main__":
+    a = get_data()
+    
+    daily_forecast = DailyForecast()
+    for data in a:
+        pass
