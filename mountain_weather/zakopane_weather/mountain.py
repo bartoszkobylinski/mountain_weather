@@ -57,8 +57,6 @@ class FiveDaysWeatherForecast:
 
 class TwelveHoursWeatherForecast:
     hours = None
-
-    days = None
     
     def __init__(self,location):
         self.location = location
@@ -76,34 +74,38 @@ class TwelveHoursWeatherForecast:
         weather_forcast = api_response.json()
         return weather_forcast
 
-    def weather_details(self, weather_forcast, hours=12):
+    def hourly_weather_details(self, weather_forcast, hours=11):
         forecast = self.get_forecast()
-        headers = ['min_temp','max_temp','phrase','probability','wind_speed']
+        headers = ['temp','real_feel_temp','wind_speed','rain_probability','cloud_cover']
         for i in range(hours):
             data = []
-            min_temp = round((int(forecast['DailyForecasts'][i]['Temperature']['Minimum']['Value']) - 32)/1.8)
-            data.append(min_temp)
-            max_temp = round((int(forecast['DailyForecasts'][i]['Temperature']['Maximum']['Value']) - 32)/1.8)
-            data.append(max_temp)
-            phrase = forecast['DailyForecasts'][i]['Day']['LongPhrase']
-            data.append(phrase)
-            probability = forecast['DailyForecasts'][i]['Day']['RainProbability']
-            data.append(probability)
-            wind_speed = round((int(forecast['DailyForecasts'][i]['Day']['Wind']['Speed']['Value'])/1.6),1)
+            temp = round((int(forecast[i]['Temperature']['Value']) - 32)/1.8)
+            data.append(temp)
+            real_feel_temp = round((int(forecast[i]['RealFeelTemperature']['Value']) - 32)/1.8)
+            data.append(real_feel_temp)
+            wind_speed = forecast[i]['Wind']['Speed']['Value']
             data.append(wind_speed)
+            rain_probability = forecast[i]['RainProbability']
+            data.append(rain_probability)
+            cloud_cover = forecast[i]['CloudCover']
+            data.append(cloud_cover)
             yield dict(zip(headers,data))
 
-    def get_twelve_hours_weather_forecast_from_accu(self):
-        pass
-    def get_twelve_hours_weather_forecast_from_yr(self):
-        pass
-    def save_twelve_hours_weather_to_database(self):
-        pass
-
+# change to method class
 def get_daily_weather():
     zakopane = FiveDaysWeatherForecast(location.get('zakopane',''))
     weather = zakopane.get_forecast()
     detailed_weather = zakopane.weather_details(weather)
+    weather_data = []
+    for data in detailed_weather:
+        weather_data.append(data)
+    return weather_data
+
+# change to method class
+def get_hourly_weather():
+    zakopane = TwelveHoursWeatherForecast(location.get('zakopane',''))
+    weather = zakopane.get_forecast()
+    detailed_weather = zakopane.hourly_weather_details(weather)
     weather_data = []
     for data in detailed_weather:
         weather_data.append(data)

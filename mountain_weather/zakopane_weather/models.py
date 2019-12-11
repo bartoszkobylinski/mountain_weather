@@ -11,8 +11,11 @@ class Day(models.Model):
     
 
 class HourlyForecast(models.Model):
-    min_temp = models.IntegerField()
-    max_temp = models.IntegerField()
+    temp = models.IntegerField()
+    real_feel_temp = models.IntegerField()
+    wind_speed = models.IntegerField()
+    rain_probability = models.IntegerField()
+    cloud_cover = models.IntegerField()
     date = models.ForeignKey(Day, on_delete=models.CASCADE)
 
 class DailyForecast(models.Model):
