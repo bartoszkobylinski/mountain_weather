@@ -19,7 +19,7 @@ class DailyForecast(models.Model):
     min_temp = models.IntegerField()
     max_temp = models.IntegerField()
     phrase = models.CharField(max_length=150)
-    probability = models.FloatField()
+    probability = models.IntegerField()
     wind_speed = models.IntegerField()
     date = models.ForeignKey(Day, on_delete=models.CASCADE)
 
