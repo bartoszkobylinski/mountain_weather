@@ -10,8 +10,8 @@
     <title>Document</title>
 </head>
 <body>
-    <section>
-       {% for data in object_list %}
+    <section class="daily_forecast">
+       {% for data in DailyForecast %}
         <div class="day">
             <div class="location">
                 <h3>Zakopane, Polska</h3>
@@ -27,7 +27,6 @@
                         <h3>Max. temp.</h3>
                         <h5>{{ data.max_temp }}&#8451;</h5>
                     </div>
-                    
                 </div>
                 <div class="other">
                     <div class="probability">
@@ -38,18 +37,37 @@
                         <h3>Wind speed</h3>
                         <h5>{{ data.wind_speed }}km/h</h5>
                     </div>
-                    
-
                 </div>
             </div>
             <div class="phrase">
                 <h3>Text weathercast</h3>
                 <h5>{{ data.phrase }}</h5>
-
             </div>
         </div>
         {% endfor %}
-
+    </section>
+    <section class="hourly-forecast">
+        {% for data in HourlyForecast %}
+        <div class="hour">
+            <div class="box-wrapper">
+                <div class="hour-temp">
+                    <h3>Temperature</h3>
+                    <h5>{{ data.temp }}</h5>
+                    <h3>Real feel Temperature</h3>
+                    <h5>{{ data.real_feel_temp }}</h5>
+                </div>
+                <div class="hour-other">
+                    <h2>{{ data.date }}</h2>
+                    <h3>Wind speed</h3>
+                    <h5>{{ data.wind_speed }}</h5>
+                    <h3>Rain probability</h3>
+                    <h5>{{ data.rain_probabilty }}</h5>
+                    <h3>Cloud cover</h3>
+                    <h5>{{ data.cloud_cover }}</h5>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
     </section>
 </body>
 </html>
