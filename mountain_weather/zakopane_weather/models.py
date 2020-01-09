@@ -28,3 +28,26 @@ class DailyForecast(models.Model):
 
     def __str__(self):
         return f"Weather forecast for {self.date}: minimal temperature: {self.min_temp}, maximal temperature: {self.max_temp}, {self.phrase}"
+
+class Mountain(models.Model):
+    name_of_peak = models.CharField(max_length=50)
+    elevation = models.IntegerField()
+    day = models.DateField
+
+    def __str__(self):
+        return f"{self.name_of_peak} with elevation {self.elevation} over sea level"
+
+class OctaveOfDay(models.Model):
+    date = models.ForeignKey(Mountain,on_delete=models.CASCADE)
+    octave_of_a_day = models.CharField()
+    wind_speed = models.IntegerField()
+    summary = models.CharField()
+    rain = models.IntegerField()
+    snow = models.IntegerField()
+    temperature = models.IntegerField()
+    chill_temperature = models.IntegerField()
+
+    def __str__(self):
+        return f'''At {self.date} {self.octave_of_a_day} is going to be
+         {self.summary} with {self.rain} of rain and {self.snow} of snow and {self.wind_speed} windspeed. Tempereture is going to be
+         {self.temperature} Celsius and chilling temp is going to be {self.chill_temperature}.'''
