@@ -32,16 +32,16 @@ class DailyForecast(models.Model):
 class Mountain(models.Model):
     name_of_peak = models.CharField(max_length=50)
     elevation = models.IntegerField()
-    day = models.DateField
+    day = models.DateField()
 
     def __str__(self):
         return f"{self.name_of_peak} with elevation {self.elevation} over sea level"
 
 class OctaveOfDay(models.Model):
     date = models.ForeignKey(Mountain,on_delete=models.CASCADE)
-    octave_of_a_day = models.CharField()
+    octave_of_a_day = models.CharField(max_length=50)
     wind_speed = models.IntegerField()
-    summary = models.CharField()
+    summary = models.CharField(max_length=50)
     rain = models.IntegerField()
     snow = models.IntegerField()
     temperature = models.IntegerField()
