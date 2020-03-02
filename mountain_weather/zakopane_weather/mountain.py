@@ -31,7 +31,6 @@ class FiveDaysWeatherForecast:
 
     def get_forecast(self):
         url = self._parsing_url(accu_api)
-
         api_response = requests.get(url)
         weather_forcast = api_response.json()
         return weather_forcast
@@ -95,10 +94,14 @@ class TwelveHoursWeatherForecast:
         url = self._parsing_url(accu_api)
 
         api_response = requests.get(url)
+        if not api_response.ok:
+            return list()
         weather_forcast = api_response.json()
         return weather_forcast
 
-    def hourly_weather_details(self, weather_forcast, hours=11):
+    def hourly_weather_details(self, weather_forcast, hours: int = None):
+        if hours is None:
+            hours = 11
         forecast = self.get_forecast()
         headers = [
             "temp",

@@ -1,42 +1,88 @@
+from urllib.parse import urljoin
+
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+
 import time
+
+peaks = {
+        'Banikov':'2178',
+        'Baranec':'2184',
+        'Gerlach':'2655',
+        'Giewont':'1909',
+        'Gubalowka':'1126',
+        'Kasprowy-Wierch':'1987',
+        'Koscielec':'2155',
+        'Krivan':'2494',
+        'Mieguszowiecki-Szczyt-Wielki':'2438',
+        'Mnich':'2068',
+        'Ostry-Rohac':'2087',
+        'Rysy':'2499',
+        'Slavkovsky-Stit':'2452',
+        'Swinica':'2301',
+        'Volovec-Tatra':'2063',
+        'Vychodna-Vysoka':'2574',
+        'Woloszyn':'2155'
+    }
+
+base_url="https://www.mountain-forecast.com/peaks/"
+
+def get_url(peaks, base_url):
+    for key, val in peaks.items():
+        url1 = f"{key}/forecasts/{val}" 
+        url2 = base_url
+        absolute_url = urljoin(url2,url1)
+        yield absolute_url
+
+
+
+
 
 
 class MountainWeatherScraper:
 
+
     path = "/home/bart/PythonProjects/mountain/chromedriver"
 
-    def __init__(self):
+    def __init__(self,url):
 
         # chrome_options.add_argument('--headless') Add that after testing!!!!
         chrome_options = webdriver.ChromeOptions()
-        chrome_options.add_argument("--no-sandbox")
-        chrome_options.add_argument("--window-size=1420,1080")
-        chrome_options.add_argument("--disable-gpu")
 
-        self.url = "https://www.mountain-forecast.com/peaks/Banikov/forecasts/2178"
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--window-size=1420,1080')
+        #chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--disable-gpu')
+        self.url = url
+        self.browser = webdriver.Chrome(executable_path=self.path, options = chrome_options)
 
-        self.browser = webdriver.Chrome(
-            executable_path=self.path, options=chrome_options
-        )
 
     def _navigate_to_data_table(self):
         self.browser.get(self.url)
         time.sleep(5)
-        cookie_agree = self.browser.find_element_by_xpath(
-            "/html/body/div[1]/div/div/div[2]/div[1]/button"
-        )
-        cookie_agree.click()
 
-        buttons = self.browser.find_elements_by_class_name(
-            "forecast__table-days-toggle"
-        )
-        for button in buttons:
-            button.click()
-
+        try:
+            if self.browser.find_element_by_xpath('/html/body/div[1]/div/div/div[2]/div[1]/button'):
+                try:
+                    if self.browser.find_element_by_xpath(
+                        '/html/body/div[1]/div/div/div[2]/div[1]/button'
+                        ).click():
+                        print("i have printed")
+                except Exception as e:
+                    print(e + "        THAT IS FIRST EXCEPTION")
+        except Exception as e:
+            print("other exception than NoSuchElementException")
+        buttons = self.browser.find_elements_by_class_name('forecast__table-days-toggle')
+        try:
+            for index in range(len(buttons)):
+                java_script = f"document.getElementsByClassName('forecast__table-days-toggle')[{index}].click();"
+                self.browser.execute_script(java_script)
+        except Exception as e:
+            print(e)
+        print("The size of buttons is : " + str(len(buttons)))
+        
     def _get_number_of_columns(self):
         self._navigate_to_data_table()
         table_days = self.browser.find_elements_by_class_name("forecast__table-days")
@@ -51,14 +97,15 @@ class MountainWeatherScraper:
         # Methods to fix format of octave of day which after scraping
         # is like this 10\u2009PM and \u2009 has to be deleted
         octave = [char for char in octave]
+
         if octave[1] == "0":
             del octave[2]
         else:
             del octave[1]
         octave = "".join(octave)
         return octave
-
-    def scrap_data_weather_for_octave_of_a_day(self):
+        
+    def scrap_data_weather_for_octave_of_a_day(self):        
         number_of_columns = self._get_number_of_columns()
         beggining = 1
         end = number_of_columns[0]
@@ -122,10 +169,16 @@ class MountainWeatherScraper:
                 end = beggining + int(number_of_columns[i + 1]) - 1
             except IndexError:
                 break
+        print("I have done it")
         return data_weather
 
 
-a = MountainWeatherScraper()
-a = a.scrap_data_weather_for_octave_of_a_day()
-for i in a:
-    print(i)
+
+if __name__ == "__main__":
+    
+    for url in get_url(peaks,base_url):
+
+        a = MountainWeatherScraper(url)    
+        a = a.scrap_data_weather_for_octave_of_a_day()
+        print(a)
+

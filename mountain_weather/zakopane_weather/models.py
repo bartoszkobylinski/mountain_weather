@@ -4,6 +4,7 @@ from datetime import datetime
 # Create your models here.
 class Day(models.Model):
     date = models.DateField(auto_now=True)
+    avalanche = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.date)
@@ -18,6 +19,9 @@ class HourlyForecast(models.Model):
     cloud_cover = models.IntegerField()
     date = models.ForeignKey(Day, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f"Weather forecast for {self.date}"
+
 class DailyForecast(models.Model):
     min_temp = models.IntegerField()
     max_temp = models.IntegerField()
@@ -27,7 +31,7 @@ class DailyForecast(models.Model):
     date = models.ForeignKey(Day, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Weather forecast for {self.date}: minimal temperature: {self.min_temp}, maximal temperature: {self.max_temp}, {self.phrase}"
+        return f"Weather forecast for {self.date}"
 
 class Mountain(models.Model):
     name_of_peak = models.CharField(max_length=50)
