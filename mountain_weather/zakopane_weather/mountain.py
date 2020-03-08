@@ -2,23 +2,21 @@ import django
 import requests
 import json
 import os
+import logging
+import sys
 from urllib.parse import urljoin
 
 from zakopane_weather.location import location
-from zakopane_weather.models import Day, DailyForecast
 
-os.environ["DJANGO_SETTINGS_MODULE"] = "project.settings"
+os.environ["DJANGO_SETTINGS_MODULE"] = "mountain_weather.mountain_weather.settings"
 
 django.setup()
 
-from zakopane_weather.models import Day, DailyForecast
-
-
 accu_api = os.environ.get("ACCU_API_KEY")
 
+logging.basicConfig(filename='mountain.log', level=logging.INFO)
 
 class FiveDaysWeatherForecast:
-    days = None
 
     def __init__(self, location):
         self.location = location
@@ -32,14 +30,21 @@ class FiveDaysWeatherForecast:
     def get_forecast(self):
         url = self._parsing_url(accu_api)
         api_response = requests.get(url)
+        if not api_response.ok:
+            logging.error("Error occured while trying to get response from AccuWeather API")
         weather_forcast = api_response.json()
         return weather_forcast
 
-    def weather_details(self, weather_forcast, days=5):
+    def weather_details(self, weather_forcast, days: int = None):
         forecast = self.get_forecast()
-        headers = ["min_temp", "max_temp", "phrase", "probability", "wind_speed"]
+        headers = ["date","min_temp", "max_temp", "phrase", "probability", "wind_speed"]
+        if days is None:
+            days = 5
         for i in range(days):
             data = []
+            date = forecast['DailyForecasts'][i]['Date']
+            date = date[:10]
+            data.append(date)
             min_temp = round(
                 (
                     int(
@@ -74,12 +79,9 @@ class FiveDaysWeatherForecast:
             data.append(wind_speed)
             yield dict(zip(headers, data))
 
-    def save_five_day_weather_to_database(self):
-        pass
 
 
 class TwelveHoursWeatherForecast:
-    hours = None
 
     def __init__(self, location):
         self.location = location
@@ -92,10 +94,9 @@ class TwelveHoursWeatherForecast:
 
     def get_forecast(self):
         url = self._parsing_url(accu_api)
-
         api_response = requests.get(url)
         if not api_response.ok:
-            return list()
+            logging.error("Error occured while trying to get response from AccuWeather API")
         weather_forcast = api_response.json()
         return weather_forcast
 
@@ -103,7 +104,7 @@ class TwelveHoursWeatherForecast:
         if hours is None:
             hours = 11
         forecast = self.get_forecast()
-        headers = [
+        headers = ["date_time",
             "temp",
             "real_feel_temp",
             "wind_speed",
@@ -112,6 +113,9 @@ class TwelveHoursWeatherForecast:
         ]
         for i in range(hours):
             data = []
+            date_time = forecast[i]['DateTime']
+            date_time = date_time[:16]
+            data.append(date_time)
             temp = round((int(forecast[i]["Temperature"]["Value"]) - 32) / 1.8)
             data.append(temp)
             real_feel_temp = round(
@@ -128,7 +132,7 @@ class TwelveHoursWeatherForecast:
 
 
 # change to method class
-def get_daily_weather():
+def get_zakopane_daily_weather():
     zakopane = FiveDaysWeatherForecast(location.get("zakopane", ""))
     weather = zakopane.get_forecast()
     detailed_weather = zakopane.weather_details(weather)
@@ -139,11 +143,18 @@ def get_daily_weather():
 
 
 # change to method class
-def get_hourly_weather():
+def get_zakopane_hourly_weather():
     zakopane = TwelveHoursWeatherForecast(location.get("zakopane", ""))
     weather = zakopane.get_forecast()
     detailed_weather = zakopane.hourly_weather_details(weather)
     weather_data = []
     for data in detailed_weather:
+
         weather_data.append(data)
     return weather_data
+
+
+w = get_zakopane_daily_weather()
+print(w)
+w = get_zakopane_hourly_weather()
+print(w)

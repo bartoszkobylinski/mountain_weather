@@ -1,6 +1,11 @@
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 
+import logging
+
+logging.basicConfig(filename='avalanche.log', level=logging.INFO)
+
+
 class Scraper:
      path = "/home/bart/PythonProjects/mountain/chromedriver"
      
@@ -32,10 +37,9 @@ class AvalancheWarningScraper(Scraper):
             avalanche_description = avalanche_description.text
             print(avalanche_description)
         except NoSuchElementException as error:
-            print(error)
+            logging.info(f"During scraping a website: {self.url} error has occured {error})
         avalanche_status = {}
         avalanche_status['avalanche_level'] = avalanche_level
-
 
 
     def __str__(self):
