@@ -6,11 +6,11 @@ import logging
 import sys
 from urllib.parse import urljoin
 
-from zakopane_weather.location import location
+#from zakopane_weather.location import location
 
-os.environ["DJANGO_SETTINGS_MODULE"] = "mountain_weather.mountain_weather.settings"
-
-django.setup()
+#os.environ["DJANGO_SETTINGS_MODULE"] = "mountain_weather.mountain_weather.settings"
+location = {'zakopane':'2700353'}
+#django.setup()
 
 accu_api = os.environ.get("ACCU_API_KEY")
 
@@ -42,7 +42,7 @@ class FiveDaysWeatherForecast:
             days = 5
         for i in range(days):
             data = []
-            date = forecast['DailyForecasts'][i]['Date']
+            date = forecast["DailyForecasts"][i]['Date']
             date = date[:10]
             data.append(date)
             min_temp = round(
@@ -115,6 +115,7 @@ class TwelveHoursWeatherForecast:
             data = []
             date_time = forecast[i]['DateTime']
             date_time = date_time[:16]
+            date_time = date_time.replace('T', ' ')
             data.append(date_time)
             temp = round((int(forecast[i]["Temperature"]["Value"]) - 32) / 1.8)
             data.append(temp)
@@ -154,7 +155,3 @@ def get_zakopane_hourly_weather():
     return weather_data
 
 
-w = get_zakopane_daily_weather()
-print(w)
-w = get_zakopane_hourly_weather()
-print(w)

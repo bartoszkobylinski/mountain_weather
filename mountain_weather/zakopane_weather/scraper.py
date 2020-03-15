@@ -1,32 +1,17 @@
 from urllib.parse import urljoin
+from datetime import datetime, date, timedelta
 
 
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
+
+from zakopane_weather.location import peaks
 
 
 import logging
 import time
 
-# logger settings
-logging.basicConfig(filename="scraper.log", level=logging.INFO)
 
-class Scraper:
-     path = "/home/bart/PythonProjects/mountain/chromedriver"
-     
-     def __init__(self):
-        # chrome_options.add_argument('--headless') Add that after testing!!!!
-        chrome_options = webdriver.ChromeOptions()
-        chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument('--window-size=1420,1080')
-        #chrome_options.add_argument('--headless')
-        chrome_options.add_argument('--disable-gpu')
-        self.browser = webdriver.Chrome(executable_path=self.path, options = chrome_options)
-
-# move it to another file after tests
 peaks = {
         'Banikov':'2178',
         'Baranec':'2184',
@@ -47,14 +32,32 @@ peaks = {
         'Woloszyn':'2155'
     }
 
-base_url="https://www.mountain-forecast.com/peaks/"
+# logger settings
+logging.basicConfig(filename="scraper.log", level=logging.WARNING)
 
-def get_url(peaks, base_url):
+def get_url(peaks):
+    base_url="https://www.mountain-forecast.com/peaks/"
     for key, val in peaks.items():
         url1 = f"{key}/forecasts/{val}" 
         url2 = base_url
         absolute_url = urljoin(url2,url1)
         yield absolute_url
+
+
+class Scraper:
+     path = "/home/bart/PythonProjects/mountain/chromedriver"
+     
+     def __init__(self):
+        # chrome_options.add_argument('--headless') Add that after testing!!!!
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--window-size=1420,1080')
+        #chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--disable-gpu')
+        self.browser = webdriver.Chrome(executable_path=self.path, options = chrome_options)
+
+# move it to another file after tests
+
 
 class MountainWeatherScraper(Scraper):
 
@@ -67,7 +70,7 @@ class MountainWeatherScraper(Scraper):
         self.browser.get(self.url)
         time.sleep(5)
         mountain_name = self.browser.title
-        logging.info("Scraper navigate to data table on the website: " + mountain_name)
+        logging.info(f"Scraper navigate to data table on the website: {mountain_name}")
 
         try:
             cookie_button = self.browser.find_element_by_xpath(
@@ -78,9 +81,9 @@ class MountainWeatherScraper(Scraper):
                     cookie_button.click()
                     logging.info("i have clicked cookie button")
                 except NoSuchElementException:
-                    logging.info("No Such Element Excertion has occured: cookie button has not been found")
+                    logging.warning("No Such Element Excertion has occured: cookie button has not been found")
         except Exception as error:
-            logging.info("Other exception than NoSuchElementException has occured with error:" + error)
+            logging.warning(f"Other exception than NoSuchElementException has occured with error: {error}")
         buttons = self.browser.find_elements_by_class_name('forecast__table-days-toggle')
         try:
             for index in range(len(buttons)):
@@ -88,9 +91,10 @@ class MountainWeatherScraper(Scraper):
                 self.browser.execute_script(java_script) 
                 logging.info("java_script has been executed")
         except Exception as error:
-            logging.info("Error while java script has been executed has occured: " + error)
+            logging.warning(f"Error while java script has been executed has occured: {error}")
         logging.info("Script has found: " + str(len(buttons)) + " buttons and all are pushed")
         
+
     def _get_number_of_columns(self):
         self._navigate_to_data_table()
         table_days = self.browser.find_elements_by_class_name("forecast__table-days")
@@ -111,7 +115,13 @@ class MountainWeatherScraper(Scraper):
         octave = [char for char in octave]
         logging.info("octave is: " + str(octave))
         try:
-            if octave[1] == "0":
+            if octave is None:
+                return "None"
+            elif octave is []:
+                print("EEEEEEEEEEEeeeeeeempty list")
+                return "Empty list"
+                
+            elif octave[1] == "0":
                 del octave[2]
             else:
                 del octave[1]
@@ -123,90 +133,135 @@ class MountainWeatherScraper(Scraper):
             and error is: + {error}. 
             """)
         
-    def scrap_data_weather_for_octave_of_a_day(self):        
-        number_of_columns = self._get_number_of_columns()
-        beggining = 1
-        end = number_of_columns[0]
-        headers = [
-            "octave_of_a_day",
-            "windspeed",
-            "summary",
-            "rain",
-            "snow",
-            "temperature",
-            "chill_temperature",
-        ]
+    def scrap_data_weather_for_octave_of_a_day(self):   
+        try:     
+            number_of_columns = self._get_number_of_columns()
+            beggining = 1
+            end = number_of_columns[0]
+        except IndexError as error:
+            logging.warning("An error occured while script getting number of columns" + str(error))
         data_weather = []
+        current_date = datetime.today()
+        delta = timedelta(days=1)
+        name_of_peak = self.browser.title
+        name_of_peak = name_of_peak.split(' ')
+        name_of_peak = name_of_peak[0] 
         for i in range(len(number_of_columns)):
             x = range(beggining, end + 1)
+            date = current_date
+            date = date.strftime('%Y-%m-%d')
             for y in x:
-                data = []
                 octave_element = self.browser.find_element_by_xpath(
                     f'//*[@id="forecast-cont"]/table/thead/tr[3]/td[{y}]/span'
                 )
                 octave_of_a_day = octave_element.text
                 octave_of_a_day = self.make_correction_in_octave(octave_of_a_day)
 
-                data.append(octave_of_a_day)
                 windspeed_element = self.browser.find_element_by_xpath(
                     f'//*[@id="forecast-cont"]/table/tbody/tr[2]/td[{y}]/div/div/span'
                 )
-                windspeed_of_octave = windspeed_element.text
-                data.append(windspeed_of_octave)
+                windspeed_element = windspeed_element.text
+                if windspeed_element == '':
+                    windspeed_element = 0
+                elif windspeed_element == '-':
+                    windspeed_element = 0
+
                 summary_element = self.browser.find_element_by_xpath(
                     f'//*[@id="forecast-cont"]/table/tbody/tr[3]/td[{y}]'
                 )
-                summary_of_octave = summary_element.text
-                data.append(summary_of_octave)
+                summary_element = summary_element.text
+
                 rain_element = self.browser.find_element_by_xpath(
                     f'//*[@id="forecast-cont"]/table/tbody/tr[5]/td[{y}]/span/span'
                 )
-                rain_of_octave = rain_element.text
-                data.append(rain_of_octave)
+                rain_element = rain_element.text
+                if rain_element == '':
+                    rain_element = 0
+                elif rain_element == '-':
+                    rain_element = 0
+
                 snow_element = self.browser.find_element_by_xpath(
                     f'//*[@id="forecast-cont"]/table/tbody/tr[6]/td[{y}]/span/span'
                 )
-                snow_of_octave = snow_element.text
-                data.append(snow_of_octave)
+                snow_element = snow_element.text
+                if snow_element == '':
+                    snow_element = 0
+                elif snow_element =='-':
+                    snow_element = 0
+
                 temperature_element = self.browser.find_element_by_xpath(
                     f'//*[@id="forecast-cont"]/table/tbody/tr[7]/td[{y}]/span/span'
                 )
-                temperature_of_octave = temperature_element.text
-                data.append(temperature_of_octave)
+                temperature_element = temperature_element.text
+                if temperature_element == '':
+                    temperature_element = 0
+                elif temperature_element == '-':
+                    temperature_element = 0
                 chill_temp_element = self.browser.find_element_by_xpath(
                     f'//*[@id="forecast-cont"]/table/tbody/tr[9]/td[{y}]/span/span'
                 )
-                chill_temp_of_octave = chill_temp_element.text
-                data.append(chill_temp_of_octave)
-                one_octave_data = dict(zip(headers, data))
-                data_weather.append(one_octave_data)
+                chill_temp_element = chill_temp_element.text
+                if chill_temp_element == '':
+                    chill_temp_element = 0
+                elif chill_temp_element =='-':
+                    chill_temp_element = 0
+
+                data_weather.append({
+                    "name_of_peak": name_of_peak,
+                    "date": date,
+                    "octave_of_a_day": octave_of_a_day,
+                    "windspeed": windspeed_element,
+                    "summary": summary_element,
+                    "rain": rain_element,
+                    "snow": snow_element,
+                    "temperature": temperature_element,
+                    "chill_temperature": chill_temp_element
+                })
+            current_date = current_date + delta    
 
             beggining = end + 1
             try:
                 end = beggining + int(number_of_columns[i + 1]) - 1
             except IndexError :
                 break
-        logging.info("I have gathered data from: " + self.browser.title)
+        self.browser.close()
         return data_weather
+        #logging.info("I have gathered data from: " + self.browser.title)
+        #return data_weather
+
+    def get_peak_name_and_level(self):
+        self.browser.get(self.url)
+        peak_information = {}
+        mountain_name = self.browser.title
+        mountain_name = mountain_name.split(' ')
+        peak_information['name_of_peak'] = mountain_name[0] 
+        peak_information['elevation'] = int(mountain_name[-1][1:-2])
+        return peak_information
 
 
-def get_pekas_detailed_weather(peaks, base_url):
-
-    for url in get_url(peaks,base_url):
+def get_pekas_detailed_weather():
+    for url in get_url(peaks):
         mountain = MountainWeatherScraper(url)
         mountain_weather = mountain.scrap_data_weather_for_octave_of_a_day()
         yield mountain_weather
-
-
+    
+        
+    
+def get_peaks_information():
+    for url in get_url(peaks):
+        mountain = MountainWeatherScraper(url)
+        mountain_information = mountain.get_peak_name_and_level()
+        yield mountain_information
 
 if __name__ == "__main__":
+    
+    for mountain in get_pekas_detailed_weather():
+        print(mountain)
+    print("I have done scraping")
 
-    for mountian_weather in get_pekas_detailed_weather(peaks,base_url):
-        print(mountian_weather)
-'''    
-    for url in get_url(peaks,base_url):
-
-        a = MountainWeatherScraper(url)    
-        a = a.scrap_data_weather_for_octave_of_a_day()
-        print(a)
-'''
+    info_mount = []
+    "I have made empty list"
+    for mountain in get_peaks_information():
+        
+        info_mount.append(mountain)
+    print(info_mount)

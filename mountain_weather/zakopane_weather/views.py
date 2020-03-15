@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView
 
-from zakopane_weather.models import DailyForecast,Day, HourlyForecast
+from zakopane_weather.models import DailyForecast, HourlyForecast
 
 # Create your views here.
 
