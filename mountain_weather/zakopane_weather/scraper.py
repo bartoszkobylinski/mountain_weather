@@ -115,18 +115,16 @@ class MountainWeatherScraper(Scraper):
         octave = [char for char in octave]
         logging.info("octave is: " + str(octave))
         try:
-            if octave is None:
-                return "None"
-            elif octave is []:
+            if octave is []:
                 print("EEEEEEEEEEEeeeeeeempty list")
                 return "Empty list"
-                
-            elif octave[1] == "0":
-                del octave[2]
             else:
-                del octave[1]
-            octave = "".join(octave)
-            return octave
+                if octave[1] == "0":
+                    del octave[2]
+                else:
+                    del octave[1]
+                octave = "".join(octave)
+                return octave
         except Exception as error:
             logging.warning(f"""
             Error in make_correction_in_octave has occured. Octave variable is: + {octave} 
@@ -155,7 +153,11 @@ class MountainWeatherScraper(Scraper):
                     f'//*[@id="forecast-cont"]/table/thead/tr[3]/td[{y}]/span'
                 )
                 octave_of_a_day = octave_element.text
-                octave_of_a_day = self.make_correction_in_octave(octave_of_a_day)
+                if octave_element is None:
+                    octave_of_a_day = "None"
+                    logging.warning("I have Nooooooooooooooooooooooooooooooooooooneeeeeeeeeeeeee")
+                else:    
+                    octave_of_a_day = self.make_correction_in_octave(octave_of_a_day)
 
                 windspeed_element = self.browser.find_element_by_xpath(
                     f'//*[@id="forecast-cont"]/table/tbody/tr[2]/td[{y}]/div/div/span'
