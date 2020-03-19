@@ -116,8 +116,7 @@ class MountainWeatherScraper(Scraper):
         logging.info("octave is: " + str(octave))
         try:
             if octave is []:
-                print("EEEEEEEEEEEeeeeeeempty list")
-                return "Empty list"
+                return "None"
             else:
                 if octave[1] == "0":
                     del octave[2]

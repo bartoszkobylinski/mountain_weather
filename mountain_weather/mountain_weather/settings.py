@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'zakopane_weather',
-    'django_cron'
+    'django_cron',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +57,11 @@ MIDDLEWARE = [
 CRON_CLASSES = [
     'zakopane_weather.cron.MyCronJob',
 ]
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
 
 ROOT_URLCONF = 'mountain_weather.urls'
 
