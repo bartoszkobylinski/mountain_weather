@@ -37,7 +37,7 @@ class AvalancheWarningScraper(Scraper):
             avalanche_description = avalanche_description.text
             print(avalanche_description)
         except NoSuchElementException as error:
-            logging.info(f"During scraping a website: {self.url} error has occured {error})
+            logging.info(f"During scraping a website: {self.url} error has occured {error}")
         avalanche_status = {}
         avalanche_status['avalanche_level'] = avalanche_level
 

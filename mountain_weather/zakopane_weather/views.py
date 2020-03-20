@@ -1,14 +1,14 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView
+from zakopane_weather.models import DailyForecast, HourlyForecast
 from rest_framework import viewsets
+from zakopane_weather.models import HourlyForecast, DailyForecast, Mountain, OctaveOfDay
 from . import models
 from . import serializers
 
-#from zakopane_weather.models import DailyForecast, HourlyForecast
-
 # Create your views here.
 
-'''
+
 class IndexView(TemplateView):
     template_name = 'index.html'
 
@@ -17,9 +17,7 @@ class IndexView(TemplateView):
         context['DailyForecast'] = DailyForecast.objects.all()
         context['HourlyForecast'] = HourlyForecast.objects.all()
         return context
-'''    
-
-
+    
 class HourlyForecastViewset(viewsets.ModelViewSet):
     queryset = models.HourlyForecast.objects.all()
     serializer_class = serializers.HourlyForecastSerializer
@@ -35,3 +33,4 @@ class MountainViewset(viewsets.ModelViewSet):
 class OctaveOfDayViewset(viewsets.ModelViewSet):
     queryset = models.OctaveOfDay.objects.all()
     serializer_class = serializers.OctaveOfDaySerializer
+

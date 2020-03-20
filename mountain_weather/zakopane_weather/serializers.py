@@ -22,14 +22,3 @@ class OctaveOfDaySerializer(serializers.ModelSerializer):
         fields = ['id','name_of_peak','date','octave_of_a_day','windspeed','summary','rain','snow','temperature','chill_temperature']
 
 
-'''
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ['url','username','email','groups']
-
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Group
-        fields = ['url','name']
-'''

@@ -51,3 +51,11 @@ class OctaveOfDay(models.Model):
        return f''' At {self.name_of_peak} at {self.date} {self.octave_of_a_day} is going to be
        {self.summary} with {self.rain} of rain and {self.snow} of snow and {self.windspeed} windspeed. Tempereture is going to be
        {self.temperature} Celsius and chilling temp is going to be {self.chill_temperature}.''' 
+
+class AvalancheStatus(models.Model):
+    avalanche_level = models.IntegerField()
+    avalanche_description = models.CharField(max_length=200)
+    avalanche_warning_published = models.DateTimeField()
+    avalanche_warning_valid_until = models.DateTimeField()
+
+    date = models.DateField(auto_now_add=True)

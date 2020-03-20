@@ -82,6 +82,8 @@ class MyCronJob(CronJobBase):
                 except Exception as error:
                     logging.warning("Error ocured: " + str(error))
         end = time()
+        result = end - start
+        logging.info(f"Scraping operation has been executing {result} seconds.")
         logging.info("That is time to run procces: " + str(end - start))
 
     
