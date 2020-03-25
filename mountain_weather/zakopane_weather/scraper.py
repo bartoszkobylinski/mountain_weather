@@ -161,7 +161,7 @@ class MountainWeatherScraper(Scraper):
                 windspeed_element = self.browser.find_element_by_xpath(
                     f'//*[@id="forecast-cont"]/table/tbody/tr[2]/td[{y}]/div/div/span'
                 )
-                windspeed_element = windspeed_element.text
+                windspeed_element = int(windspeed_element.text)* 3.6
                 if windspeed_element == '':
                     windspeed_element = 0
                 elif windspeed_element == '-':

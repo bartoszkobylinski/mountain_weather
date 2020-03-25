@@ -2,9 +2,10 @@ import logging
 from time import time
 
 from django_cron import CronJobBase, Schedule
+from zakopane_weather.avalanche import get_avalanche_status
 from zakopane_weather.mountain import get_zakopane_daily_weather, get_zakopane_hourly_weather
 from zakopane_weather.scraper import get_pekas_detailed_weather, get_peaks_information, peaks
-from zakopane_weather.models import DailyForecast, HourlyForecast, OctaveOfDay, Mountain
+from zakopane_weather.models import DailyForecast, HourlyForecast, OctaveOfDay, Mountain, AvalancheStatus
 from zakopane_weather.location import location
 
 logging.basicConfig(filename="cron.log",level=logging.WARNING)
@@ -34,12 +35,22 @@ class MyCronJob(CronJobBase):
         HourlyForecast.objects.all().delete()   
 
         hourly_weather_forecast_from_accuweather = get_zakopane_hourly_weather()
-        print(hourly_weather_forecast_from_accuweather)
         try:
             hourly_objects = [HourlyForecast(**element) for element in hourly_weather_forecast_from_accuweather]
         except Exception as error:
             print(error)
         HourlyForecast.objects.bulk_create(hourly_objects)
+        print("I am hereeeee")
+        avalanche_status = get_avalanche_status()
+        print("I am here")
+        try:
+            avalanche = AvalancheStatus(**avalanche_status)
+        except Exception as error:
+            print(f"Error occured {error}")
+        try:
+            avalanche.save()
+        except Exception as error:
+            print(f"Occured error while saving {error}")
 
         OctaveOfDay.objects.all().delete()
         Mountain.objects.all().delete()

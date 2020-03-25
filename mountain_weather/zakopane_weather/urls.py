@@ -16,7 +16,7 @@ router.register('mountain', MountainViewset)
 router.register('octaveofday', OctaveOfDayViewset)
 
 urlpatterns =[
-    path('index/', IndexView.as_view(template_name="index.html")),
+    path('index/', IndexView.as_view(template_name="index2.html")),
     path('viewset/', include(router.urls)),
     path('viewset/hourlyforecast/<int:pk>/', include(router.urls))
 ]

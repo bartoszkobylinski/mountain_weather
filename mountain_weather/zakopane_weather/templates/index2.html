@@ -5,69 +5,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://kit.fontawesome.com/aef6646358.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
     <title>Document</title>
 </head>
 <body>
-    <section class="daily_forecast">
-       {% for data in DailyForecast %}
+    <main>
         <div class="day">
-            <div class="location">
-                <h3>Zakopane, Polska</h3>
-                <h5>prognoza pogody na dzien: {{data.date}}</h5>
-            </div>
-            <div class="weather-info">
-                <div class="temp">
-                    <div class="temp-min">
-                        <h3>Min. temp.</h3>
-                        <h5>{{ data.min_temp }}&#8451;</h5>
-                    </div>
-                    <div class="temp-max">
-                        <h3>Max. temp.</h3>
-                        <h5>{{ data.max_temp }}&#8451;</h5>
-                    </div>
+            <div class="top">
+                <div class="city-data">
+                    <div class="city-name">Zakopane</div>
+                    <div class="date">wtorek, 22/10/2020</div>
                 </div>
-                <div class="other">
-                    <div class="probability">
-                        <h3>Rain prob.</h3>
-                        <h5>{{ data.probability }}%</h5>
-                    </div>
-                    <div class="wind-speed">
-                        <h3>Wind speed</h3>
-                        <h5>{{ data.wind_speed }}km/h</h5>
-                    </div>
+                <div class="avalanche">
+                    <div class="avalanche-level_info">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sint laudantium quasi quos, dicta saepe voluptatibus ducimus nam eveniet in aperiam?</div>
+                    <div class="avalanche-level">2</div>
+                    <div class="avalanche-img"><img src="{% static 'images/2_level.png' %}" alt="2_avalanche_level"></div>
                 </div>
             </div>
-            <div class="phrase">
-                <h3>Text weathercast</h3>
-                <h5>{{ data.phrase }}</h5>
+            <div class="days-forecast">
+                {% for data in DailyForecast%}
+                <div class="day-forecast">
+                    <div class="day-forecast__date">{{data.date}}</div>
+                    <div class="day-forecast__temp">
+                        <div class="day-forecast__temp_img"><i class="far fa-sun"></i></div>
+                        <div class="day-forecast__temp_det">
+                            <div class="day-forecast__temp_det_min"> 
+                                <h6><i class="fas fa-temperature-low"></i></h6>
+                                <h6>{{data.min_temp}}&#176</h6>
+                            </div>
+                            <div class="day-forecast__temp_det_max">
+                                <h6><i class="fas fa-temperature-high"></i></h6>
+                                <h6>{{data.max_temp}}&#176</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="day-forecast__other">
+                        <div class="day-forecast__other_rain"> 
+                            <h6><i class="fas fa-umbrella"></i></h6>
+                            <h6>{{data.probability}}%</h6>
+                        </div>
+                        <div class="day-forecast__other_wind">
+                            <h6><i class="fas fa-wind"></i></h6>
+                            <h6>{{data.wind_speed}} km/h</h6>
+                        </div>
+                    </div>
+                    <div class="day-forecast__phrase">
+                        <h6>{{data.phrase}}</h6> 
+                    </div>                   
+                </div>
+                 {% endfor %}
+            </div>
+            <div class="hour-forecast">
+                {% for data in HourlyForecast %}
+                <div class="hour-detail">
+                    <div class="hour-detail__date">{{ data.date_time }}</div>
+                    <div class="hour-detail__temp">temp: {{ data.temp }}&#176</div>
+                    <div class="hour-detail__real_temp">real feel temp: {{ data.real_feel_temp }}&#176</div>
+                    <div class="hour-detail__wind_speed"><i class="fas fa-wind"></i>{{ data.wind_speed }}km/h</div>
+                    <div class="hour-detail__rain_probability"><i class="fas fa-umbrella"></i>{{ data.rain_probability}}%</div>
+                    <div class="hour-detail__cloud"><i class="fas fa-cloud"></i>{{ data.cloud_cover }}%</div>
+                    
+                </div>
+                {% endfor %}
             </div>
         </div>
-        {% endfor %}
-    </section>
-    <section class="hourly-forecast">
-        {% for data in HourlyForecast %}
-        <div class="hour">
-            <div class="box-wrapper">
-                <div class="hour-temp">
-                    <h3>Temperature</h3>
-                    <h5>{{ data.temp }}</h5>
-                    <h3>Real feel Temperature</h3>
-                    <h5>{{ data.real_feel_temp }}</h5>
-                </div>
-                <div class="hour-other">
-                    <h2>{{ data.date_time }}</h2>
-                    <h3>Wind speed</h3>
-                    <h5>{{ data.wind_speed }}</h5>
-                    <h3>Rain probability</h3>
-                    <h5>{{ data.rain_probabilty }}</h5>
-                    <h3>Cloud cover</h3>
-                    <h5>{{ data.cloud_cover }}</h5>
-                </div>
-            </div>
+        <div class="tpn">
+            11
         </div>
-        {% endfor %}
-    </section>
+        <div class="mountains">
+            <div class="mountain">22</div>
+        </div>
+    </main>
 </body>
 </html>

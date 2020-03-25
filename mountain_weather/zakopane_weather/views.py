@@ -10,7 +10,7 @@ from . import serializers
 
 
 class IndexView(TemplateView):
-    template_name = 'index.html'
+    template_name = 'index2.html'
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)

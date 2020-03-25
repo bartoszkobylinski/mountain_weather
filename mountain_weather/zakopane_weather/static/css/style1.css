@@ -1,13 +1,72 @@
 body{
     margin: 0;
     font-family: 'Lato', sans-serif;
+    padding: 0;
 }
-.content-wrapper{
+main{
     display: flex;
     flex-direction: column;
 }
-.daily-weather-data{
+h6{
+    margin: 0;
+    padding: 0.2rem;
+    font-size: 1rem;
+}
+.city-data{
+    padding-left: 3rem;
+    padding: 1rem;
+    font-size: 2rem;
+}
+.day{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.top,
+.days-forecast,
+.hour-forecast{
     display: flex;
     flex-direction: row;
 
+}
+.day-forecast__date{
+    text-align: center;
+}
+.day-forecast__temp{
+    display: flex;
+    flex-direction: row;
+}
+.day-forecast__temp_img{
+    width: 50%;
+}
+.day-forecast__temp_img i{
+    font-size: 5rem;
+}
+.day-forecast__temp_det{
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    font-size: 1.5rem;
+    font-weight: 900;
+    text-align: center;
+}
+.day-forecast__temp_det_min,
+.day-forecast__temp_det_max{
+   padding: 0.2rem;
+
+}
+.day-forecast{
+    width: 15%;
+    padding: 1rem;
+    font-weight: 500;
+}
+.day-forecast__other_rain,
+.day-forecast__other_wind{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.days-forecast__phrase {
+    text-align: center;
+    font-size: 1rem;
 }

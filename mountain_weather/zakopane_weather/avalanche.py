@@ -26,29 +26,26 @@ class AvalancheWarningScraper(Scraper):
     
     def _navigate_and_extract_avalanche_data(self):
         self.browser.get(self.url)
+        avalanche_status = {}
         try:
             avalanche_level = self.browser.find_element_by_xpath('//*[@id="law-master"]/div[1]/div[1]/span/span')
-            print(avalanche_level.text)
+            avalanche_status['avalanche_level'] = avalanche_level.text
             avalanche_warning_published = self.browser.find_element_by_class_name('law-mst-iat')
-            print(avalanche_warning_published.text)
+            avalanche_status['avalanche_warning_published'] = avalanche_warning_published.text
             avalanche_warning_valid_until = self.browser.find_element_by_class_name('law-mst-exp')
-            print(avalanche_warning_valid_until.text)
+            avalanche_status['avalanche_warning_valid_until'] = avalanche_warning_valid_until.text
             avalanche_description = self.browser.find_element_by_class_name("law-mst-dsc")
-            avalanche_description = avalanche_description.text
-            print(avalanche_description)
+            avalanche_status['avalanche_description'] = avalanche_description.text.replace('\n', ' ')
         except NoSuchElementException as error:
             logging.info(f"During scraping a website: {self.url} error has occured {error}")
-        avalanche_status = {}
-        avalanche_status['avalanche_level'] = avalanche_level
+        
+        return avalanche_status
 
 
     def __str__(self):
         return f"that is my {self.url}"
-
     
-
-if __name__ == '__main__':
-    
+def get_avalanche_status():
     avalanche = AvalancheWarningScraper("http://lawiny.topr.pl/")
-    avalanche._navigate_and_extract_avalanche_data()
-    
+    avalanche_status = avalanche._navigate_and_extract_avalanche_data()
+    return avalanche_status
