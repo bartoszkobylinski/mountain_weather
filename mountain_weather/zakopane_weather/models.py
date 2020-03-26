@@ -1,35 +1,42 @@
+"""
+Model sturcture
+"""
+
+from datetime import date
 from django.db import models
-from datetime import datetime, date
-
-
-# Create your models here.
- 
 
 class HourlyForecast(models.Model):
+    """
+    Model for hourly forecast of Zakopane city
+    """
     temp = models.IntegerField()
     real_feel_temp = models.IntegerField()
     wind_speed = models.IntegerField()
     rain_probability = models.IntegerField()
     cloud_cover = models.IntegerField()
     date_time = models.DateTimeField()
-    
 
     def __str__(self):
         return f"Weather forecast for {self.date_time}"
 
 class DailyForecast(models.Model):
+    """
+    Model for daily forecast of Zakopane city
+    """
     min_temp = models.IntegerField()
     max_temp = models.IntegerField()
     phrase = models.CharField(max_length=150)
     probability = models.IntegerField()
     wind_speed = models.IntegerField()
     date = models.DateField(default=date.today)
-    
 
     def __str__(self):
         return f"Weather forecast for {self.date}"
 
 class Mountain(models.Model):
+    """
+    Model for peaks of mountain where scraper crawl weatheforecast
+    """
     name_of_peak = models.CharField(max_length=50, default='Random Peak')
     elevation = models.IntegerField()
 
@@ -37,7 +44,10 @@ class Mountain(models.Model):
         return f"{self.name_of_peak} with elevation {self.elevation} over sea level"
 
 class OctaveOfDay(models.Model):
-    name_of_peak = models.ForeignKey(Mountain,on_delete=models.CASCADE)
+    """
+    Model for weatherforecast divided by 8 part in day for specific mountain
+    """
+    name_of_peak = models.ForeignKey(Mountain, on_delete=models.CASCADE)
     date = models.DateField(default=date.today)
     octave_of_a_day = models.CharField(max_length=50)
     windspeed = models.IntegerField()
@@ -48,14 +58,18 @@ class OctaveOfDay(models.Model):
     chill_temperature = models.IntegerField()
 
     def __str__(self):
-       return f''' At {self.name_of_peak} at {self.date} {self.octave_of_a_day} is going to be
+        return f''' At {self.name_of_peak} at {self.date} {self.octave_of_a_day} is going to be
        {self.summary} with {self.rain} of rain and {self.snow} of snow and {self.windspeed} windspeed. Tempereture is going to be
-       {self.temperature} Celsius and chilling temp is going to be {self.chill_temperature}.''' 
+       {self.temperature} Celsius and chilling temp is going to be {self.chill_temperature}.'''
 
 class AvalancheStatus(models.Model):
+    """
+    Model for avalanche status in Tatras mountains
+    """
     avalanche_level = models.IntegerField()
-    avalanche_description = models.CharField(max_length=200)
+    avalanche_description = models.CharField(max_length=1500)
     avalanche_warning_published = models.DateTimeField()
     avalanche_warning_valid_until = models.DateTimeField()
 
     date = models.DateField(auto_now_add=True)
+    

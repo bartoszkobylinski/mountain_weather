@@ -1,72 +1,69 @@
 body{
     margin: 0;
     font-family: 'Lato', sans-serif;
+    color: #16516d;
     padding: 0;
+    background-color: #f7faf9;
+    
 }
 main{
     display: flex;
     flex-direction: column;
-}
-h6{
-    margin: 0;
-    padding: 0.2rem;
-    font-size: 1rem;
-}
-.city-data{
-    padding-left: 3rem;
-    padding: 1rem;
-    font-size: 2rem;
-}
-.day{
+} 
+.upper-section{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
 }
-.top,
-.days-forecast,
-.hour-forecast{
-    display: flex;
-    flex-direction: row;
-
-}
-.day-forecast__date{
-    text-align: center;
-}
-.day-forecast__temp{
-    display: flex;
-    flex-direction: row;
-}
-.day-forecast__temp_img{
+.zakopane-forecast{
     width: 50%;
+    border: 1px solid gray;
 }
-.day-forecast__temp_img i{
-    font-size: 5rem;
-}
-.day-forecast__temp_det{
+.zakopane-forecast__today{
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #224f83;
+    color: #d0d9e5
+}
+.zakopane-forecast__today_city h6{
+    font-size: 2rem;
+    margin: 0;
+}
+.zakopane-forecast__today_temp{
+    display: flex;
+    flex-direction: column;
+}
+.zakopane-forecast__today_temp_min{
+    font-size: 2rem;
+}
+.zakopane-forecast__today_icon{
+    color: #febc09;
+    font-size: 3rem;
+}
+.zakopane-forecast__today_other{
+    display: flex;
+    flex-direction: column;
+}
+.zakopane-forecast__table{
+    width: 100%;
+}
+table{
+    table-layout: fixed;
+    width: 100%;
+}
+ th {
+    width: 20%;
+    text-transform: uppercase;
+}
+tr{
+    text-align: center;
+}
+tr:nth-child(odd) td{
+    border-top: 1px solid grey;
+    padding: 0.7rem;
+}
+.mountain-forecast{
     width: 50%;
-    font-size: 1.5rem;
-    font-weight: 900;
-    text-align: center;
-}
-.day-forecast__temp_det_min,
-.day-forecast__temp_det_max{
-   padding: 0.2rem;
-
-}
-.day-forecast{
-    width: 15%;
-    padding: 1rem;
-    font-weight: 500;
-}
-.day-forecast__other_rain,
-.day-forecast__other_wind{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-.days-forecast__phrase {
-    text-align: center;
-    font-size: 1rem;
 }

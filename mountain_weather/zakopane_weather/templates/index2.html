@@ -12,70 +12,88 @@
 </head>
 <body>
     <main>
-        <div class="day">
-            <div class="top">
-                <div class="city-data">
-                    <div class="city-name">Zakopane</div>
-                    <div class="date">wtorek, 22/10/2020</div>
+        <div class="upper-section">
+            <div class="zakopane-forecast">
+                <div class="zakopane-forecast__today">
+                
+                    <div class="zakopane-forecast__today_city"><h6>Zakopane <br>{{FirstDay.date}}</h6></div>
+                    <div class="zakopane-forecast__today_temp">
+                        <div class="zakopane-forecast__today_temp_min"><i class="fas fa-temperature-high"></i> {{FirstDay.max_temp}}&#8451;</div>
+                        <div class="zakopane-forecast__today_temp_max"><i class="fas fa-temperature-low"></i> {{FirstDay.min_temp}}&#8451;</div>
+                       
+                    </div>
+                    <div class="zakopane-forecast__today_icon"><i class="fas fa-sun"></i></div>
+                    <div class="zakopane-forecast__today_other">
+                        <div class="zakopane-forecast__today_other_rain"><i class="fas fa-umbrella"></i> {{FirstDay.probability}} %</div>
+                        <div class="zakopane-forecast__today_other_wind"><i class="fas fa-wind"></i>{{FirstDay.wind_speed}} km/h</div>
+                    </div>
+                 
                 </div>
-                <div class="avalanche">
-                    <div class="avalanche-level_info">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sint laudantium quasi quos, dicta saepe voluptatibus ducimus nam eveniet in aperiam?</div>
-                    <div class="avalanche-level">2</div>
-                    <div class="avalanche-img"><img src="{% static 'images/2_level.png' %}" alt="2_avalanche_level"></div>
+                <div class="zakopane-forecast__table">
+                    <table>
+                        <thead>
+                            <th>date</th>
+                            <th>min temp</th>
+                            <th>max temp</th>
+                            <th>windspeed</th>
+                            <th>rain probability</th>
+                        </thead>
+                        <tbody>
+                            {% for data in DailyForecast %}
+                            <tr>
+                                <td>{{data.date}}</td>
+                                <td>{{data.min_temp}}&#8451;</td>
+                                <td>{{data.max_temp}}&#8451;</td>
+                                <td>{{data.wind_speed}} km/h</td>
+                                <td>{{data.probability}} %</td>
+                            </tr>
+                            <tr>
+                                <td colspan="5">{{data.phrase}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="days-forecast">
-                {% for data in DailyForecast%}
-                <div class="day-forecast">
-                    <div class="day-forecast__date">{{data.date}}</div>
-                    <div class="day-forecast__temp">
-                        <div class="day-forecast__temp_img"><i class="far fa-sun"></i></div>
-                        <div class="day-forecast__temp_det">
-                            <div class="day-forecast__temp_det_min"> 
-                                <h6><i class="fas fa-temperature-low"></i></h6>
-                                <h6>{{data.min_temp}}&#176</h6>
-                            </div>
-                            <div class="day-forecast__temp_det_max">
-                                <h6><i class="fas fa-temperature-high"></i></h6>
-                                <h6>{{data.max_temp}}&#176</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="day-forecast__other">
-                        <div class="day-forecast__other_rain"> 
-                            <h6><i class="fas fa-umbrella"></i></h6>
-                            <h6>{{data.probability}}%</h6>
-                        </div>
-                        <div class="day-forecast__other_wind">
-                            <h6><i class="fas fa-wind"></i></h6>
-                            <h6>{{data.wind_speed}} km/h</h6>
-                        </div>
-                    </div>
-                    <div class="day-forecast__phrase">
-                        <h6>{{data.phrase}}</h6> 
-                    </div>                   
-                </div>
-                 {% endfor %}
-            </div>
-            <div class="hour-forecast">
-                {% for data in HourlyForecast %}
-                <div class="hour-detail">
-                    <div class="hour-detail__date">{{ data.date_time }}</div>
-                    <div class="hour-detail__temp">temp: {{ data.temp }}&#176</div>
-                    <div class="hour-detail__real_temp">real feel temp: {{ data.real_feel_temp }}&#176</div>
-                    <div class="hour-detail__wind_speed"><i class="fas fa-wind"></i>{{ data.wind_speed }}km/h</div>
-                    <div class="hour-detail__rain_probability"><i class="fas fa-umbrella"></i>{{ data.rain_probability}}%</div>
-                    <div class="hour-detail__cloud"><i class="fas fa-cloud"></i>{{ data.cloud_cover }}%</div>
-                    
+            <div class="avalanche-information"></div>
+        </div>
+        <div class="lower-section">
+            <div class="mountain-forecast">
+                <select name="mountain-forecast" id="select-mountain">
+                    {% for peak in Mountain %}   
+                    <option value="{{peak.name_of_peak}}">{{peak.name_of_peak}}</option>
+                    {% endfor %} 
+                </select>
+                {% for data in OctaveOfDay%}
+                <div class="peak-forecast">
+                    <table>
+                        <thead>
+                            <th>date</th>
+                            <th>time</th>
+                            <th>temp</th>
+                            <th>chill temp</th>
+                            <th>rain</th>
+                            <th>snow</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{data.date}}</td>
+                                <td>{{data.octave_of_a_day}}</td>
+                                <td>{{data.temperature}}</td>
+                                <td>{{data.chill_temperature}}</td>
+                                <td>{{data.rain}}</td>
+                                <td>{{data.snow}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="6">{{data.summary}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 {% endfor %}
             </div>
-        </div>
-        <div class="tpn">
-            11
-        </div>
-        <div class="mountains">
-            <div class="mountain">22</div>
+
+            <div class="tpn-forecast"></div>
         </div>
     </main>
 </body>

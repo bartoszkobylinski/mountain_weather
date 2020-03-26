@@ -1,5 +1,5 @@
 from urllib.parse import urljoin
-from datetime import datetime, date, timedelta
+from datetime import datetime, timedelta
 
 
 from selenium import webdriver
@@ -36,18 +36,18 @@ peaks = {
 logging.basicConfig(filename="scraper.log", level=logging.WARNING)
 
 def get_url(peaks):
-    base_url="https://www.mountain-forecast.com/peaks/"
+    base_url = "https://www.mountain-forecast.com/peaks/"
     for key, val in peaks.items():
-        url1 = f"{key}/forecasts/{val}" 
+        url1 = f"{key}/forecasts/{val}"
         url2 = base_url
-        absolute_url = urljoin(url2,url1)
+        absolute_url = urljoin(url2, url1)
         yield absolute_url
 
 
 class Scraper:
-     path = "/home/bart/PythonProjects/mountain/chromedriver"
-     
-     def __init__(self):
+    path = "/home/bart/PythonProjects/mountain/chromedriver"
+
+    def __init__(self):
         # chrome_options.add_argument('--headless') Add that after testing!!!!
         chrome_options = webdriver.ChromeOptions()
         chrome_options.add_argument('--no-sandbox')
@@ -61,7 +61,7 @@ class Scraper:
 
 class MountainWeatherScraper(Scraper):
 
-    def __init__(self,url):
+    def __init__(self, url):
         super().__init__()
         self.url = url
 

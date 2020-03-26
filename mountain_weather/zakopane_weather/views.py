@@ -14,8 +14,13 @@ class IndexView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
-        context['DailyForecast'] = DailyForecast.objects.all()
         context['HourlyForecast'] = HourlyForecast.objects.all()
+        context['FirstDay'] = DailyForecast.objects.order_by('date').first()
+        context['DailyForecast'] = DailyForecast.objects.order_by('date')[1:]
+        context['OctaveOfDay'] = OctaveOfDay.objects.all()
+        context['Mountain'] = Mountain.objects.all()
+        print(context['Mountain'])
+        print(context['OctaveOfDay'])
         return context
     
 class HourlyForecastViewset(viewsets.ModelViewSet):
