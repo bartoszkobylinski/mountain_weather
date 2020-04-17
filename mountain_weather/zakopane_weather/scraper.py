@@ -1,16 +1,18 @@
+"""
+Module to scrape weatherforecast for peaks
+"""
+
 from urllib.parse import urljoin
 from datetime import datetime, timedelta
-
+import logging
+import time
 
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 
-from zakopane_weather.location import peaks
+#from zakopane_weather.location import peaks
 
-
-import logging
-import time
-
+location = {'zakopane':'2700353'}
 
 peaks = {
         'Banikov':'2178',
@@ -32,6 +34,8 @@ peaks = {
         'Woloszyn':'2155'
     }
 
+
+
 # logger settings
 logging.basicConfig(filename="scraper.log", level=logging.WARNING)
 
@@ -52,7 +56,7 @@ class Scraper:
         chrome_options = webdriver.ChromeOptions()
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--window-size=1420,1080')
-        #chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--headless')
         chrome_options.add_argument('--disable-gpu')
         self.browser = webdriver.Chrome(executable_path=self.path, options = chrome_options)
 
@@ -60,6 +64,25 @@ class Scraper:
 
 
 class MountainWeatherScraper(Scraper):
+
+    dict_octave_of_day = {
+        '1AM':'01::00',
+        '2AM':'02::00',
+        '4AM':'04::00',
+        '5AM':'05::00',
+        '7AM':'07::00',
+        '8AM':'08::00',
+        '10AM':'10::00',
+        '11AM':'11::00',
+        '1PM':'13::00',
+        '2PM':'14::00',
+        '4PM':'16::00',
+        '5PM':'17::00',
+        '7PM':'19::00',
+        '8PM':'20::00',
+        '10PM':'22::00',
+        '11PM':'23::00',
+        }
 
     def __init__(self, url):
         super().__init__()
@@ -113,22 +136,22 @@ class MountainWeatherScraper(Scraper):
         is like this 10\u2009PM and \u2009 has to be deleted
         """
         octave = [char for char in octave]
-        logging.info("octave is: " + str(octave))
+        octave.remove('\u2009')
+        octave = "".join(octave)
+        return octave
+
+    def convert_timeinfo_to_requested_type(self, date, octaveofday, dict_octave_of_day):
         try:
-            if octave is []:
-                return "None"
+            if octaveofday is not None:
+                octaveofday = dict_octave_of_day.get(octaveofday, '')
+                time_to_convert = datetime.strptime(octaveofday, '%H::%M').time()
+                converted_datetime = datetime.combine(date, time_to_convert)
+                return converted_datetime
             else:
-                if octave[1] == "0":
-                    del octave[2]
-                else:
-                    del octave[1]
-                octave = "".join(octave)
-                return octave
-        except Exception as error:
-            logging.warning(f"""
-            Error in make_correction_in_octave has occured. Octave variable is: + {octave} 
-            and error is: + {error}. 
-            """)
+                return "None"
+        except AttributeError as error:
+            print(f"That is error: {error} and date is{date} and octaveofday {octaveofday}")
+
         
     def scrap_data_weather_for_octave_of_a_day(self):   
         try:     
@@ -136,7 +159,7 @@ class MountainWeatherScraper(Scraper):
             beggining = 1
             end = number_of_columns[0]
         except IndexError as error:
-            logging.warning("An error occured while script getting number of columns" + str(error))
+            logging.warning(f"An error occured while script getting number of columns {error}")
         data_weather = []
         current_date = datetime.today()
         delta = timedelta(days=1)
@@ -146,22 +169,27 @@ class MountainWeatherScraper(Scraper):
         for i in range(len(number_of_columns)):
             x = range(beggining, end + 1)
             date = current_date
-            date = date.strftime('%Y-%m-%d')
             for y in x:
-                octave_element = self.browser.find_element_by_xpath(
-                    f'//*[@id="forecast-cont"]/table/thead/tr[3]/td[{y}]/span'
-                )
+                try:
+                    octave_element = self.browser.find_element_by_xpath(
+                        f'//*[@id="forecast-cont"]/table/thead/tr[3]/td[{y}]/span'
+                    )
+                except Exception as error:
+                    logging.warning(f"Error while getting octave_element: {error}")
                 octave_of_a_day = octave_element.text
-                if octave_element is None:
-                    octave_of_a_day = "None"
-                    logging.warning("I have Nooooooooooooooooooooooooooooooooooooneeeeeeeeeeeeee")
-                else:    
-                    octave_of_a_day = self.make_correction_in_octave(octave_of_a_day)
-
+                octave_of_a_day = self.make_correction_in_octave(octave_of_a_day)
+                if octave_of_a_day is not None:
+                    date_after_scraping = self.convert_timeinfo_to_requested_type(
+                        date, octave_of_a_day, self.dict_octave_of_day
+                        )
+                    date_after_scraping = date_after_scraping.strftime('%Y-%m-%d %H:%M')
+                else:
+                    date_after_scraping = "None"
+                
                 windspeed_element = self.browser.find_element_by_xpath(
                     f'//*[@id="forecast-cont"]/table/tbody/tr[2]/td[{y}]/div/div/span'
                 )
-                windspeed_element = int(windspeed_element.text)* 3.6
+                windspeed_element = windspeed_element.text
                 if windspeed_element == '':
                     windspeed_element = 0
                 elif windspeed_element == '-':
@@ -209,8 +237,7 @@ class MountainWeatherScraper(Scraper):
 
                 data_weather.append({
                     "name_of_peak": name_of_peak,
-                    "date": date,
-                    "octave_of_a_day": octave_of_a_day,
+                    "date": date_after_scraping,
                     "windspeed": windspeed_element,
                     "summary": summary_element,
                     "rain": rain_element,
@@ -218,6 +245,7 @@ class MountainWeatherScraper(Scraper):
                     "temperature": temperature_element,
                     "chill_temperature": chill_temp_element
                 })
+                date = current_date
             current_date = current_date + delta    
 
             beggining = end + 1
@@ -245,9 +273,7 @@ def get_pekas_detailed_weather():
         mountain = MountainWeatherScraper(url)
         mountain_weather = mountain.scrap_data_weather_for_octave_of_a_day()
         yield mountain_weather
-    
-        
-    
+
 def get_peaks_information():
     for url in get_url(peaks):
         mountain = MountainWeatherScraper(url)
@@ -258,10 +284,8 @@ if __name__ == "__main__":
     
     for mountain in get_pekas_detailed_weather():
         print(mountain)
-    print("I have done scraping")
 
     info_mount = []
-    "I have made empty list"
     for mountain in get_peaks_information():
         
         info_mount.append(mountain)

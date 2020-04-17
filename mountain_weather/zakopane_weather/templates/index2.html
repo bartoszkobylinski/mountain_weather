@@ -55,45 +55,46 @@
                     </table>
                 </div>
             </div>
-            <div class="avalanche-information"></div>
         </div>
         <div class="lower-section">
-            <div class="mountain-forecast">
-                <select name="mountain-forecast" id="select-mountain">
-                    {% for peak in Mountain %}   
-                    <option value="{{peak.name_of_peak}}">{{peak.name_of_peak}}</option>
-                    {% endfor %} 
-                </select>
-                {% for data in OctaveOfDay%}
-                <div class="peak-forecast">
-                    <table>
-                        <thead>
-                            <th>date</th>
-                            <th>time</th>
-                            <th>temp</th>
-                            <th>chill temp</th>
-                            <th>rain</th>
-                            <th>snow</th>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{{data.date}}</td>
-                                <td>{{data.octave_of_a_day}}</td>
-                                <td>{{data.temperature}}</td>
-                                <td>{{data.chill_temperature}}</td>
-                                <td>{{data.rain}}</td>
-                                <td>{{data.snow}}</td>
-                            </tr>
-                            <tr>
-                                <td colspan="6">{{data.summary}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div class="lower-section__left">
+                <div class="mountain-forecast">
+                    <h3>Detailed weather forecast for peaks in Tatras Mountain</h3>
+                    {% for peak in Mountain %}
+                        <div class="peak">
+                            <div class="name_of_peak">
+                                <h3><i class="fas fa-mountain"></i> {{peak.name_of_peak}} {{peak.elevation}}m.</h3>
+                            </div>
+                            <div class="button">
+                                <input type="submit" value="DETAIL">
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
-            </div>
+                <div class="avalanche-status">
+                    {% for data in Avalanche %}
+                    <div class="avalanche-info">
+                        <div class="avalanche-info__level">
+                            <h4>Avalanche Warning Level: </h4>
+                            <h4>{{ data.avalanche_level }}</h4>
+                        </div>
+                        <div class="avalanche-info__image">
+                            <img src="{% static 'images/1_level.png' %}" alt="Avalanche-level">
+                        </div>
+                    </div>
+                    <div class="avalanche-info__description">
+                        <h4>{{ data.avalanche_description }}</h4>
+                    </div>
+                    <div class="warnings-time">
+                        <h4>Warning published: <br>{{ data.avalanche_warning_published }}</h4>
+                        <h4>Warning valid until:<br> {{ data.avalanche_warning_valid_until }}</h4>
+                    </div>
+                    {% endfor %}
+                </div>
 
-            <div class="tpn-forecast"></div>
+            <div class="tpn-forecast"></div>  
+            </div>
+            
         </div>
     </main>
 </body>

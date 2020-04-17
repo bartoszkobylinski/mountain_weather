@@ -17,7 +17,7 @@ main{
 }
 .zakopane-forecast{
     width: 50%;
-    border: 1px solid gray;
+    border: 1px solid #888;
 }
 .zakopane-forecast__today{
     display: flex;
@@ -60,10 +60,96 @@ table{
 tr{
     text-align: center;
 }
-tr:nth-child(odd) td{
-    border-top: 1px solid grey;
+.zakopane-forecast__table tr:nth-child(odd) td{
+    border-top: 1px solid  #888;
     padding: 0.7rem;
 }
 .mountain-forecast{
+    width: 60%;
+    padding-top: 20px;
+    padding-bottom: 30px;
+    border: 1px solid #888;
+    border-top: 0;
+}
+.mountain-forecast h3{
+    font-size: 1.5rem;
+    letter-spacing: 0.1rem;
+    font-weight: 200;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 0rem 0.5rem 1rem 0.5rem;
+    margin: 0
+}
+.peak-forecast {
+    font-size: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.peak{
+    display: flex;
+    justify-content: space-between;
+}
+.name_of_peak{
+    display: flex;
+    margin: 0;
+    padding: 0;
+
+}
+.name_of_peak h3{
+    margin: 0;
+    padding: 0.2rem;
+    font-size: 0.9rem;
+    padding-left: 30px;
+    letter-spacing: 0.2rem;
+    font-weight: 200;
+    text-transform: uppercase;
+}
+.button input{
+    border: none;
+    background-color: #224f83;
+    color: #f7faf9;
+    border-radius: 20px;
+    margin-right: 30px;
+    padding: 0px 15px;
+    text-transform: uppercase;
+    box-shadow: 2px 2px 4px #888888;
+}
+
+.avalanche-status{
+    padding: 20px;
+    width: 40%;
+    border-right: 1px solid #888;
+    border-bottom: 1px solid #888;
+}
+.avalanche-status h4{
+    font-size: 1rem;
+    font-weight: 200;
+}
+.avalanche-info{
+   display: flex;
+    flex-direction: row;
+    justify-content: space-evenly; 
+}
+.avalanche-info__level h4{
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 200;
+    padding: 0.2rem;
+    margin: 0;
+}
+.avalanche-info__image img{
+    width: 100%;
+    border: 1px solid grey;
+}
+.warnings-time{
+    display: flex;
+    justify-content: space-evenly;
+}
+.avalanche-info__description{ 
+    padding: 1rem;
+}
+.lower-section__left{
+    display: flex;
     width: 50%;
 }
