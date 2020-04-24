@@ -71,3 +71,20 @@ class AvalancheStatus(models.Model):
 
     date = models.DateField(auto_now_add=True)
 
+    def __str__(self):
+        return ''' Avalanche warnings at {self.date}.'''
+
+class AreaWeatherForecast(models.Model):
+    """
+    Model for specific area in Tatras Mountain
+    """
+    name = models.CharField(max_length=40)
+    date = models.DateField()
+    #weather_icon = models.ImageField()
+    temp_min = models.IntegerField()
+    temp_max = models.IntegerField()
+    pressure = models.FloatField()
+    rain = models.FloatField()
+
+    def __str__(self):
+        return '''Weather forecast for {self.name} at {self.date}.'''

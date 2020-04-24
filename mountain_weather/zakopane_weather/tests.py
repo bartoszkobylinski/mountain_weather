@@ -61,3 +61,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
         valid_login_text = self.browser.find_element_by_tag_name('body').text
         self.assertEqual(valid_login_text, 'Authenticated successfully')
 '''
+
+
+
+
