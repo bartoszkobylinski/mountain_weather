@@ -33,6 +33,9 @@ class AreaScraper(Scraper):
                 
         
         return areas_weather_forecasts
+
+    def __str__(self):
+        return f"Weather forecast for {self.name} at {self.date}"
     
 
 def get_tatras_areas_weather_forecast():
