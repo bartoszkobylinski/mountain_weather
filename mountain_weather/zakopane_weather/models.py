@@ -70,4 +70,4 @@ class AvalancheStatus(models.Model):
     avalanche_warning_valid_until = models.DateTimeField()
 
     date = models.DateField(auto_now_add=True)
-    
+

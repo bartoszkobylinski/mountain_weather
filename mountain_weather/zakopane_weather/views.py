@@ -11,7 +11,7 @@ from datetime import datetime, date
 
 
 class IndexView(TemplateView):
-    template_name = 'index2.html'
+    template_name = 'index1.html'
 
     def get_context_data(self, **kwargs):
         today = datetime(2020,4,2,0,0)

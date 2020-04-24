@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://kit.fontawesome.com/aef6646358.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/wer.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <nav>
+        <h3>Prognoza pogody w Tatrach na najblizsze 5 dni</h3>
+    </nav>
+    <main>
+        <div class="content-wrapper">
+            <div class="place-weatherforecast-wrapper">
+                <div class="place-weatherforecast">
+                    <div class="place-weatherforecast-today">
+                        <div class="place-weatherforecast-today-up">
+                            <div class="place-weatherforecast-today-up__name">
+                                <h3>Zakopane</h3>
+                            </div>
+                            <div class="place-weatherforecast-today-up__icon"><i class="fas fa-sun"></i></div>
+                            <div class="place-weatherforecast-today-up__date">
+                                <h3>{{ FirstDay.date|date:"d F" }}</h3>
+                            </div>
+                        </div>
+                        <div class="place-weatherforecast-today-bottom">
+                            <div class="place-weatherforecast-today-bottom__temp_min"><i class="fas fa-temperature-low"></i>{{ FirstDay.min_temp }}&#8451;</div>
+                            <div class="place-weatherforecast-today-bottom__temp_max"><i class="fas fa-temperature-high"></i>{{ FirstDay.max_temp }}&#8451;</div>
+                            <div class="place-weatherforecast-today-bottom__rain"><i class="fas fa-umbrella"></i> {{FirstDay.probability}} %</div>
+                            <div class="place-weatherforecast-today-bottom__wind"><i class="fas fa-wind"></i>{{FirstDay.wind_speed}} km/h</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="avalanche-status">
+                {% for data in Avalanche %}
+                <div class="avalanche-info">
+                    <div class="avalanche-info__level">
+                        <h4>Avalanche Warning Level: </h4>
+                        <h4>{{ data.avalanche_level }}</h4>
+                    </div>
+                    <div class="avalanche-info__image">
+                        {% if data.avalanche_level == 1 %}
+                        <img src="{% static 'images/law03.jpg' %}" alt="Avalanche-level 1">
+                        {% elif data.avalanche_level == 2 %}
+                        <img src="{% static 'images/2_level.png' %}" alt="Avalanche-level 2">
+                        {% elif data.avalanche_level == 3 %}
+                        <img src="{% static 'images/law03.jpg' %}" alt="Avalanche-level 3">
+                        {% elif data.avalanache_level == 4 %}
+                        <img src="{% static 'images/law04.jpg' %}" alt="Avalanche-level 4">
+                        {% elif data.avalanache_level == 5 %}
+                        <img src="{% static 'images/law05.jpg' %}" alt="Avalanche-level 1">
+                        {% else %}
+                        <h4>No information about avalanche level</h4>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="avalanche-info__description">
+                    <h4>{{ data.avalanche_description }}</h4>
+                </div>
+                <div class="warnings-time">
+                    <div class="warnings-time__published">
+                        <h4>Warning published</h4> 
+                        <h4>{{ data.avalanche_warning_published }}</h4>
+                    </div>
+                    <div class="warnings-time__until">
+                        <h4>Warning valid until</h4> 
+                        <h4>{{ data.avalanche_warning_valid_until }}</h4>
+                    </div>
+                    
+                    
+                </div>
+                {% endfor %}
+            </div>
+            <div class="tpn-weatherforecast">
+
+            </div>
+            <div class="peaks-weatherforecast">
+
+            </div>
+        </div>
+    </main>
+    <footer>
+        <h4>Wszelkie prawa zastrzezone</h4>
+    </footer>
+    
+</body>
+</html>
