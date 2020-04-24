@@ -280,13 +280,3 @@ def get_peaks_information():
         mountain_information = mountain.get_peak_name_and_level()
         yield mountain_information
 
-if __name__ == "__main__":
-    
-    for mountain in get_pekas_detailed_weather():
-        print(mountain)
-
-    info_mount = []
-    for mountain in get_peaks_information():
-        
-        info_mount.append(mountain)
-    print(info_mount)

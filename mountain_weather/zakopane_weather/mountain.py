@@ -1,9 +1,11 @@
-import django
+
 import requests
 import json
 import os
 import logging
 import sys
+
+import django
 from urllib.parse import urljoin
 
 #from zakopane_weather.location import location
