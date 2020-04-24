@@ -88,3 +88,4 @@ class AreaWeatherForecast(models.Model):
 
     def __str__(self):
         return '''Weather forecast for {self.name} at {self.date}.'''
+        

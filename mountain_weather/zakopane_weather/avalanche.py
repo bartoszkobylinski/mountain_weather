@@ -1,22 +1,10 @@
-from selenium import webdriver
+from zakopane_weather.scraper import Scraper
 from selenium.common.exceptions import NoSuchElementException
 
 import logging
 
 logging.basicConfig(filename='avalanche.log', level=logging.INFO)
 
-
-class Scraper:
-     path = "/home/bart/PythonProjects/mountain/chromedriver"
-     
-     def __init__(self):
-        # chrome_options.add_argument('--headless') Add that after testing!!!!
-        chrome_options = webdriver.ChromeOptions()
-        chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument('--window-size=1420,1080')
-        #chrome_options.add_argument('--headless')
-        chrome_options.add_argument('--disable-gpu')
-        self.browser = webdriver.Chrome(executable_path=self.path, options = chrome_options)
 
 class AvalancheWarningScraper(Scraper):
 
