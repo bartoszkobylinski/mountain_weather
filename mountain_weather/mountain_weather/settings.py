@@ -14,8 +14,8 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TEMPLATES_DIR = os.path.join(BASE_DIR,'templates')
-STATICFILES_DIR = os.path.join(BASE_DIR,'static')
+TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
+STATICFILES_DIR = os.path.join(BASE_DIR, 'static')
 
 
 # Quick-start development settings - unsuitable for production
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'zakopane_weather',
     'django_cron',
     'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +59,9 @@ CRON_CLASSES = [
     'zakopane_weather.cron.MyCronJob',
 ]
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
