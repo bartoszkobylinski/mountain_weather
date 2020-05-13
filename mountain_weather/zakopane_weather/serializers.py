@@ -19,6 +19,6 @@ class MountainSerializer(serializers.ModelSerializer):
 class OctaveOfDaySerializer(serializers.ModelSerializer):
     class Meta:
         model = OctaveOfDay
-        fields = ['id','name_of_peak','date','octave_of_a_day','windspeed','summary','rain','snow','temperature','chill_temperature']
+        fields = ['id','name_of_peak','date','windspeed','summary','rain','snow','temperature','chill_temperature']
 
 

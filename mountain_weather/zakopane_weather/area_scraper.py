@@ -1,4 +1,4 @@
-from scraper import Scraper
+from zakopane_weather.scraper import Scraper
 
 
 class AreaScraper(Scraper):
@@ -26,16 +26,14 @@ class AreaScraper(Scraper):
                     date=date.text,
                     temp_min=temp_min.text[:-2],
                     temp_max=temp_max.text[:-2],
-                    pressure=pressure.text,
-                    rain=rain.text[7:]
+                    pressure=pressure.text[:-3],
+                    rain=rain.text[7:-6]
                 )
                 areas_weather_forecasts.append(current_weather_forecast)
                 
         
         return areas_weather_forecasts
 
-    def __str__(self):
-        return f"Weather forecast for {self.name} at {self.date}"
     
 
 def get_tatras_areas_weather_forecast():

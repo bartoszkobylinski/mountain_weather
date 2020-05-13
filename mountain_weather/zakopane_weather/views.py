@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView
 from django.db.models.functions import TruncDay
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 from zakopane_weather.models import HourlyForecast, DailyForecast, Mountain, OctaveOfDay, AvalancheStatus
 from . import models
 from . import serializers
@@ -52,15 +53,19 @@ class IndexView(TemplateView):
 class HourlyForecastViewset(viewsets.ModelViewSet):
     queryset = models.HourlyForecast.objects.all()
     serializer_class = serializers.HourlyForecastSerializer
+    permission_classes = [IsAuthenticated]
 
 class DailyForecastViewset(viewsets.ModelViewSet):
     queryset = models.DailyForecast.objects.all()
     serializer_class = serializers.DailyForecastSerializer
+    permission_classes = [IsAuthenticated]
 
 class MountainViewset(viewsets.ModelViewSet):
     queryset = models.Mountain.objects.all()
     serializer_class = serializers.MountainSerializer
+    permission_classes = [IsAuthenticated]
 
 class OctaveOfDayViewset(viewsets.ModelViewSet):
     queryset = models.OctaveOfDay.objects.all()
     serializer_class = serializers.OctaveOfDaySerializer
+    permission_classes = [IsAuthenticated]

@@ -35,6 +35,38 @@
                             <div class="place-weatherforecast-today-bottom__wind"><i class="fas fa-wind"></i>{{FirstDay.wind_speed}} km/h</div>
                         </div>
                     </div>
+                    <div class="place-weatherforecast-hourly">
+                        <h3>prognoza pogody dla Zakopane na najblizsze 12h</h3>
+                        <div class="place-weatherforecast-hourly-table">
+                            {% for data in HourlyForecast %}
+                            <div class="place-weatherforecast-hourly-table-hour">
+                                <div class="place-weatherforecast-hourly-table-hour-date">
+                                    <h5>{{ data.date_time|date:"H : m" }}</h5>
+                                </div>
+                                <div class="place-weatherforecast-hourly-table-hour-temperatures">
+                                    <div class="place-weatherforecast-hourly-table-hour-temperatures__temp">
+                                        <h6><i class="fas fa-thermometer-three-quarters"></i>{{ data.temp }}&#8451;</h6>
+                                    </div>
+                                    <div class="place-weatherforecast-hourly-table-hour-temperatures__real-feel-temp">
+                                        <h6><i class="fas fa-thermometer"></i> {{ data.real_feel_temp }}&#8451;</h6>
+                                    </div>
+                                </div>
+                                <div class="place-weatherforecast-hourly-table-hour-others">
+                                    <div class="place-weatherforecast-hourly-table-hour-others__wind">
+                                        <h6><i class="fas fa-wind"></i>{{ data.wind_speed }} km/h</h6>
+                                    </div>
+                                    <div class="place-weatherforecast-hourly-table-hour-others__rain">
+                                        <h6><i class="fas fa-umbrella"></i>{{ data.rain_probability }} %</h6>
+                                    </div>
+                                    <div class="place-weatherforecast-hourly-table-hour-others__cloud">
+                                        <h6><i class="fas fa-cloud"></i>{{ data.cloud_cover }} %</h6>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -72,6 +104,7 @@
                     <div class="warnings-time__until">
                         <h4>Warning valid until</h4> 
                         <h4>{{ data.avalanche_warning_valid_until }}</h4>
+                        <h4>Dane pogladowe zweryfikuj na stronie Topr</h4>
                     </div>
                     
                     

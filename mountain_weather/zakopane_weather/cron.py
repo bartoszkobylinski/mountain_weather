@@ -5,8 +5,9 @@ from django_cron import CronJobBase, Schedule
 from zakopane_weather.avalanche import get_avalanche_status
 from zakopane_weather.mountain import get_zakopane_daily_weather, get_zakopane_hourly_weather
 from zakopane_weather.scraper import get_pekas_detailed_weather, get_peaks_information, peaks
-from zakopane_weather.models import DailyForecast, HourlyForecast, OctaveOfDay, Mountain, AvalancheStatus
+from zakopane_weather.models import DailyForecast, HourlyForecast, OctaveOfDay, Mountain, AvalancheStatus, AreaWeatherForecast
 from zakopane_weather.location import location
+from zakopane_weather.area_scraper import get_tatras_areas_weather_forecast
 
 logging.basicConfig(filename="cron.log",level=logging.WARNING)
 
@@ -24,16 +25,18 @@ class MyCronJob(CronJobBase):
         start = time()
         print(start)
         print("I started cron jobs")
-        
-        print("he")
+        '''
         try:
             DailyForecast.objects.all().delete()
+            print('delete')
         except Exception as err:
             print(err)
+        '''
         try:
             daily_weather_forecast_from_accuweather = get_zakopane_daily_weather()
+            print(f"that is {daily_weather_forecast_from_accuweather}")
         except Exception as err:
-            print(f"som as {err}")
+            print(f"som as: {err}")
         daily_objects = [DailyForecast(**element) for element in daily_weather_forecast_from_accuweather]
         try:
             DailyForecast.objects.bulk_create(daily_objects)
@@ -41,7 +44,7 @@ class MyCronJob(CronJobBase):
             print(error)
         print("I have finished scraping and uploading daily weather")
 
-        HourlyForecast.objects.all().delete()   
+        HourlyForecast.objects.all().delete()
 
         hourly_weather_forecast_from_accuweather = get_zakopane_hourly_weather()
         try:
@@ -50,6 +53,7 @@ class MyCronJob(CronJobBase):
             print(error)
         HourlyForecast.objects.bulk_create(hourly_objects)
         print("I have finished scraping and uploading hourly weather")
+        AvalancheStatus.objects.all().delete()
 
         avalanche_status = get_avalanche_status()
         try:
@@ -104,15 +108,12 @@ class MyCronJob(CronJobBase):
                 except Exception as error:
                     logging.warning("Error ocured: " + str(error))
         print("I have finised scraping octave of day and uploading to database")
+        AreaWeatherForecast.objects.all().delete()
+        tatras_areas_weather_forecast = get_tatras_areas_weather_forecast()
+        weather_forecasts_areas = [AreaWeatherForecast(**element) for element in tatras_areas_weather_forecast]
+        AreaWeatherForecast.objects.bulk_create(weather_forecasts_areas)
+        print("I have finished scraping TPN")
         end = time()
         result = end - start
         print(f"time is {result}")
-        logging.info(f"Scraping operation has been executing {result} seconds.")
-        logging.info("That is time to run procces: " + str(end - start))
-
-    
-
-
-
-
-
+        logging.info(f"Scraping operation has been executing in {result} seconds.")
