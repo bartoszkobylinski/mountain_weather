@@ -10,7 +10,6 @@ from datetime import datetime, date
 
 # Create your views here.
 
-
 class IndexView(TemplateView):
     template_name = 'index1.html'
 
