@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://kit.fontawesome.com/aef6646358.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/wer.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <nav>
+        <h3>Prognoza pogody w Tatrach na najblizsze 5 dni</h3>
+    </nav> 
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <h4>Wszelkie prawa zastrzezone</h4>
+    </footer>
+    
+</body>
+</html>

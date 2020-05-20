@@ -161,6 +161,50 @@ main{
     letter-spacing: 0.2rem;
     text-transform: uppercase;
 }
+/*-------------------registration-form---------*/
+.registration-form-wrapper{
+    display: flex;
+    width: 50%;
+    justify-self: center;
+    background-color: #d3d3d3;
+    border-radius: 20px;
+    box-shadow: 5px 5px 0.5;
+}
+.registration-picture{
+    width: 50%;
+}
+.registration-picture img{
+    width: 100%;
+    height: auto;
+}
+.registration-form{
+    padding-left: 5.125rem;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    max-width: 50%;
+}
+.registration-form form{
+    justify-content: center;
+}
+.registration-form #id_username,
+.registration-form #id_email,
+.registration-form #id_password1,
+.registration-form #id_password2{
+    border: none;
+    border-bottom: 1px black solid;
+    background-color: #d3d3d3;
+}
+.registration-form p label{
+    text-transform: capitalize;
+}
+.registration-form .button{
+    border-radius: 20px;
+    border-style: none;
+    width: 10rem;
+    font-size: 1.5rem;
+
+}
 
 /*-------------------footer--------------------*/
 footer{

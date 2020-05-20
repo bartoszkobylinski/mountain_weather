@@ -1,18 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h3>Register User</h3>
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="registration-form-wrapper" >
+    <div class="registration-picture">
+        <img src="{% static 'images/mountain_reg.jpg' %}" alt="">
+    </div>
+    <div class="registration-form">
+        <h3>Registration Info</h3>
 
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Register User">
+        <form action="" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <p>{{field.label_tag}}</p>
+                <p>{{ field }}</p>
+            {% endfor %}
+        
+        <input class="button" type="submit" value="Register User"> 
+        </form>
+    </div>  
+</div>
 
-    </form>
-</body>
-</html>
+
+{% endblock %}
