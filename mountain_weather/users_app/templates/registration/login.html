@@ -1,0 +1,9 @@
+<h5>Try to Login</h5>
+
+<form action=""" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Log In">
+</form>
+
+<input type="button" value="Logout" >
