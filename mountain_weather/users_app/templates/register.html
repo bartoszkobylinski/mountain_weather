@@ -10,13 +10,20 @@
 
         <form action="" method="post">
             {% csrf_token %}
+
             {% for field in form %}
                 <p>{{field.label_tag}}</p>
                 <p>{{ field }}</p>
             {% endfor %}
+            {% if form.errors %}
+                {% for error in form.errors %}
+                    <li><strong>{{ error }}</strong></li>
+                {% endfor %}
+            {% endif %}
         
         <input class="button" type="submit" value="Register User"> 
         </form>
+        <small>Already have an account? <a href="{% url 'login' %}">Sign In</a></small>
     </div>  
 </div>
 

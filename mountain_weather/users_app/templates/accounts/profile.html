@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+{% if user.is_authenticated %}
+<div class="profile-container">
+    <div class="user-info">
+        <div class="user-info_picture">
+            <img src="{{ user.profile.image.url }}" alt="User profile image">
+        </div>
+        <div class="user-info_information">
+            <p>{{user.username}}</p>
+            <p>{{user.email}}</p>
+        </div>
+        <div class="user-info_add-img">
+
+        </div>
+    </div>
+    <div class="user-content">
+        {% for image in images %}
+        <div class="user-content-img-wrapper">
+            {{ image }}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<p> You are loged in as: {{ user }}</p>
+<a href="{% url 'logout' %}">Click here to logout</a>
+{% else %}
+<p>You are not loged in</p>
+<a href="{% url 'login' %}">Click here to login</a>
+{% endif %}
+{% endblock %}

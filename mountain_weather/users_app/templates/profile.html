@@ -1,0 +1,24 @@
+{% extends "base.html"%}
+{% load static %}
+{% block content %}
+<div class="profile-container">
+    <div class="user-info">
+        <div class="user-info_picture">
+            {{ user.}}
+        </div>
+        <div class="user-info_information">
+
+        </div>
+        <div class="user-info_add-img">
+
+        </div>
+    </div>
+    <div class="user-content">
+        {% for image in images %}
+        <div class="user-content-img-wrapper">
+            {{ image }}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

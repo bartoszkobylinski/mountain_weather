@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render,redirect
 from django.urls import reverse_lazy
 from django.views.generic.edit import FormView
+from django.contrib import messages
 
 from zakopane_weather.views import IndexView
 
@@ -18,6 +19,7 @@ class RegisterUserView(FormView):
     def form_valid(self, form):
         form.save()
         username = form.cleaned_data.get('username')
+        messages.success(self.request, f'Account created for {username}')
         raw_password = form.cleaned_data.get('password1')
         user = authenticate(username=username, password=raw_password)
         login(self.request, user)
