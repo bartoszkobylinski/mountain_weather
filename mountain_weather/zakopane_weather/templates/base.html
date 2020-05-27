@@ -13,13 +13,9 @@
 <body>
     <nav>
         <h3>Prognoza pogody w Tatrach na najblizsze 5 dni</h3>
+        <a href="{% url 'register' %}">Register</a>
     </nav> 
     <main>
-        {% if messages %}
-            {% for message in messages %}
-                <div class="message-info">{{ message }}</div>    
-            {% endfor %}
-        {% endif %}
         {% block content %}
         {% endblock %}
     </main>

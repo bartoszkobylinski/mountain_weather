@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'zakopane_weather',
-    'users_app',
+    'users_app.apps.UsersAppConfig',
     'django_cron',
     'rest_framework',
     'rest_framework.authtoken',

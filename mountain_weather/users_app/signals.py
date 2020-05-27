@@ -7,7 +7,10 @@ from .models import Profile
 def create_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
+        print(f'{instance.username} profile is created!')
 
 @receiver(post_save, sender=User)
-def save_profile(sender, instance, **kwargs):
-    instance.profile.save()
+def save_profile(sender, instance, created, **kwargs):
+    if created is False:
+        instance.profile.save()
+        print(f'{instance.username} profile has been updated')
