@@ -6,14 +6,32 @@ body{
     background-color: #f7faf9;
 }
 nav{
-    text-align: center;
+    display: flex;
+    justify-content: space-evenly;
     padding: 1rem;
     margin-bottom: 2rem;
 }
-nav h3{
+.main-nav_info{
+    width: 78%;
+    text-align: center;
+}
+.main-nav_info h3{
     text-transform: uppercase;
     font-weight: 300;
     letter-spacing: 0.3rem;
+}
+.main-nav_user{
+    display: flex;
+    justify-content: space-evenly;
+    width: 20%;
+    align-items: center;
+}
+.main-nav_user a{
+    background-color: greenyellow;
+    border-radius: 10px;
+    padding: 0.5rem;
+    text-transform: uppercase;
+    text-decoration: none;
 }
 main{
     display: flex;
@@ -137,9 +155,34 @@ main{
     margin: 0;
     padding: 0.2rem;
 }
+/*-------------Posts list-----------------------*/
+.posts-list{
+    display: flex;
+}
+.post-wrapper{
+    display: flex;
+    flex-direction: column;
+    width: 15%;
+    margin: 0.5rem;
+}
+.post-title h3{
+    text-transform: uppercase;
+    text-align: center;
+}
+.post-image{
+    width: 100%;
+}
+.post-image img{
+    max-width: 100%;
+    max-height: 100%;
+}
+.post-info{
+    text-align: center;
+}
+
 /*-----------Avalanche Warnings-----------------*/
 .avalanche-status {
-    margin-top: 1.25rem;
+    margin-top: 5rem;
     display: flex;
     flex-direction: column;
 }
@@ -168,13 +211,19 @@ main{
     letter-spacing: 0.2rem;
     text-transform: uppercase;
 }
+/*------------peaks weatherforecast -----------*/
+.peak-weatherforecast{
+    display: flex;
+    justify-content: space-evenly;
+}
+
 /*-------------------registration-form---------*/
 .registration-form-wrapper{
     display: flex;
-    width: 50%;
+    width: 70%;
     justify-self: center;
     background-color: #d3d3d3;
-    border-radius: 20px;
+    border-radius: 15px;
     box-shadow: 5px 5px 0.5;
 }
 .registration-picture{
@@ -182,10 +231,12 @@ main{
 }
 .registration-picture img{
     width: 100%;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
     height: auto;
 }
 .registration-form{
-    padding-left: 5.125rem;
+    padding-left: 10rem;
     display: flex;
     flex-direction: column;
     justify-items: center;
@@ -206,11 +257,101 @@ main{
     text-transform: capitalize;
 }
 .registration-form .button{
-    border-radius: 20px;
+    border-radius: 5px;
     border-style: none;
-    width: 10rem;
-    font-size: 1.5rem;
+    width: 12rem;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+}
+.registration-form small {
+    padding-top: 1rem;
+}
+/*------------------Login Page-----------------*/
 
+.login{
+    display: flex;
+    width: 70%;
+}
+.login-picture{
+    width: 50%;
+}
+.login-picture img{
+    width: 100%;
+}
+.login-form{
+    display: flex;
+    flex-direction: column;
+    padding-left: 3rem;
+}
+.login-form form{
+    display: flex;
+    flex-direction: column;
+}
+.login-form form input,
+.login-form form label{
+    margin: 1rem;
+}
+.login-form form #id_username,
+.login-form form #id_password{
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: #f7faf9;
+    padding: 0.5rem;
+}
+/*-------------------profile page-------------------*/
+.profile-container{
+    display: flex;
+    flex-direction: column;
+}
+.user-info{
+    display: flex;
+    justify-content: space-evenly;
+}
+.user-info_picture{
+    width: 5vw;
+}
+.user-info_picture img{
+    width: 100%;
+}
+.user-info_information{
+    display: flex;
+    align-items: center;
+}
+.user-info_information p{
+    padding: 1rem;
+}
+.user-content{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.user-content-img-wrapper{
+    width: 25%;
+    margin: 0.5rem;
+}
+.user-content-img-wrapper h3{
+    text-transform: uppercase;
+    font-size: 1.15rem;
+    text-align: center;
+}
+.user-content-img-wrapper img{
+    width: 100%;
+}
+.user-info_add-img{
+    display: flex;
+    align-items: center;
+}
+.user-info_add-img button{
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem;
+    margin: 0.5rem;
+    width: 5rem;
+    background-color: greenyellow;
+    text-transform: uppercase;
+}
+.user-info_add-img a{
+    text-decoration: none;
 }
 
 /*-------------------footer--------------------*/

@@ -1,12 +1,24 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
-<h5>Try to Login</h5>
 
-<form action=""" method="post">
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="Log In">
-</form>
+<div class="login">
+    <div class="login-picture">
+        <img src="{% static 'images/mount01.jpg' %}" alt="Mountain picture">
+    </div>
+    <div class="login-form">
+       <h5>Login</h5>
 
-<input type="button" value="Logout" >
+        <form action=""" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                {{ field.label_tag}}
+                {{ field }}
+            {% endfor %}
+            <input type="submit" value="Log In">
+        </form> 
+    </div>
+    
+</div>
+
 {% endblock %}

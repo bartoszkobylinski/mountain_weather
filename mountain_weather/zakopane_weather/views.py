@@ -3,6 +3,7 @@ from django.db.models.functions import TruncDay
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from zakopane_weather.models import HourlyForecast, DailyForecast, Mountain, OctaveOfDay, AvalancheStatus
+from users_app.models import Post
 from . import models
 from . import serializers
 
@@ -19,12 +20,15 @@ class IndexView(TemplateView):
         tommorow = datetime(2020,4,3,0,0)
 
         context = super(IndexView, self).get_context_data(**kwargs)
-        context['HourlyForecast'] = HourlyForecast.objects.all()
+        # context['HourlyForecast'] = HourlyForecast.objects.all() ----> probably to remove to detail view of Zakopane
         context['FirstDay'] = DailyForecast.objects.order_by('date').first()
-        context['DailyForecast'] = DailyForecast.objects.order_by('date')[1:]
-        context['OctaveOfDay'] = OctaveOfDay.objects.all().order_by('date', 'name_of_peak')
-        #print(context['OctaveOfDay'][0:8])
-        #print("after")
+        # context['DailyForecast'] = DailyForecast.objects.order_by('date')[1:] ---> probably to remove to detail view of Zakopane
+        
+        # context['OctaveOfDay'] = OctaveOfDay.objects.all().order_by('date', 'name_of_peak') ---> probably to remove
+        context['Post'] = Post.objects.all().order_by('date')
+        context['Mountain'] = Mountain.objects.all().order_by('name_of_peak')
+        context['Avalanche'] = AvalancheStatus.objects.all()
+
         try:
             context['First'] = OctaveOfDay.objects.filter(name_of_peak__name_of_peak='Volovec').order_by('date')
             context['Second'] = OctaveOfDay.objects.filter(name_of_peak__name_of_peak='Volovec').filter(date__range=(today,tommorow)).order_by('date')
@@ -32,10 +36,7 @@ class IndexView(TemplateView):
             #print(context['First'])
         except Exception as err:
             print(f"That is error {err}")
-        context['Mountain'] = Mountain.objects.all().order_by('name_of_peak')
-        context['Avalanche'] = AvalancheStatus.objects.all()
-        
-        
+    
         '''
         context.update(
             HourlyForecast=HourlyForecast.objects.all(),

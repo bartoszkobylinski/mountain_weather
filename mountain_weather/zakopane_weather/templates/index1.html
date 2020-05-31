@@ -21,6 +21,7 @@
                             <div class="place-weatherforecast-today-bottom__wind"><i class="fas fa-wind"></i>{{FirstDay.wind_speed}} km/h</div>
                         </div>
                     </div>
+                    <!--
                     <div class="place-weatherforecast-hourly">
                         <h3>prognoza pogody dla Zakopane na najblizsze 12h</h3>
                         <div class="place-weatherforecast-hourly-table">
@@ -52,10 +53,48 @@
                             </div>
                             {% endfor %}
                         </div>
-                    </div>
+                    </div>    
+                    -->
+                    
                 </div>
 
             </div>
+            <div class="glider-contain multiple">
+                <h3>Glider</h3>
+                <button class="glider-prev">
+                    <i class="fa fa-chevron-left"></i>
+                </button>
+                    <div class="glider">
+                        {% for post in Post%}
+                        <figure>
+                            <img src="{{post.image.url}}" alt="">
+                        </figure>
+                        {% endfor %}
+                    </div>
+                <button class="glider-next">
+                    <i class="fa fa-chevron-right"></i>
+                </button>
+                
+            </div>
+            
+            <!--
+             <div class="posts-list">
+                {% for post in Post %}
+                    <div class="post-wrapper">
+                        <div class="post-title">
+                            <h3>{{ post.title }}</h3>
+                        </div>
+                        <div class="post-image">
+                            <img src="{{post.image.url}}" alt="">
+                        </div>
+                        <div class="post-info">
+                            <h6>Posted by: {{ post.user }} at {{post.date}}</h6>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>    
+            -->
+           
             <div class="avalanche-status">
                 {% for data in Avalanche %}
                 <div class="avalanche-info">
@@ -97,11 +136,29 @@
                 </div>
                 {% endfor %}
             </div>
+            <div class="peaks-weatherforecast">
+                <table>
+                {% for peak in Mountain%}
+                    <div class="peak-weatherforecast">
+                        <h3>{{ peak.name_of_peak }}</h3>
+                    
+                        <a href="#">Detail</a>
+                    </div>
+                {% endfor %}   
+                </table>
+                
+            </div>
             <div class="tpn-weatherforecast">
 
             </div>
-            <div class="peaks-weatherforecast">
-
-            </div>
+            
         </div>
+        <script>
+            new Glider(document.querySelector('.glider'),{
+                slidesToShow: 2,
+                slidesToScroll: 2,
+                dragabble:true,
+            }
+            )
+        </script>
     {% endblock %}

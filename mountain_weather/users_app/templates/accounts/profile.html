@@ -4,29 +4,29 @@
 {% if user.is_authenticated %}
 <div class="profile-container">
     <div class="user-info">
-        <div class="user-info_picture">
-            <img src="{{ user.profile.image.url }}" alt="User profile image">
-        </div>
         <div class="user-info_information">
+            <div class="user-info_picture">
+                <img src="{{ user.profile.image.url }}" alt="User profile image">
+            </div>
             <p>{{user.username}}</p>
             <p>{{user.email}}</p>
         </div>
         <div class="user-info_add-img">
-
+            <button type="submit"><a href="{% url 'create-post' %}">Add Photo</a></button>
+            
+            <a href="{% url 'logout' %}">Click here to logout</a>
         </div>
+        
     </div>
     <div class="user-content">
-        {% for image in images %}
+        {% for post in object_list %}
         <div class="user-content-img-wrapper">
-            {{ image }}
+            <h3>{{ post.title }}</h3>
+            <img src="{{ post.image.url }}" alt="">
+            <p>{{post.date}}</p>
         </div>
         {% endfor %}
     </div>
 </div>
-<p> You are loged in as: {{ user }}</p>
-<a href="{% url 'logout' %}">Click here to logout</a>
-{% else %}
-<p>You are not loged in</p>
-<a href="{% url 'login' %}">Click here to login</a>
 {% endif %}
 {% endblock %}

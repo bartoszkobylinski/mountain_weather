@@ -3,10 +3,10 @@
 {% block content %}
 <div class="registration-form-wrapper" >
     <div class="registration-picture">
-        <img src="{% static 'images/mountain_reg.jpg' %}" alt="">
+        <img src="{% static 'images/mount01.jpg' %}" alt="">
     </div>
     <div class="registration-form">
-        <h3>Registration Info</h3>
+        <h3>Register</h3>
 
         <form action="" method="post">
             {% csrf_token %}
@@ -21,7 +21,7 @@
                 {% endfor %}
             {% endif %}
         
-        <input class="button" type="submit" value="Register User"> 
+        <input class="button" type="submit" value="Register"> 
         </form>
         <small>Already have an account? <a href="{% url 'login' %}">Sign In</a></small>
     </div>  
