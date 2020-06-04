@@ -34,10 +34,12 @@ class DailyForecast(models.Model):
         return f"Weather forecast for {self.date}"
 
 
-class OctaveOfDay(models.Model):
+class PeakForecast(models.Model):
     """
     Model for weatherforecast divided on 8 part in day for specific mountain
     """
+    name_of_peak = models.CharField(max_length=50, default='Random Peak')
+    elevation = models.IntegerField(default=0)
     date = models.DateTimeField()
     windspeed = models.IntegerField()
     summary = models.CharField(max_length=500)
@@ -47,8 +49,7 @@ class OctaveOfDay(models.Model):
     chill_temperature = models.IntegerField()
 
     def __str__(self):
-        return f''' Weatherforecast for  at
-        {self.date}.'''
+        return f'{self.name_of_peak}'
 
 class AvalancheStatus(models.Model):
     """
@@ -65,7 +66,7 @@ class AvalancheStatus(models.Model):
         return f''' Avalanche warnings at {self.date}.'''
 
 class AreaWeatherForecast(models.Model):
-    """ Model for specific area in Tatras Mountain """
+    """ Model for particular area in Tatras Mountain """
     name = models.CharField(max_length=40)
     date = models.DateField()
     #weather_icon = models.ImageField()

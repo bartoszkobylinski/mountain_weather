@@ -165,7 +165,9 @@ class MountainWeatherScraper(Scraper):
         delta = timedelta(days=1)
         name_of_peak = self.browser.title
         name_of_peak = name_of_peak.split(' ')
-        name_of_peak = name_of_peak[0] 
+        elevation = name_of_peak[-1]
+        elevation = int(elevation[1:-2])
+        name_of_peak = name_of_peak[0]
         for i in range(len(number_of_columns)):
             x = range(beggining, end + 1)
             date = current_date
@@ -237,6 +239,7 @@ class MountainWeatherScraper(Scraper):
 
                 data_weather.append({
                     "name_of_peak": name_of_peak,
+                    "elevation": elevation,
                     "date": date_after_scraping,
                     "windspeed": windspeed_element,
                     "summary": summary_element,
@@ -258,15 +261,6 @@ class MountainWeatherScraper(Scraper):
         #logging.info("I have gathered data from: " + self.browser.title)
         #return data_weather
 
-    def get_peak_name_and_level(self):
-        self.browser.get(self.url)
-        peak_information = {}
-        mountain_name = self.browser.title
-        mountain_name = mountain_name.split(' ')
-        peak_information['name_of_peak'] = mountain_name[0] 
-        peak_information['elevation'] = int(mountain_name[-1][1:-2])
-        return peak_information
-
 
 def get_pekas_detailed_weather():
     for url in get_url(peaks):
@@ -274,9 +268,5 @@ def get_pekas_detailed_weather():
         mountain_weather = mountain.scrap_data_weather_for_octave_of_a_day()
         yield mountain_weather
 
-def get_peaks_information():
-    for url in get_url(peaks):
-        mountain = MountainWeatherScraper(url)
-        mountain_information = mountain.get_peak_name_and_level()
-        yield mountain_information
+
 

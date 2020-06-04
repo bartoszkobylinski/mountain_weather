@@ -3,7 +3,7 @@ from datetime import datetime
 from django.views.generic import TemplateView
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
-from zakopane_weather.models import DailyForecast, OctaveOfDay, AvalancheStatus, AreaWeatherForecast
+from zakopane_weather.models import DailyForecast, AvalancheStatus, AreaWeatherForecast
 from users_app.models import Post
 from . import models
 from . import serializers
@@ -28,18 +28,17 @@ class IndexView(TemplateView):
         # context['OctaveOfDay'] = OctaveOfDay.objects.all().order_by('date', 'name_of_peak') ---> probably to remove
         context['Post'] = Post.objects.all().order_by('-date')
         context['Avalanche'] = AvalancheStatus.objects.all()
-        context['Octave'] = OctaveOfDay.objects.filter(date=datetime(2020,4,30,23,00))
+        #context['Octave'] = OctaveOfDay.objects.filter(date=datetime(2020,4,30,23,00))
         context['Areas'] = AreaWeatherForecast.objects.filter(date=datetime(2020,4,26))
-
+        '''
         try:
             context['First'] = OctaveOfDay.objects.filter(name_of_peak__name_of_peak='Volovec').order_by('date')
             context['Second'] = OctaveOfDay.objects.filter(name_of_peak__name_of_peak='Volovec').filter(date__range=(today,tommorow)).order_by('date')
             print(context['Second'])
             #print(context['First'])
         except Exception as err:
-            print(f"That is error {err}")
-    
-        '''
+            print(f"That is error")
+
         context.update(
             HourlyForecast=HourlyForecast.objects.all(),
             FirstDay=DailyForecast.objects.order_by('date').first(),
@@ -53,7 +52,7 @@ class IndexView(TemplateView):
 
 class DetailDayView(TemplateView):
     template_name = 'day-detail.html'
-
+'''
 class BanikovOctaveOfDayView(TemplateView):
     template_name = 'mountain_base.html'
 
@@ -61,7 +60,7 @@ class BanikovOctaveOfDayView(TemplateView):
         context = super(BanikovOctaveOfDayView, self).get_context_data(**kwargs)
         context['Banikov'] = OctaveOfDay.objects.filter(name_of_peak__name_of_peak='Baníkov').order_by('date')
         return context
-
+'''
 class ZakopaneAreaWeatherForecastView(TemplateView):
     template_name = 'mountain_base.html'
 
@@ -132,10 +131,4 @@ class HourlyForecastViewset(viewsets.ModelViewSet):
 class DailyForecastViewset(viewsets.ModelViewSet):
     queryset = models.DailyForecast.objects.all()
     serializer_class = serializers.DailyForecastSerializer
-    permission_classes = [IsAuthenticated]
-
-
-class OctaveOfDayViewset(viewsets.ModelViewSet):
-    queryset = models.OctaveOfDay.objects.all()
-    serializer_class = serializers.OctaveOfDaySerializer
     permission_classes = [IsAuthenticated]

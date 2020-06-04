@@ -4,8 +4,8 @@ from time import time
 from django_cron import CronJobBase, Schedule
 from zakopane_weather.avalanche import get_avalanche_status
 from zakopane_weather.mountain import get_zakopane_daily_weather, get_zakopane_hourly_weather
-from zakopane_weather.scraper import get_pekas_detailed_weather, get_peaks_information, peaks
-from zakopane_weather.models import DailyForecast, HourlyForecast, OctaveOfDay, AvalancheStatus, AreaWeatherForecast
+from zakopane_weather.scraper import get_pekas_detailed_weather
+from zakopane_weather.models import DailyForecast, HourlyForecast, AvalancheStatus, AreaWeatherForecast, PeakForecast
 from zakopane_weather.location import location
 from zakopane_weather.area_scraper import get_tatras_areas_weather_forecast
 
@@ -25,13 +25,13 @@ class MyCronJob(CronJobBase):
         start = time()
         print(start)
         print("I started cron jobs")
-        '''
+
         try:
             DailyForecast.objects.all().delete()
             print('delete')
         except Exception as err:
             print(err)
-        '''
+
         try:
             daily_weather_forecast_from_accuweather = get_zakopane_daily_weather()
             print(f"that is {daily_weather_forecast_from_accuweather}")
@@ -65,12 +65,23 @@ class MyCronJob(CronJobBase):
         except Exception as error:
             print(f"Occured error while saving {error}")
         print("I have finished scraping and uploadnig avalanche warning")
- 
         
-        '''
-        forecast_for_all_peaks = get_pekas_detailed_weather()
-        
-        for peak in forecast_for_all_peaks:
+        for forecast in get_pekas_detailed_weather():
+            for peak in forecast:
+                peak_weatherforecast = PeakForecast(
+                                                name_of_peak=peak['name_of_peak'],
+                                                elevation=peak['elevation'],
+                                                date=peak['date'],
+                                                windspeed=peak['windspeed'],
+                                                summary=peak['summary'],
+                                                rain=peak['rain'],
+                                                snow=peak['snow'],
+                                                temperature=peak['temperature'],
+                                                chill_temperature=peak['chill_temperature']
+                                                )
+                print(peak_weatherforecast)
+                peak_weatherforecast.save()
+            '''
             for forecast in peak:
                 try:
                     name = Mountain.objects.get(name_of_peak = forecast['name_of_peak'])   
@@ -94,13 +105,13 @@ class MyCronJob(CronJobBase):
                     print("I have saved data")
                 except Exception as error:
                     logging.warning("Error ocured: " + str(error))
+            '''
         print("I have finised scraping octave of day and uploading to database")
         AreaWeatherForecast.objects.all().delete()
         tatras_areas_weather_forecast = get_tatras_areas_weather_forecast()
         weather_forecasts_areas = [AreaWeatherForecast(**element) for element in tatras_areas_weather_forecast]
         AreaWeatherForecast.objects.bulk_create(weather_forecasts_areas)
         print("I have finished scraping TPN")
-        '''
         end = time()
         result = end - start
         
