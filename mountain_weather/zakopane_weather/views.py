@@ -1,13 +1,14 @@
-from django.views.generic import TemplateView, DetailView
-from django.db.models.functions import TruncDay
+from datetime import datetime
+
+from django.views.generic import TemplateView
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
-from zakopane_weather.models import HourlyForecast, DailyForecast, Mountain, OctaveOfDay, AvalancheStatus, AreaWeatherForecast
+from zakopane_weather.models import DailyForecast, OctaveOfDay, AvalancheStatus, AreaWeatherForecast
 from users_app.models import Post
 from . import models
 from . import serializers
 
-from datetime import datetime, date
+
 
 # Create your views here.
 
@@ -26,7 +27,6 @@ class IndexView(TemplateView):
         
         # context['OctaveOfDay'] = OctaveOfDay.objects.all().order_by('date', 'name_of_peak') ---> probably to remove
         context['Post'] = Post.objects.all().order_by('-date')
-        context['Mountain'] = Mountain.objects.all().order_by('name_of_peak')
         context['Avalanche'] = AvalancheStatus.objects.all()
         context['Octave'] = OctaveOfDay.objects.filter(date=datetime(2020,4,30,23,00))
         context['Areas'] = AreaWeatherForecast.objects.filter(date=datetime(2020,4,26))
@@ -45,9 +45,8 @@ class IndexView(TemplateView):
             FirstDay=DailyForecast.objects.order_by('date').first(),
             DailyForecast=DailyForecast.objects.order_by('date')[1:],
             OctaveOfDay=OctaveOfDay.objects.all().order_by('name_of_peak', 'date'),
-            First=OctaveOfDay.objects.all()
-            Mountain=Mountain.objects.all(),
-            Avalanche=AvalancheStatus.objects.all()
+            First=OctaveOfDay.objects.all(),
+            Avalanche=AvalancheStatus.objects.all(),
             )
         '''
         return context

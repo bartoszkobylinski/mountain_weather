@@ -47,7 +47,6 @@ class OctaveOfDay(models.Model):
     """
     Model for weatherforecast divided on 8 part in day for specific mountain
     """
-    name_of_peak = models.ForeignKey(Mountain, on_delete=models.CASCADE)
     date = models.DateTimeField()
     windspeed = models.IntegerField()
     summary = models.CharField(max_length=500)
@@ -57,7 +56,7 @@ class OctaveOfDay(models.Model):
     chill_temperature = models.IntegerField()
 
     def __str__(self):
-        return f''' Weatherforecast for {self.name_of_peak} at
+        return f''' Weatherforecast for  at
         {self.date}.'''
 
 class AvalancheStatus(models.Model):
