@@ -1,4 +1,4 @@
-from django.forms import ModelForm, TextInput, EmailInput
+from django.forms import TextInput, EmailInput
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
@@ -27,11 +27,11 @@ class CreateUserForm(UserCreationForm):
             'username': TextInput(attrs={'class': 'form-control', 'placeholder': 'username'}),
             'email': EmailInput(attrs={'class': 'form-control', 'placeholder': 'your@email.com'}),
                 }
-        
+                
 class CreatePostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = [
             'title',
             'image'
-        ]    
+        ]

@@ -1,7 +1,5 @@
 
-from django.contrib.auth import login,authenticate
-from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render,redirect
+from django.contrib.auth import login, authenticate
 from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView,
@@ -12,10 +10,9 @@ from django.views.generic import (
     )
 from django.views.generic.edit import FormView
 from django.contrib import messages
-from .forms import CreatePostForm
 from .models import Post
 
-from zakopane_weather.views import IndexView
+
 
 from .forms import CreateUserForm
 
@@ -35,7 +32,7 @@ class RegisterUserView(FormView):
     
 class CreatePost(CreateView):
     model = Post
-    fields = [ 'title', 'image']
+    fields = ['title', 'image']
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -43,7 +40,7 @@ class CreatePost(CreateView):
 
 ###############################################
 class PostListView(ListView):
-    queryset= Post.objects.all()
+    queryset = Post.objects.all()
     template_name = 'accounts/profile.html'
 ################################################
 
@@ -51,11 +48,13 @@ class UserProfileView(ListView):
     template_name = 'accounts/profile.html'
 
     def get_queryset(self):
-        return Post.objects.filter(user = self.request.user)
-    
+        return Post.objects.filter(user=self.request.user)
 
 class PostDetailView(DetailView):
     model = Post
     
 class UpdatePost(UpdateView):
+    pass
+
+class DeletePost(DeleteView):
     pass

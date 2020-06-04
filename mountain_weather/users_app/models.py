@@ -19,6 +19,6 @@ class Post(models.Model):
 
     def __str__(self):
         return f" Post published {self.date} by {self.user.username}"
-    
+
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.pk })

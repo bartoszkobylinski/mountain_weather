@@ -1,7 +1,6 @@
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from .views import RegisterUserView, CreatePost, PostListView, PostDetailView, UserProfileView
-from django.views.generic import TemplateView
 
 urlpatterns = [
     path('register_user/', RegisterUserView.as_view(template_name='register.html'),name='register'),
