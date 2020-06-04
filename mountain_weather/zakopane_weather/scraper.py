@@ -9,7 +9,7 @@ import time
 
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
-
+from unidecode import unidecode
 #from zakopane_weather.location import peaks
 
 location = {'zakopane':'2700353'}
@@ -167,7 +167,7 @@ class MountainWeatherScraper(Scraper):
         name_of_peak = name_of_peak.split(' ')
         elevation = name_of_peak[-1]
         elevation = int(elevation[1:-2])
-        name_of_peak = name_of_peak[0]
+        name_of_peak = unidecode(name_of_peak[0])
         for i in range(len(number_of_columns)):
             x = range(beggining, end + 1)
             date = current_date

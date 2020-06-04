@@ -1,3 +1,5 @@
+from unidecode import unidecode
+
 from zakopane_weather.scraper import Scraper
 
 
@@ -13,6 +15,7 @@ class AreaScraper(Scraper):
         areas_weather_forecasts = []
         for table in area_weather_tables:
             meteostation = table.find_element_by_class_name('meteostation')
+            meteostation = unidecode(meteostation.text)
             meteoday = table.find_elements_by_class_name('meteocell')
             for day in meteoday:
                 current_weather_forecast = {}
@@ -22,7 +25,7 @@ class AreaScraper(Scraper):
                 pressure = day.find_element_by_class_name('size')
                 rain = day.find_element_by_class_name('precipitation')
                 current_weather_forecast.update(
-                    name=meteostation.text,
+                    name=meteostation,
                     date=date.text,
                     temp_min=temp_min.text[:-2],
                     temp_max=temp_max.text[:-2],
@@ -40,3 +43,5 @@ def get_tatras_areas_weather_forecast():
     scraper = AreaScraper('https://tpn.pl/zwiedzaj/pogoda')
     areas_weather_forecasts = scraper.get_areas_weather_forecasts()
     return areas_weather_forecasts
+
+

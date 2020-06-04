@@ -3,7 +3,7 @@ from datetime import datetime
 from django.views.generic import TemplateView
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
-from zakopane_weather.models import DailyForecast, AvalancheStatus, AreaWeatherForecast
+from zakopane_weather.models import DailyForecast, AvalancheStatus, AreaWeatherForecast, PeakForecast
 from users_app.models import Post
 from . import models
 from . import serializers
@@ -17,19 +17,20 @@ class IndexView(TemplateView):
 
     def get_context_data(self, **kwargs):
         today = datetime(2020,4,2,0,0)
-        print(type(today))
         tommorow = datetime(2020,4,3,0,0)
 
         context = super(IndexView, self).get_context_data(**kwargs)
         # context['HourlyForecast'] = HourlyForecast.objects.all() ----> probably to remove to detail view of Zakopane
         context['FirstDay'] = DailyForecast.objects.order_by('date').first()
-        # context['DailyForecast'] = DailyForecast.objects.order_by('date')[1:] ---> probably to remove to detail view of Zakopane
+        # context['DailyForecast'] = DailyForecast.objects.order_by('date')[1:] ---> probably to move to detail view of Zakopane
         
         # context['OctaveOfDay'] = OctaveOfDay.objects.all().order_by('date', 'name_of_peak') ---> probably to remove
         context['Post'] = Post.objects.all().order_by('-date')
         context['Avalanche'] = AvalancheStatus.objects.all()
-        #context['Octave'] = OctaveOfDay.objects.filter(date=datetime(2020,4,30,23,00))
-        context['Areas'] = AreaWeatherForecast.objects.filter(date=datetime(2020,4,26))
+        #context['Octave'] = OctaveOfDay.objects.filter(date=datetime(2020,4,30,23,00)) ---> probably to remove
+        context['Octave'] = PeakForecast.objects.filter(date=datetime(2020,6,4,5,00))
+        print(context['Octave'])
+        context['Areas'] = AreaWeatherForecast.objects.filter(date=datetime(2020,6,4))
         '''
         try:
             context['First'] = OctaveOfDay.objects.filter(name_of_peak__name_of_peak='Volovec').order_by('date')
