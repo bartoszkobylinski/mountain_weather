@@ -14,7 +14,6 @@ from zakopane_weather.views import (IndexView,
 
                                     HourlyForecastViewset, 
                                     DailyForecastViewset, 
-                                    MountainViewset, 
                                     OctaveOfDayViewset
                                     )
 
@@ -22,7 +21,6 @@ from zakopane_weather.views import (IndexView,
 router = routers.DefaultRouter()
 router.register('hourlyforecast', HourlyForecastViewset)
 router.register('dailyforecast', DailyForecastViewset)
-router.register('mountain', MountainViewset)
 router.register('octaveofday', OctaveOfDayViewset)
 
 urlpatterns = [

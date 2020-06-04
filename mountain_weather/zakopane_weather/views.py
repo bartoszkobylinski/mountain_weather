@@ -134,10 +134,6 @@ class DailyForecastViewset(viewsets.ModelViewSet):
     serializer_class = serializers.DailyForecastSerializer
     permission_classes = [IsAuthenticated]
 
-class MountainViewset(viewsets.ModelViewSet):
-    queryset = models.Mountain.objects.all()
-    serializer_class = serializers.MountainSerializer
-    permission_classes = [IsAuthenticated]
 
 class OctaveOfDayViewset(viewsets.ModelViewSet):
     queryset = models.OctaveOfDay.objects.all()

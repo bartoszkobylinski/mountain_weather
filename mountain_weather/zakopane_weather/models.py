@@ -33,15 +33,6 @@ class DailyForecast(models.Model):
     def __str__(self):
         return f"Weather forecast for {self.date}"
 
-class Mountain(models.Model):
-    """
-    Model for peaks of mountain where scraper crawl weatheforecast
-    """
-    name_of_peak = models.CharField(max_length=50, default='Random Peak')
-    elevation = models.IntegerField()
-
-    def __str__(self):
-        return f"{self.name_of_peak}"
 
 class OctaveOfDay(models.Model):
     """

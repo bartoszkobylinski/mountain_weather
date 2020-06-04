@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from zakopane_weather.models import OctaveOfDay, DailyForecast, HourlyForecast, Mountain
+from zakopane_weather.models import OctaveOfDay, DailyForecast, HourlyForecast
 
 class HourlyForecastSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,14 +11,9 @@ class DailyForecastSerializer(serializers.ModelSerializer):
         model = DailyForecast
         fields = ['id','min_temp','max_temp','phrase','probability','wind_speed','date']
 
-class MountainSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Mountain
-        fields = ['id','name_of_peak','elevation']
-
 class OctaveOfDaySerializer(serializers.ModelSerializer):
     class Meta:
         model = OctaveOfDay
-        fields = ['id','name_of_peak','date','windspeed','summary','rain','snow','temperature','chill_temperature']
+        fields = ['id','date','windspeed','summary','rain','snow','temperature','chill_temperature']
 
 
