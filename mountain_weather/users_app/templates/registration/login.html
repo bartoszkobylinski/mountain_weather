@@ -1,24 +1,23 @@
-{% extends "base.html" %}
+{% extends "register_base.html" %}
 {% load static %}
 {% block content %}
-
-<div class="login">
-    <div class="login-picture">
-        <img src="{% static 'images/mount01.jpg' %}" alt="Mountain picture">
-    </div>
     <div class="login-form">
-       <h5>Login</h5>
+       <h3>Log in</h3>
 
-        <form action=""" method="post">
+        <form action="" method="post">
             {% csrf_token %}
             {% for field in form %}
-                {{ field.label_tag}}
-                {{ field }}
+            <p>{{ field.label_tag  }}</p>
+            <p>{{ field }}</p>
             {% endfor %}
-            <input type="submit" value="Log In">
+            {% if form.errors %}
+                {% for error in form.errors %}
+                    <li><strong>{{ error }}</strong></li>
+                {% endfor %}
+            {% endif %}
+            <input class="register-button" type="submit" value="Log In">
         </form> 
+        <small>Don't have an account? Please <a href="{% url 'register' %}">Sign Up</a></small>
     </div>
-    
-</div>
 
 {% endblock %}

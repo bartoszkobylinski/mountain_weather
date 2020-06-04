@@ -41,10 +41,17 @@ class CreatePost(CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-
+###############################################
 class PostListView(ListView):
     queryset= Post.objects.all()
     template_name = 'accounts/profile.html'
+################################################
+
+class UserProfileView(ListView):
+    template_name = 'accounts/profile.html'
+
+    def get_queryset(self):
+        return Post.objects.filter(user = self.request.user)
     
 
 class PostDetailView(DetailView):

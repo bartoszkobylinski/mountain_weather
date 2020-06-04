@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static%}
+{% block content %}
+
+    <div class="content-wrapper">
+        <div class="content-info">
+            <h3>Szczegolowa analiza warunkow atmosferycznych dla {{Banikov.name_of_peak}}</h3>
+        </div>
+        <div class="content-table">
+            <table class="peak-detailed-weatherforecast-table">
+            <thead>
+                <th>data</th>
+                <th>temperatura</th>
+                <th>temperatura odczuwalna</th>
+                <th>predkosc wiatru</th>
+                <th>opady deszczu</th>
+                <th>opady sniegu</th>
+                <th>podsumowanie</th>
+            </thead>
+            <tbody>
+                {% for x in Banikov %}
+                <tr>
+                    <td>{{ x.date }}</td>
+                    <td>{{ x.temperature }}</td>
+                    <td>{{ x.chill_temperature }}</td>
+                    <td>{{ x.windspeed }}</td>
+                    <td>{{ x.rain }}</td>
+                    <td>{{ x.snow }}</td>
+                    <td>{{ x.summary }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+{% endblock %}

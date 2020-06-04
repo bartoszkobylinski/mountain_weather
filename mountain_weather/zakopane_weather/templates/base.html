@@ -14,12 +14,21 @@
 </head>
 <body>
     <nav>
+        <div class="logo">
+            <a href="{% url 'index' %}">
+                <img src="{% static 'images/logo_gory.png' %}" alt="Logo gory">
+            </a>
+        </div>
         <div class="main-nav_info">
             <h3>Prognoza pogody w Tatrach na najblizsze dni</h3>
         </div>
         <div class="main-nav_user">
-            <a href="{% url 'register' %}">Register</a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+            <a id="register" href="{% url 'register' %}">Register</a>
             <a href="{% url 'login' %}">Login</a>  
+            {% endif %}
         </div>
         
     </nav> 

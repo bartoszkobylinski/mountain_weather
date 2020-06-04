@@ -21,6 +21,11 @@
                             <div class="place-weatherforecast-today-bottom__wind"><i class="fas fa-wind"></i>{{FirstDay.wind_speed}} km/h</div>
                         </div>
                     </div>
+                    <div class="place-weatherforecast-today-button">
+                        <a href="{% url 'detail-day' %}">
+                            <button>szczegóły</button>
+                        </a>
+                    </div>
                     <!--
                     <div class="place-weatherforecast-hourly">
                         <h3>prognoza pogody dla Zakopane na najblizsze 12h</h3>
@@ -60,7 +65,7 @@
 
             </div>
             <div class="glider-contain multiple">
-                <h3>Glider</h3>
+                <h3>Zdjęcia aktualnych warunków w górach</h3>
                 <button class="glider-prev">
                     <i class="fa fa-chevron-left"></i>
                 </button>
@@ -74,7 +79,6 @@
                 <button class="glider-next">
                     <i class="fa fa-chevron-right"></i>
                 </button>
-                
             </div>
             
             <!--
@@ -94,70 +98,134 @@
                 {% endfor %}
             </div>    
             -->
-           
-            <div class="avalanche-status">
-                {% for data in Avalanche %}
-                <div class="avalanche-info">
-                    <div class="avalanche-info__level">
-                        <h4>Avalanche Warning Level: </h4>
-                        <h4>{{ data.avalanche_level }}</h4>
-                    </div>
-                    <div class="avalanche-info__image">
-                        {% if data.avalanche_level == 1 %}
-                        <img src="{% static 'images/law03.jpg' %}" alt="Avalanche-level 1">
-                        {% elif data.avalanche_level == 2 %}
-                        <img src="{% static 'images/2_level.png' %}" alt="Avalanche-level 2">
-                        {% elif data.avalanche_level == 3 %}
-                        <img src="{% static 'images/law03.jpg' %}" alt="Avalanche-level 3">
-                        {% elif data.avalanache_level == 4 %}
-                        <img src="{% static 'images/law04.jpg' %}" alt="Avalanche-level 4">
-                        {% elif data.avalanache_level == 5 %}
-                        <img src="{% static 'images/law05.jpg' %}" alt="Avalanche-level 1">
-                        {% else %}
-                        <h4>No information about avalanche level</h4>
-                        {% endif %}
-                    </div>
+           <div class="avalanche-wrapper">
+                <div class="avalanche-title">
+                    <h3>avalanche status</h3>
                 </div>
-                <div class="avalanche-info__description">
-                    <h4>{{ data.avalanche_description }}</h4>
+                <div class="avalanche-status">
+                    {% for data in Avalanche %}
+                    <div class="avalanche-info_left">
+                        <div class="avalanche-info__level">
+                            <h4>Avalanche Warning Level: </h4>
+                            {% if data.avalanche_level == 1 %}
+                                <img src="{% static 'images/1_level.png' %}" alt="Avalanche-level 1">
+                            {% elif data.avalanche_level == 2 %}
+                                <img src="{% static 'images/2_level.png' %}" alt="Avalanche-level 2">
+                            {% elif data.avalanche_level == 3 %}
+                                <img src="{% static 'images/law03.jpg' %}" alt="Avalanche-level 3">
+                            {% elif data.avalanache_level == 4 %}
+                                <img src="{% static 'images/law04.jpg' %}" alt="Avalanche-level 4">
+                            {% elif data.avalanache_level == 5 %}
+                                <img src="{% static 'images/law05.jpg' %}" alt="Avalanche-level 1">
+                            {% else %}
+                                <h4>No information about avalanche level</h4>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="avalanche-info_center">
+                        <div class="avalanche-info__description">
+                            <h4>{{ data.avalanche_description|truncatewords:25 }}</h4>
+                        </div>
+                        <div class="warnings-time">
+                            <div class="warnings-time__published">
+                                <h4>Warning published</h4> 
+                                <h4>{{ data.avalanche_warning_published }}</h4>
+                            </div>
+                            <div class="warnings-time__until">
+                                <h4>Warning valid until</h4> 
+                                <h4>{{ data.avalanche_warning_valid_until }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="avalanche-info_right">
+                        <h4>dane pogladowe zweryfikuj na stronie topr</h4>
+                        <a href="http://lawiny.topr.pl/">
+                            <button>szczegóły</button>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>  
+            </div>
+            <div class="content-bottom-tables">
+                <div class="content-bottom-tables_info">
+                    <h3>warunki atmosferyczne dla poszczegolnych lokalizacji</h3>
                 </div>
-                <div class="warnings-time">
-                    <div class="warnings-time__published">
-                        <h4>Warning published</h4> 
-                        <h4>{{ data.avalanche_warning_published }}</h4>
-                    </div>
-                    <div class="warnings-time__until">
-                        <h4>Warning valid until</h4> 
-                        <h4>{{ data.avalanche_warning_valid_until }}</h4>
-                        <h4>Dane pogladowe zweryfikuj na stronie Topr</h4>
-                    </div>
-                    
-                    
+                <div class="content-bottom-tables_tables">
+                    <div class="peaks-weatherforecast">
+                        <div class="peak-weatherforecast">
+                            <table>
+                                <thead>
+                                    <th>Szczyt</th>
+                                    <th>temperatura odczuwalna</th>
+                                    <th>predkosc wiatru</th>
+                                    <th>opady deszczu</th>
+                                    <th>opady sniegu</th>
+                                    <th>opis</th>
+                                    <th> </th>
+                                </thead>
+                                <tbody>
+                                    {% for peak in Octave%}
+                                    <tr>
+                                        <td>{{ peak.name_of_peak }}</td>
+                                        <td>{{ peak.chill_temperature }}&#8451;</td>
+                                        <td>{{ peak.windspeed }} km/h</td>
+                                        <td>{{ peak.rain }}</td>
+                                        <td>{{ peak.snow }}</td>
+                                        <td>{{ peak.summary }}</td>
+                                        <td>
+                                            <a href="3">
+                                                <button class="table-button">{{peak.name_of_peak}}</button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %} 
+                                </tbody>
+                            </table>
+                        </div>         
                 </div>
-                {% endfor %}
-            </div>
-            <div class="peaks-weatherforecast">
-                <table>
-                {% for peak in Mountain%}
-                    <div class="peak-weatherforecast">
-                        <h3>{{ peak.name_of_peak }}</h3>
-                    
-                        <a href="#">Detail</a>
-                    </div>
-                {% endfor %}   
-                </table>
-                
-            </div>
-            <div class="tpn-weatherforecast">
-
-            </div>
-            
+                <div class="tpn-weatherforecast"> 
+                    <table>
+                        <thead>
+                            <th>Miejsce</th>
+                            <th>temp min</th>
+                            <th>temp max</th>
+                            <th>cisnienie</th>
+                            <th>opady</th>
+                            <th> </th>
+                        </thead>
+                        <tbody>
+                            {% for area in Areas %}
+                            <tr>
+                                <td>{{ area.name }}</td>
+                                <td>{{ area.temp_min }}&#8451;</td>
+                                <td>{{ area.temp_max }}&#8451;</td>
+                                <td>{{ area.pressure }} hPa</td>
+                                <td>{{ area.rain }} mm</td>
+                                <td>
+                                    <a href="{% url area.name %}">
+                                        <button class="table-button">szczegóły</button>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+    
+                </div>
+                </div>
+            </div>    
         </div>
         <script>
             new Glider(document.querySelector('.glider'),{
-                slidesToShow: 2,
+                slidesToShow: 4,
                 slidesToScroll: 2,
-                dragabble:true,
+                draggable: true,
+                dots: '.dots',
+                // By Not having the next three lines, means the JS isn't attaching to the elements
+                arrows: {   
+                    prev: '.glider-prev',  
+                    next: '.glider-next'
+                }
             }
             )
         </script>

@@ -41,7 +41,7 @@ class Mountain(models.Model):
     elevation = models.IntegerField()
 
     def __str__(self):
-        return f"{self.name_of_peak} with elevation {self.elevation} over sea level"
+        return f"{self.name_of_peak}"
 
 class OctaveOfDay(models.Model):
     """

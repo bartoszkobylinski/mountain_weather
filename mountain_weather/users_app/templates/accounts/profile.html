@@ -12,9 +12,7 @@
             <p>{{user.email}}</p>
         </div>
         <div class="user-info_add-img">
-            <button type="submit"><a href="{% url 'create-post' %}">Add Photo</a></button>
-            
-            <a href="{% url 'logout' %}">Click here to logout</a>
+            <a href="{% url 'create-post' %}"><button>Add Photo</button></a>
         </div>
         
     </div>
@@ -23,7 +21,7 @@
         <div class="user-content-img-wrapper">
             <h3>{{ post.title }}</h3>
             <img src="{{ post.image.url }}" alt="">
-            <p>{{post.date}}</p>
+            <p>published: {{post.date}}</p>
         </div>
         {% endfor %}
     </div>
