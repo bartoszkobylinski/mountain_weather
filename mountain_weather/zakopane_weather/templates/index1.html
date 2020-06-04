@@ -151,6 +151,35 @@
                     <h3>warunki atmosferyczne dla poszczegolnych lokalizacji</h3>
                 </div>
                 <div class="content-bottom-tables_tables">
+                    
+                    <div class="tpn-weatherforecast"> 
+                        <table>
+                            <thead>
+                                <th class="tpn-td">Miejsce</th>
+                                <th class="tpn-td">temp min</th>
+                                <th class="tpn-td">temp max</th>
+                                <th class="tpn-td">cisnienie</th>
+                                <th>opady</th>
+                                <th> </th>
+                            </thead>
+                            <tbody>
+                                {% for area in Areas %}
+                                <tr>
+                                    <td class="tpn-td">{{ area.name }}</td>
+                                    <td class="tpn-td">{{ area.temp_min }}&#8451;</td>
+                                    <td class="tpn-td">{{ area.temp_max }}&#8451;</td>
+                                    <td class="tpn-td">{{ area.pressure }} hPa</td>
+                                    <td class="tpn-td">{{ area.rain }} mm</td>
+                                    <td>
+                                        <a href="{% url area.name %}">
+                                            <button class="table-button">szczegóły</button>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                     <div class="peaks-weatherforecast">
                         <div class="peak-weatherforecast">
                             <table>
@@ -164,7 +193,7 @@
                                     <th> </th>
                                 </thead>
                                 <tbody>
-                                    {% for peak in Octave %}
+                                    {% for peak in Peaks %}
                                     <tr>
                                         <td>{{ peak.name_of_peak }}</td>
                                         <td>{{ peak.chill_temperature }}&#8451;</td>
@@ -173,8 +202,8 @@
                                         <td>{{ peak.snow }}</td>
                                         <td>{{ peak.summary }}</td>
                                         <td>
-                                            <a href="3">
-                                                <button class="table-button">{{peak.name_of_peak}}</button>
+                                            <a href="{% url peak.name_of_peak %}">
+                                                <button class="table-button">szczegóły</button>
                                             </a>
                                         </td>
                                     </tr>
@@ -182,35 +211,6 @@
                                 </tbody>
                             </table>
                         </div>         
-                </div>
-                <div class="tpn-weatherforecast"> 
-                    <table>
-                        <thead>
-                            <th>Miejsce</th>
-                            <th>temp min</th>
-                            <th>temp max</th>
-                            <th>cisnienie</th>
-                            <th>opady</th>
-                            <th> </th>
-                        </thead>
-                        <tbody>
-                            {% for area in Areas %}
-                            <tr>
-                                <td>{{ area.name }}</td>
-                                <td>{{ area.temp_min }}&#8451;</td>
-                                <td>{{ area.temp_max }}&#8451;</td>
-                                <td>{{ area.pressure }} hPa</td>
-                                <td>{{ area.rain }} mm</td>
-                                <td>
-                                    <a href="{% url area.name %}">
-                                        <button class="table-button">szczegóły</button>
-                                    </a>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-    
                 </div>
                 </div>
             </div>    

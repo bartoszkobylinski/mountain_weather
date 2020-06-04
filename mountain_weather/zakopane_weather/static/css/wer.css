@@ -273,6 +273,8 @@ main{
 }
 .content-bottom-tables_tables{
     display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .peaks-weatherforecast{
     display: flex;
@@ -286,18 +288,26 @@ main{
 }
 .table-button{
     padding: 0.4rem;
-    border: none;
+    border: 1px solid grey;
     border-radius: 25px;
-    background-color: #16516d;
-    color: white;
+    background-color:#f7faf9 ;
+    color: #16516d;
     font-size: 0.75rem;
     text-transform: uppercase;
     cursor: pointer;
 }
-table td{
+.tpn-weatherforecast  td,
+.peaks-weatherforecast td{
     text-align: center;
-    padding: 0.2rem;
+    padding: 1rem 2rem;
+    font-size: 1.5rem;   
+}
+.tpn-weatherforecast th,
+.peaks-weatherforecast th{
+    text-align: center;
     text-transform: uppercase;
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
 }
 
 /*-------------------registration-form---------*/
@@ -468,4 +478,73 @@ footer{
 .peak-detailed-weatherforecast-table td,th{
 text-align: center;
 
+}
+/*-------------------area-base-----------------*/
+.area-detail-forecast-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
+}
+.area-detail-forecast-content-bottom{
+    display: flex;
+    width: 90%;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    box-shadow: 20px 20px 40px grey;
+}
+.area-detail-forecast-content-bottom-image{
+    width: 40%;
+}
+.area-detail-forecast-content-bottom-image img{
+    width: 100%;
+}
+.area-detail-forecast-content-bottom-table{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+    padding-left: 2rem;
+}
+.area-detail-forecast-content-bottom-table th{
+    text-transform: uppercase;
+    font-size: 1.25rem;
+    text-align: center;
+}
+.area-detail-forecast-content-bottom-table th,td{
+    padding: 1rem 0.75rem;
+    font-size: 1rem;
+}
+.area-detail-forecast-content-bottom-links{
+    margin: 1rem;
+}
+.area-detail-forecast-content-bottom-links button{
+    padding: 0.2rem 1rem;
+    margin: 0rem 0.5rem;
+    border: 1px solid gray;
+    border-radius: 15px;
+    background-color: f7faf9;
+    color: #16516d;
+    font-size: 0.25;
+    cursor: pointer;
+}
+.fa-poo-storm,
+.fa-cloud-sun,
+.fa-cloud,
+.fa-sun{
+    font-size: 3rem;
+}
+.area-table-date{
+    font-size: 1rem;
+    letter-spacing: 0.2rem;
+    font-weight: 700;
+}
+.tr-upper{
+    border-top: 1px blueviolet solid;
+}
+.td-summary{
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+    font-weight: 900;
 }

@@ -28,9 +28,9 @@ class IndexView(TemplateView):
         context['Post'] = Post.objects.all().order_by('-date')
         context['Avalanche'] = AvalancheStatus.objects.all()
         #context['Octave'] = OctaveOfDay.objects.filter(date=datetime(2020,4,30,23,00)) ---> probably to remove
-        context['Octave'] = PeakForecast.objects.filter(date=datetime(2020,6,4,5,00))
-        print(context['Octave'])
-        context['Areas'] = AreaWeatherForecast.objects.filter(date=datetime(2020,6,4))
+        context['Peaks'] = PeakForecast.objects.filter(date=datetime(2020,6,5,5,00))
+        context['Areas'] = AreaWeatherForecast.objects.filter(date=datetime(2020,6,7))
+        print(context['Areas'])
         '''
         try:
             context['First'] = OctaveOfDay.objects.filter(name_of_peak__name_of_peak='Volovec').order_by('date')
@@ -63,65 +63,210 @@ class BanikovOctaveOfDayView(TemplateView):
         return context
 '''
 class ZakopaneAreaWeatherForecastView(TemplateView):
-    template_name = 'mountain_base.html'
+    template_name = 'area_base.html'
 
     def get_context_data(self, **kwargs):
         context = super(ZakopaneAreaWeatherForecastView, self).get_context_data(**kwargs)
-        context['Zakopane'] = AreaWeatherForecast.objects.filter(name='zakopane').order_by('date')
+        context['Place'] = AreaWeatherForecast.objects.filter(name='Zakopane').first()
+        context['Places'] = AreaWeatherForecast.objects.values_list('name', flat=True).distinct()
+        context['Area'] = AreaWeatherForecast.objects.filter(name='Zakopane').order_by('date')
         return context
 
 class DolinaChocholowskaAreaWeatherForecastView(TemplateView):
-    template_name = 'mountain_base.html'
+    template_name = 'area_base.html'
 
     def get_context_data(self, **kwargs):
         context = super(DolinaChocholowskaAreaWeatherForecastView, self).get_context_data(**kwargs)
-        context['Dolina_Chocholowska'] = AreaWeatherForecast.objects.filter(name='dolina chocholowska').order_by('date')
-        print(context['Dolina_Chocholowska'])
+        context['Place'] = AreaWeatherForecast.objects.filter(name='Dolina Chocholowska').first()
+        context['Places'] = AreaWeatherForecast.objects.values_list('name', flat=True).distinct()
+        context['Area'] = AreaWeatherForecast.objects.filter(name='Dolina Chocholowska').order_by('date')
         return context
 
 class DolinaKoscieliskaAreaWeatherForecastView(TemplateView):
-    template_name = 'mountain_base.html'
+    template_name = 'area_base.html'
 
     def get_context_data(self, **kwargs):
         context = super(DolinaKoscieliskaAreaWeatherForecastView, self).get_context_data(**kwargs)
-        context['Dolina_Koscieliska'] = AreaWeatherForecast.objects.filter(name='dolina koscieliska').order_by('date')
-        print(context['Dolina_Koscieliska'])
+        context['Place'] = AreaWeatherForecast.objects.filter(name='Dolina Koscieliska').first()
+        context['Places'] = AreaWeatherForecast.objects.values_list('name', flat=True).distinct()
+        context['Area'] = AreaWeatherForecast.objects.filter(name='Dolina Koscieliska').order_by('date')
         return context
 
 class DolinaPieciuStawowAreaWeatherForecastView(TemplateView):
-    template_name = 'mountain_base.html'
+    template_name = 'area_base.html'
 
     def get_context_data(self, **kwargs):
         context = super(DolinaPieciuStawowAreaWeatherForecastView, self).get_context_data(**kwargs)
-        context['Dolina_Pieciu'] = AreaWeatherForecast.objects.filter(name='dolina pieciu stawow').order_by('date')
-        print(context['Dolina_Pieciu'])
+        context['Place'] = AreaWeatherForecast.objects.filter(name='Dolina Pieciu Stawow Polskich').first()
+        context['Places'] = AreaWeatherForecast.objects.values_list('name', flat=True).distinct()
+        context['Area'] = AreaWeatherForecast.objects.filter(name='Dolina Pieciu Stawow Polskich').order_by('date')
         return context
     
 class KasprowyWierchAreaWeatherForecastView(TemplateView):
-    template_name = 'mountain_base.html'
+    template_name = 'area_base.html'
 
     def get_context_data(self, **kwargs):
         context = super(KasprowyWierchAreaWeatherForecastView, self).get_context_data(**kwargs)
-        context['Kasprowy_Wierch'] = AreaWeatherForecast.objects.filter(name='kasprowy wierch').order_by('date')
-        print(context['Kasprowy_Wierch'])
+        context['Place'] = AreaWeatherForecast.objects.filter(name='Kasprowy Wierch').first()
+        context['Places'] = AreaWeatherForecast.objects.values_list('name', flat=True).distinct()
+        context['Area'] = AreaWeatherForecast.objects.filter(name='Kasprowy Wierch').order_by('date')
         return context
 
 class MorskieOkoAreaWeatherForecastView(TemplateView):
-    template_name = 'mountain_base.html'
+    template_name = 'area_base.html'
 
     def get_context_data(self, **kwargs):
         context = super(MorskieOkoAreaWeatherForecastView, self).get_context_data(**kwargs)
-        context['Morskie_Oko'] = AreaWeatherForecast.objects.filter(name='morskie oko').order_by('date')
-        print(context['Morskie_Oko'])
+        context['Place'] = AreaWeatherForecast.objects.filter(name='Morskie Oko').first()
+        context['Places'] = AreaWeatherForecast.objects.values_list('name', flat=True).distinct() 
+        context['Area'] = AreaWeatherForecast.objects.filter(name='Morskie Oko').order_by('date')
         return context
 
 class LomnicaAreaWeatherForecastView(TemplateView):
-    template_name = 'mountain_base.html'
+    template_name = 'area_base.html'
 
     def get_context_data(self, **kwargs):
         context = super(LomnicaAreaWeatherForecastView, self).get_context_data(**kwargs)
-        context['Lomnica'] = AreaWeatherForecast.objects.filter(name='lomnica').order_by('date')
-        print(context['Lomnica'])
+        context['Place'] = AreaWeatherForecast.objects.filter(name='Lomnica').first()
+        context['Places'] = AreaWeatherForecast.objects.values_list('name', flat=True).distinct()
+        context['Area'] = AreaWeatherForecast.objects.filter(name='Lomnica').order_by('date')
+        return context
+
+class BanikovForecastView(TemplateView):
+    template_name = 'mountain_base.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(BanikovForecastView, self).get_context_data(**kwargs)
+        context['Peak'] = PeakForecast.objects.filter(name_of_peak='Banikov').order_by('date')
+        return context
+
+class BaranecForecastView(TemplateView):
+    template_name = 'mountain_base.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(BaranecForecastView, self).get_context_data(**kwargs)
+        context['Peak'] = PeakForecast.objects.filter(name_of_peak='Baranec').order_by('date')
+        return context
+
+class GerlachForecastView(TemplateView):
+    template_name = 'mountain_base.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(GerlachForecastView, self).get_context_data(**kwargs)
+        context['Peak'] = PeakForecast.objects.filter(name_of_peak='Gerlach').order_by('date')
+        return context
+
+class GiewontForecastView(TemplateView):
+    template_name = 'mountain_base.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(GiewontForecastView, self).get_context_data(**kwargs)
+        context['Peak'] = PeakForecast.objects.filter(name_of_peak='Giewont').order_by('date')
+        return context
+
+class GubalowkaForecastView(TemplateView):
+    template_name = 'mountain_base.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(GubalowkaForecastView, self).get_context_data(**kwargs)
+        context['Peak'] = PeakForecast.objects.filter(name_of_peak='Gubalowka').order_by('date')
+        return context
+
+class KasprowyWierchForecastView(TemplateView):
+    template_name = 'mountain_base.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(KasprowyWierchForecastView, self).get_context_data(**kwargs)
+        context['Peak'] = PeakForecast.objects.filter(name_of_peak='Kasprowy').order_by('date')
+        print(context['Peak'])
+        return context
+
+class KoscielecForecastView(TemplateView):
+    template_name = 'mountain_base.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(KoscielecForecastView, self).get_context_data(**kwargs)
+        context['Peak'] = PeakForecast.objects.filter(name_of_peak='Koscielec').order_by('date')
+        return context
+
+class KrivanForecastView(TemplateView):
+    template_name = 'mountain_base.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(KrivanForecastView, self).get_context_data(**kwargs)
+        context['Peak'] = PeakForecast.objects.filter(name_of_peak='Krivan').order_by('date')
+        return context
+
+class MieguszowieckiForecastView(TemplateView):
+    template_name = 'mountain_base.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(MieguszowieckiForecastView, self).get_context_data(**kwargs)
+        context['Peak'] = PeakForecast.objects.filter(name_of_peak='Mieguszowiecki').order_by('date')
+        return context
+
+class MnichForecastView(TemplateView):
+    template_name = 'mountain_base.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(MnichForecastView, self).get_context_data(**kwargs)
+        context['Peak'] = PeakForecast.objects.filter(name_of_peak='Mnich').order_by('date')
+        return context
+
+class OstryForecastView(TemplateView):
+    template_name = 'mountain_base.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(OstryForecastView, self).get_context_data(**kwargs)
+        context['Peak'] = PeakForecast.objects.filter(name_of_peak='Ostry').order_by('date')
+        return context
+
+class RysyForecastView(TemplateView):
+    template_name = 'mountain_base.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(RysyForecastView, self).get_context_data(**kwargs)
+        context['Peak'] = PeakForecast.objects.filter(name_of_peak='Rysy').order_by('date')
+        return context
+
+class SlavkovskyForecastView(TemplateView):
+    template_name = 'mountain_base.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(SlavkovskyForecastView, self).get_context_data(**kwargs)
+        context['Peak'] = PeakForecast.objects.filter(name_of_peak='Slavkovsky Stit').order_by('date')
+        return context
+    
+class SwinicaForecastView(TemplateView):
+    template_name = 'mountain_base.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(SwinicaForecastView, self).get_context_data(**kwargs)
+        context['Peak'] = PeakForecast.objects.filter(name_of_peak='Swinica').order_by('date')
+        return context
+
+class VolovecForecastView(TemplateView):
+    template_name = 'mountain_base.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(VolovecForecastView, self).get_context_data(**kwargs)
+        context['Peak'] = PeakForecast.objects.filter(name_of_peak='Volovec').order_by('date')
+        return context
+
+class VychodnaForecastView(TemplateView):
+    template_name = 'mountain_base.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(VychodnaForecastView, self).get_context_data(**kwargs)
+        context['Peak'] = PeakForecast.objects.filter(name_of_peak='Vychodna').order_by('date')
+        return context
+
+class WoloszynForecastView(TemplateView):
+    template_name = 'mountain_base.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(WoloszynForecastView, self).get_context_data(**kwargs)
+        context['Peak'] = PeakForecast.objects.filter(name_of_peak='Woloszyn').order_by('date')
         return context
 
 class HourlyForecastViewset(viewsets.ModelViewSet):

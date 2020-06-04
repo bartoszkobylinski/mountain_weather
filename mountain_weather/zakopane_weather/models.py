@@ -70,9 +70,11 @@ class AreaWeatherForecast(models.Model):
     name = models.CharField(max_length=40)
     date = models.DateField()
     #weather_icon = models.ImageField()
+    summary = models.CharField(max_length=60, default="brak informacji")
     temp_min = models.IntegerField()
     temp_max = models.IntegerField()
     pressure = models.FloatField()
+    icon_number = models.IntegerField(default=4)
     rain = models.FloatField()
 
     def __str__(self):

@@ -23,6 +23,8 @@ class AreaScraper(Scraper):
                 temp_min = day.find_element_by_class_name('min')
                 temp_max = day.find_element_by_class_name('max')
                 pressure = day.find_element_by_class_name('size')
+                summary = day.find_element_by_class_name('desc')
+                icon_number = self.set_icon_number(summary.text)
                 rain = day.find_element_by_class_name('precipitation')
                 current_weather_forecast.update(
                     name=meteostation,
@@ -30,12 +32,31 @@ class AreaScraper(Scraper):
                     temp_min=temp_min.text[:-2],
                     temp_max=temp_max.text[:-2],
                     pressure=pressure.text[:-3],
+                    summary=summary.text,
+                    icon_number=icon_number,
                     rain=rain.text[7:-6]
                 )
                 areas_weather_forecasts.append(current_weather_forecast)
-                
-        
+
         return areas_weather_forecasts
+
+    def set_icon_number(self, summary):
+        '''
+        Depends on what weatherforecast is in summary field icon number can 
+        describe: sunny, stormy, cloudy and so on
+        '''    
+        if "burz" in summary:
+            icon_number = 1
+        elif "rozwój" or "rozpogodzenia" in summary:
+            icon_number = 2
+        elif "zachmurzenie" in summary:
+            icon_number = 3
+        else:
+            icon_number = 4
+
+        return icon_number
+        
+        
 
     
 

@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static%}
+{% block content %}
+
+    <div class="area-detail-forecast-content">
+        <div class="area-detail-forecast-content-info">
+            <h3>Szczegolowa prognoza warunkow atmosferycznych dla  {{Place.name}}</h3>
+        </div>
+        <div class="area-detail-forecast-content-bottom">
+            <div class="area-detail-forecast-content-bottom-image">
+                {% if Place.name == "Zakopane" %}
+                <img src="{% static 'images/zakopane_image.jpg' %}" alt="Zakopane image">
+                {% elif Place.name == "Dolina Chocholowska" %}
+                <img src="{% static 'images/dolina_chocholowska_image.jpg' %}" alt="dolina chocholowska image">
+                {% elif Place.name == "Dolina Koscieliska" %}
+                <img src="{% static 'images/dolina_koscieliska_image.jpg' %}" alt="dolina koscieliska image">
+                {% elif Place.name == "Morskie Oko" %}
+                <img src="{% static 'images/morskie_image.jpg' %}" alt="Morskie Oko image">
+                {% elif Place.name == "Lomnica" %}
+                <img src="{% static 'images/lomnica_image.jpeg' %}" alt="Lomnica image">
+                {% elif Place.name == "Kasprowy Wierch" %}
+                <img src="{% static 'images/kasprowy_image.jpg' %}" alt="Kasprowy Wierch image">
+                {% elif Place.name == "Dolina Pieciu Stawow Polskich" %}
+                <img src="{% static 'images/dolina_pieciu_image.jpg' %}" alt="Dolina Pieciu Stawow image">
+                {% endif %}
+            </div>
+            <div class="area-detail-forecast-content-bottom-table">
+                <table class="area-detail-forecast-content-table">
+                    <thead>
+                        <th>data</th>
+                        <th> </th>
+                        <th>opis</th>
+                        <th>temp min</th>
+                        <th>temp max</th>
+                        <th>cisnienie</th>
+                        <th>opady deszczu</th>
+                    </thead>
+                    <tbody>
+                        {% for x in Area %}
+                            <tr class="tr-upper">
+                                <td class="area-table-date">{{ x.date|date:"d M" }}</td>
+                                <td>
+                                    {% if x.icon_number == 1 %}
+                                    <i class="fas fa-poo-storm"></i>
+                                    {% elif x.icon_number == 2 %}
+                                    <i class="fas fa-cloud-sun"></i>
+                                    {% elif x.icon_number == 3 %}
+                                    <i class="fas fa-cloud"></i>
+                                    {% else %}
+                                    <i class="fas fa-sun"></i>
+                                    {% endif %}
+                                </td>
+                                <td class="td-summary">{{ x.summary }}</td>
+                                <td>{{ x.temp_min }}&#8451;</td>
+                                <td>{{ x.temp_max }}&#8451;</td>
+                                <td>{{ x.pressure }} hPa</td>
+                                <td>{{ x.rain }} mm/12h</td>
+                            </tr>   
+                            
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="area-detail-forecast-content-bottom-links">
+                    {% for place in Places %}
+                        {% if place != Place.name %}
+                            <a href="{% url place %}">
+                                <button>{{ place }}</button>
+                            </a>
+                            
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+{% endblock %}
