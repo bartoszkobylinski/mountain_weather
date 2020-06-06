@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="current-content-wrapper">
+    <div class="place-weatherforecast-wrapper">
+        <div class="place-weatherforecast">
+            <div class="place-weatherforecast-today">
+                <div class="place-weatherforecast-today-up">
+                    <div class="place-weatherforecast-today-up__name">
+                        <h3>Zakopane</h3>
+                    </div>
+                    <div class="place-weatherforecast-today-up__icon"><i class="fas fa-sun"></i></div>
+                    <div class="place-weatherforecast-today-up__date">
+                        <h3>{{ FirstDay.date|date:"d F" }}</h3>
+                    </div>
+                </div>
+                <div class="place-weatherforecast-today-bottom">
+                    <div class="place-weatherforecast-today-bottom__temp_min"><i class="fas fa-temperature-low"></i>{{ FirstDay.min_temp }}&#8451;</div>
+                    <div class="place-weatherforecast-today-bottom__temp_max"><i class="fas fa-temperature-high"></i>{{ FirstDay.max_temp }}&#8451;</div>
+                    <div class="place-weatherforecast-today-bottom__rain"><i class="fas fa-umbrella"></i> {{FirstDay.probability}} %</div>
+                    <div class="place-weatherforecast-today-bottom__wind"><i class="fas fa-wind"></i>{{FirstDay.wind_speed}} km/h</div>
+                </div>
+            </div>   
+        </div>    
+    </div>
+    <div class="place-weatherforecast-hourly">
+        <h3>prognoza pogody dla Zakopane na najbliższe 12h</h3>
+        <div class="place-weatherforecast-hourly-table">
+            <table class="hourly-weather-table">
+                <thead>
+                    <th>Czas</th>
+                    <th>Temperatura</th>
+                    <th>Temperatura odczuwalna</th>
+                    <th>Prędkość wiatru</th>
+                    <th>Prawdopodobieństwo opadów</th>
+                    <th>Stan zachmurzenia</th>
+                </thead>
+                <tbody>
+                    {% for data in HourlyForecast %}
+                    <tr>
+                        <td>{{ data.date_time|date:"H" }}:00</td>
+                        <td><i class="fas fa-thermometer-three-quarters"></i>{{ data.temp }}&#8451;</td>
+                        <td><i class="fas fa-thermometer"></i>  {{ data.real_feel_temp }}&#8451;</td>
+                        <td><i class="fas fa-wind"></i>  {{ data.wind_speed }} km/h</td>
+                        <td><i class="fas fa-umbrella"></i>  {{ data.rain_probability }} %</td>
+                        <td><i class="fas fa-cloud"></i>  {{ data.cloud_cover }} %</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+        </div>
+    </div> 
+    <div class="current-content-future-forecast">
+        <div class="current-content-future-forecast-header">
+            <h3>Prognoza pogody na najbliższe 4 dni</h3>
+        </div>
+        <table class="daily-weather-table">
+            <thead>
+                <th>Data</th>
+                <th>Temperatura minimalna</th>
+                <th>Temperatura maksymalna</th>
+                <th>opis</th>
+                <th>Prędkość wiatru</th>
+                <th>Prawdopodobieństwo opadów</th>
+            </thead>
+            <tbody>
+                {% for day in DailyForecast %}
+                <tr>
+                    <td>{{ day.date }}</td>
+                    <td><i class="fas fa-temperature-low"></i>{{ day.min_temp }} &#8451;</td>
+                    <td><i class="fas fa-temperature-high"></i>{{ day.max_temp }} &#8451;</td>
+                    <td>{{ day.phrase }}</td>
+                    <td><i class="fas fa-wind"></i>{{ day.wind_speed }} km/h</td>
+                    <td><i class="fas fa-umbrella"></i>{{ day.probability }} %</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

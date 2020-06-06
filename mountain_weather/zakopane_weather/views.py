@@ -3,7 +3,7 @@ from datetime import datetime
 from django.views.generic import TemplateView
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
-from zakopane_weather.models import DailyForecast, AvalancheStatus, AreaWeatherForecast, PeakForecast
+from zakopane_weather.models import DailyForecast, AvalancheStatus, AreaWeatherForecast, PeakForecast, HourlyForecast
 from users_app.models import Post
 from . import models
 from . import serializers
@@ -20,17 +20,12 @@ class IndexView(TemplateView):
         tommorow = datetime(2020,4,3,0,0)
 
         context = super(IndexView, self).get_context_data(**kwargs)
-        # context['HourlyForecast'] = HourlyForecast.objects.all() ----> probably to remove to detail view of Zakopane
         context['FirstDay'] = DailyForecast.objects.order_by('date').first()
-        # context['DailyForecast'] = DailyForecast.objects.order_by('date')[1:] ---> probably to move to detail view of Zakopane
-        
-        # context['OctaveOfDay'] = OctaveOfDay.objects.all().order_by('date', 'name_of_peak') ---> probably to remove
         context['Post'] = Post.objects.all().order_by('-date')
         context['Avalanche'] = AvalancheStatus.objects.all()
-        #context['Octave'] = OctaveOfDay.objects.filter(date=datetime(2020,4,30,23,00)) ---> probably to remove
         context['Peaks'] = PeakForecast.objects.filter(date=datetime(2020,6,5,5,00))
         context['Areas'] = AreaWeatherForecast.objects.filter(date=datetime(2020,6,7))
-        print(context['Areas'])
+        
         '''
         try:
             context['First'] = OctaveOfDay.objects.filter(name_of_peak__name_of_peak='Volovec').order_by('date')
@@ -51,8 +46,17 @@ class IndexView(TemplateView):
         '''
         return context
 
-class DetailDayView(TemplateView):
-    template_name = 'day-detail.html'
+class CurrentDayView(TemplateView):
+    template_name = 'current-day-detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CurrentDayView, self).get_context_data(**kwargs)
+        context['HourlyForecast'] = HourlyForecast.objects.all()
+        context['FirstDay'] = DailyForecast.objects.order_by('date').first()
+        print(context['FirstDay'])
+        context['DailyForecast'] = DailyForecast.objects.order_by('date')[1:]
+
+        return context
 '''
 class BanikovOctaveOfDayView(TemplateView):
     template_name = 'mountain_base.html'
@@ -268,6 +272,9 @@ class WoloszynForecastView(TemplateView):
         context = super(WoloszynForecastView, self).get_context_data(**kwargs)
         context['Peak'] = PeakForecast.objects.filter(name_of_peak='Woloszyn').order_by('date')
         return context
+
+class DziekiView(TemplateView):
+    template_name = 'dzieki.html'
 
 class HourlyForecastViewset(viewsets.ModelViewSet):
     queryset = models.HourlyForecast.objects.all()

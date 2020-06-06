@@ -2,7 +2,6 @@ from django.urls import path, include
 from rest_framework import routers
 
 from zakopane_weather.views import (IndexView,
-                                    DetailDayView,
                                     ZakopaneAreaWeatherForecastView,
                                     DolinaChocholowskaAreaWeatherForecastView,
                                     DolinaKoscieliskaAreaWeatherForecastView,
@@ -28,7 +27,9 @@ from zakopane_weather.views import (IndexView,
                                     VychodnaForecastView,
                                     WoloszynForecastView,
                                     HourlyForecastViewset, 
-                                    DailyForecastViewset, 
+                                    DailyForecastViewset,
+                                    CurrentDayView,
+                                    DziekiView,
                                     )
 
 
@@ -39,7 +40,7 @@ router.register('dailyforecast', DailyForecastViewset)
 
 urlpatterns = [
     path('', IndexView.as_view(template_name="index1.html"), name='index'),
-    path('day-detail/', DetailDayView.as_view(template_name="day-detail.html"), name='detail-day'),
+    path('day-detail/', CurrentDayView.as_view(), name='detail-day'),
     path('zakopane/', ZakopaneAreaWeatherForecastView.as_view(), name='Zakopane'),
     path('dolina_chocholowska/', DolinaChocholowskaAreaWeatherForecastView.as_view(), name='Dolina Chocholowska'),
     path('dolina_koscieliska/', DolinaKoscieliskaAreaWeatherForecastView.as_view(), name='Dolina Koscieliska'),
@@ -64,6 +65,7 @@ urlpatterns = [
     path('volovec/', VolovecForecastView.as_view(), name='Volovec'),
     path('vychodna/', VychodnaForecastView.as_view(), name='Vychodna'),
     path('woloszyn/', WoloszynForecastView.as_view(), name='Woloszyn'),  
+    path('dzieki/', DziekiView.as_view(), name='dzieki'),
     path('viewset/', include(router.urls)),
     path('viewset/hourlyforecast/<int:pk>/', include(router.urls)),
     

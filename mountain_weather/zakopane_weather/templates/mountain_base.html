@@ -20,7 +20,7 @@
             <tbody>
                 {% for x in Peak %}
                 <tr>
-                    <td>{{ x.date }}</td>
+                    <td>{{ x.date|date:"d M H:i" }}</td>
                     <td>{{ x.temperature }}</td>
                     <td>{{ x.chill_temperature }}</td>
                     <td>{{ x.windspeed }}</td>

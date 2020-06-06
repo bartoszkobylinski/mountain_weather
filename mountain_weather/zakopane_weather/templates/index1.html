@@ -26,41 +26,6 @@
                             <button>szczegóły</button>
                         </a>
                     </div>
-                    <!--
-                    <div class="place-weatherforecast-hourly">
-                        <h3>prognoza pogody dla Zakopane na najblizsze 12h</h3>
-                        <div class="place-weatherforecast-hourly-table">
-                            {% for data in HourlyForecast %}
-                            <div class="place-weatherforecast-hourly-table-hour">
-                                <div class="place-weatherforecast-hourly-table-hour-date">
-                                    <h5>{{ data.date_time|date:"H : m" }}</h5>
-                                </div>
-                                <div class="place-weatherforecast-hourly-table-hour-temperatures">
-                                    <div class="place-weatherforecast-hourly-table-hour-temperatures__temp">
-                                        <h6><i class="fas fa-thermometer-three-quarters"></i>{{ data.temp }}&#8451;</h6>
-                                    </div>
-                                    <div class="place-weatherforecast-hourly-table-hour-temperatures__real-feel-temp">
-                                        <h6><i class="fas fa-thermometer"></i> {{ data.real_feel_temp }}&#8451;</h6>
-                                    </div>
-                                </div>
-                                <div class="place-weatherforecast-hourly-table-hour-others">
-                                    <div class="place-weatherforecast-hourly-table-hour-others__wind">
-                                        <h6><i class="fas fa-wind"></i>{{ data.wind_speed }} km/h</h6>
-                                    </div>
-                                    <div class="place-weatherforecast-hourly-table-hour-others__rain">
-                                        <h6><i class="fas fa-umbrella"></i>{{ data.rain_probability }} %</h6>
-                                    </div>
-                                    <div class="place-weatherforecast-hourly-table-hour-others__cloud">
-                                        <h6><i class="fas fa-cloud"></i>{{ data.cloud_cover }} %</h6>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            {% endfor %}
-                        </div>
-                    </div>    
-                    -->
-                    
                 </div>
 
             </div>
@@ -79,25 +44,6 @@
                 <button class="glider-next">
                     <i class="fa fa-chevron-right"></i>
                 </button>
-            </div>
-            
-            <!--
-             <div class="posts-list">
-                {% for post in Post %}
-                    <div class="post-wrapper">
-                        <div class="post-title">
-                            <h3>{{ post.title }}</h3>
-                        </div>
-                        <div class="post-image">
-                            <img src="{{post.image.url}}" alt="">
-                        </div>
-                        <div class="post-info">
-                            <h6>Posted by: {{ post.user }} at {{post.date}}</h6>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>    
-            -->
            <div class="avalanche-wrapper">
                 <div class="avalanche-title">
                     <h3>avalanche status</h3>
@@ -138,7 +84,7 @@
                         </div>
                     </div>
                     <div class="avalanche-info_right">
-                        <h4>dane pogladowe zweryfikuj na stronie topr</h4>
+                        <h4>To dane poglądowe.<br>Aktualne warunki zweryfikuj na stronie topr</h4>
                         <a href="http://lawiny.topr.pl/">
                             <button>szczegóły</button>
                         </a>
@@ -148,7 +94,7 @@
             </div>
             <div class="content-bottom-tables">
                 <div class="content-bottom-tables_info">
-                    <h3>warunki atmosferyczne dla poszczegolnych lokalizacji</h3>
+                    <h3>warunki atmosferyczne dla poszczególnych lokalizacji</h3>
                 </div>
                 <div class="content-bottom-tables_tables">
                     
@@ -158,7 +104,7 @@
                                 <th class="tpn-td">Miejsce</th>
                                 <th class="tpn-td">temp min</th>
                                 <th class="tpn-td">temp max</th>
-                                <th class="tpn-td">cisnienie</th>
+                                <th class="tpn-td">ciśnienie</th>
                                 <th>opady</th>
                                 <th> </th>
                             </thead>
@@ -181,14 +127,17 @@
                         </table>
                     </div>
                     <div class="peaks-weatherforecast">
+                        <div class="peaks-weatherforecast-info">
+                            <h3>Progonoza pogody dla poszczególnych szczytów</h3>
+                        </div>
                         <div class="peak-weatherforecast">
                             <table>
                                 <thead>
                                     <th>Szczyt</th>
                                     <th>temperatura odczuwalna</th>
-                                    <th>predkosc wiatru</th>
+                                    <th>prędkość wiatru</th>
                                     <th>opady deszczu</th>
-                                    <th>opady sniegu</th>
+                                    <th>opady śniegu</th>
                                     <th>opis</th>
                                     <th> </th>
                                 </thead>
@@ -217,7 +166,7 @@
         </div>
         <script>
             new Glider(document.querySelector('.glider'),{
-                slidesToShow: 4,
+                slidesToShow: 3,
                 slidesToScroll: 2,
                 draggable: true,
                 dots: '.dots',
