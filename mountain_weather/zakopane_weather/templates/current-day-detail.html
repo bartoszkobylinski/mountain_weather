@@ -55,28 +55,32 @@
         <div class="current-content-future-forecast-header">
             <h3>Prognoza pogody na najbliższe 4 dni</h3>
         </div>
-        <table class="daily-weather-table">
+        <div class="daily-weather-table-wrapper">
+            <table class="daily-weather-table">
             <thead>
                 <th>Data</th>
                 <th>Temperatura minimalna</th>
                 <th>Temperatura maksymalna</th>
-                <th>opis</th>
                 <th>Prędkość wiatru</th>
                 <th>Prawdopodobieństwo opadów</th>
             </thead>
             <tbody>
                 {% for day in DailyForecast %}
                 <tr>
-                    <td>{{ day.date }}</td>
+                    <td rowspan="2">{{ day.date }}</td>
                     <td><i class="fas fa-temperature-low"></i>{{ day.min_temp }} &#8451;</td>
                     <td><i class="fas fa-temperature-high"></i>{{ day.max_temp }} &#8451;</td>
-                    <td>{{ day.phrase }}</td>
                     <td><i class="fas fa-wind"></i>{{ day.wind_speed }} km/h</td>
                     <td><i class="fas fa-umbrella"></i>{{ day.probability }} %</td>
+                </tr>
+                <tr>
+                    <td colspan="4">{{ day.phrase }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+        </div>
+        
     </div>
 </div>
 

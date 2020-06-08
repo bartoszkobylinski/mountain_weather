@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% block javascript%}
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
+    {% endblock %}
+    {% block link %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin=""/>
+    {% endblock%}
+
+{% block content %}
+
+<div style="width: 90%; height: 1000px;" id="map"></div>
+
+<script>
+
+    var map = L.map('map').setView([49.175573,20.072700], 13);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+marker = new L.marker([49.181313, 20.091969]).addTo(map)
+    .bindPopup("<img style=10%; src={% static 'images/zakopane_image.jpg' %}/>");
+marker1 = new L.marker([49.195236, 20.213089]).addTo(map)
+    .bindPopup("<img style=10%; src={% static 'images/lomnica_image.jpeg' %}/>");
+marker2 = new L.marker([49.266596, 19.833505]).addTo(map)
+    .bindPopup("<img style=10%; src={% static 'images/dolina_chocholowska_image.jpg' %}/>");
+
+    
+</script>
+{% endblock %}

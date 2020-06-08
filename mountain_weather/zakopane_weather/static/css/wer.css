@@ -13,9 +13,17 @@ nav{
     margin-bottom: 2rem;
     height: 6rem;
 }
-td{
-    border-bottom: 1px grey solid;
+table{
+    border-collapse: collapse;
 }
+tr:nth-of-type(even){
+    border-bottom: 1px grey solid;
+    background-color: #f6f6f6;
+}
+tr:nth-of-type(odd){
+    background-color:#ececec;
+}
+
 
 .logo {
     width: 70px;
@@ -545,8 +553,13 @@ text-align: center;
 }
 /*-----------Hourly Weather Forecast------------*/
 
-.place-weatherforecast-hourly{
-    width: 100%;
+.place-weatherforecast-hourly,
+.daily-weather-table-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-content: center;
+    width: 80%;
     margin-top: 3rem;
 }
 .place-weatherforecast-hourly h3,
@@ -571,9 +584,18 @@ text-align: center;
 .hourly-weather-table th, td,
 .daily-weather-table th,td{
     font-size: 1.75rem;
-    padding: 0.75rem 3rem
+    padding: 0.75rem
 }
 .current-content-future-forecast{
     margin-top: 2rem;
 }
 
+/*---------------------Map----------------*/
+
+.leaflet-popup-content-wrapper{
+    width: 450px;
+    width: 450px;
+}
+.leaflet-popup-content-wrapper img{
+    width: 100%;
+}

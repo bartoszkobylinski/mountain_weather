@@ -2,229 +2,129 @@
 <html>
 <head>
 <style> 
-div,
 .div1,
 .div2,
 .div3,
 .div4,
-.div5 {
-  width: 5px;
-  height: 5px;
+.div5,
+.div6,
+.div7,
+.div8{
+  width: 10px;
+  height: 10px;
   background-color: red;
-  position: relative;
+  position: absolute;
   animation-name: example;
-  animation-duration: 20s;
+  animation-duration: 15s;
   display: inline-block;
 }
-.div1{
-    animation-name: example3;
-}
 .div2{
-    animation-name: example1;
+  animation-name: example1;
 }
 .div3{
-    animation-name: example4;
+  animation-name: example2;
 }
 .div4{
-    animation-name: example2;
+  animation-name: example3;
 }
 .div5{
-    animation-name: example5;
+  animation-name: example4;
 }
 .div6{
-    animation-name: example6;
+  animation-name: example5;
 }
 .div7{
-    animation-name: example7;
+  animation-name: example6;
 }
 .div8{
-    animation-name: example8;
-}
-.div9{
-    animation-name: example9;
-}
-.div10{
-    animation-name: example10;
-}
-@keyframes example2 {
-  0%    {background-color:red; left:0px; top:0px;}
-  5%    {background-color: aqua; left:54px; top: 450px;}
-  10%   {background-color: black; left: 480px; top: 142px;}
-  15%   {background-color: chartreuse; left: 86px; top: 732px;}
-  20%   {background-color: chocolate; left: 750; top: 73px;}
-  25%   {background-color:yellow; left:400px; top:55px;}
-  30%   {background-color: darkblue; left: 150px; top: 980px;}
-  35%   {background-color: darkgreen; left: 820px; top: 485px;}
-  40%   {background-color: darkgrey; left: 58px; top: 150px;}
-  45%   {background-color: darkmagenta; left: 260px; top: 245px}
-  50%   {background-color:blue; left:20px; top:230px;}
-  55%   {background-color: darkslategrey; left: 120px; top: 620px;}
-  60%   {background-color: firebrick; left: 470px; top: 340px;}
-  65%   {background-color: ghostwhite; left: 500px; top: 400px;}
-  75%  {background-color:green; left:2px; top:278px;}
-  80% {background-color:red; left:300px; top:300px;}
-}
-
-@keyframes example1 {
-  0%   {background-color:red; left:0px; top:0px;}
-  25%  {background-color:yellow; left:400px; top:0px;}
-  50%  {background-color:blue; left:300px; top:500px;}
-  75%  {background-color:green; left:5px; top:100px;}
-  80% {background-color:red; left:300px; top:300px;}
+  animation-name: example7;
 }
 
 @keyframes example {
   0%   {background-color:red; left:0px; top:0px;}
-  25%  {background-color:yellow; left:200px; top:0px;}
-  50%  {background-color:blue; left:200px; top:200px;}
-  75%  {background-color:green; left:0px; top:200px;}
-  80% {background-color:red; left:300px; top:300px;}
+  5%   {background-color:palevioletred; left:200px; top:0px;}
+  10%  {background-color:blue; left:200px; top:200px;}
+  15%  {background-color:green; left:0px; top:200px;}
+  16%  {background-color:black; transform: translate(400px, 400px);}
+  17%  {background-color:black; left: 400px; top:400px;}
+  30%   {background-color:red; left: 400px; top:400px;}
+  99%  {background-color:black; left: 400px; top:400px;}
   
 }
+
+@keyframes example1 {
+  0%   {background-color:red; left:0px; top:0px;}
+  5%  {background-color:palevioletred; left:400px; top:0px;}
+  10%  {background-color:blue; left:300px; top:500px;}
+  15%  {background-color:green; left:5px; top:100px;}
+  16%  {background-color:black; transform: translate(400px, 410px);}
+  17%  {background-color:black; left: 400px; top:410px;}
+  30%   {background-color:black; left: 400px; top:410px;}
+  99%  {background-color:black; left: 400px; top:410px;}
+}
+
+@keyframes example2 {
+  0%   {background-color:red; left:0px; top:0px;}
+  5%   {background-color:palevioletred; left:70px; top:3px;}
+  10%  {background-color:blue; left:24px; top:300px;}
+  15%  {background-color:green; left:134px; top:175px;}
+  16%  {background-color:black; transform: translate(400px, 420px);}
+  17%  {background-color:black; left: 400px; top:420px;}
+  30%   {background-color:red; left: 400px; top:420px;}
+  99%  {background-color:black; left: 400px; top:420px;}  
+}
 @keyframes example3 {
-  0%    {background-color:red; left:0px; top:0px;}
-  5%    {background-color: aqua; left:54px; top: 450px;}
-  10%   {background-color: black; left: 480px; top: 142px;}
-  15%   {background-color: chartreuse; left: 86px; top: 732px;}
-  20%   {background-color: chocolate; left: 750; top: 73px;}
-  25%   {background-color:yellow; left:400px; top:55px;}
-  30%   {background-color: darkblue; left: 150px; top: 980px;}
-  35%   {background-color: darkgreen; left: 820px; top: 485px;}
-  40%   {background-color: darkgrey; left: 58px; top: 150px;}
-  45%   {background-color: darkmagenta; left: 260px; top: 245px}
-  50%   {background-color:blue; left:20px; top:230px;}
-  55%   {background-color: darkslategrey; left: 120px; top: 620px;}
-  60%   {background-color: firebrick; left: 470px; top: 340px;}
-  65%   {background-color: ghostwhite; left: 500px; top: 400px;}
-  75%  {background-color:green; left:2px; top:278px;}
-  80% {background-color:red; left:300px; top:300px;}
+  0%   {background-color:red; left:0px; top:0px;}
+  5%   {background-color:palevioletred; left:20px; top:568px;}
+  10%  {background-color:blue; left:425px; top:80px;}
+  15%  {background-color:green; left:45px; top:305px;}
+  16%  {background-color:black; transform: translate(410px, 400px);}
+  17%  {background-color:black; left: 410px; top:400px;}
+  30%   {background-color:red; left: 410px; top:400px;}
+  99%  {background-color:black; left: 410px; top:400px;}
 }
 @keyframes example4 {
-  0%    {background-color:red; left:0px; top:0px;}
-  5%    {background-color: aqua; left:54px; top: 450px;}
-  10%   {background-color: black; left: 480px; top: 142px;}
-  15%   {background-color: chartreuse; left: 86px; top: 732px;}
-  20%   {background-color: chocolate; left: 750; top: 73px;}
-  25%   {background-color:yellow; left:400px; top:55px;}
-  30%   {background-color: darkblue; left: 150px; top: 980px;}
-  35%   {background-color: darkgreen; left: 820px; top: 485px;}
-  40%   {background-color: darkgrey; left: 58px; top: 150px;}
-  45%   {background-color: darkmagenta; left: 260px; top: 245px}
-  50%   {background-color:blue; left:20px; top:230px;}
-  55%   {background-color: darkslategrey; left: 120px; top: 620px;}
-  60%   {background-color: firebrick; left: 470px; top: 340px;}
-  65%   {background-color: ghostwhite; left: 500px; top: 400px;}
-  75%  {background-color:green; left:2px; top:278px;}
-  80% {background-color:red; left:300px; top:300px;}
+  0%   {background-color:red; left:500px; top:80px;}
+  5%   {background-color:palevioletred; left:200px; top:250px;}
+  10%  {background-color:blue; left:250px; top:260px;}
+  15%  {background-color:green; left:0px; top:200px;}
+  16%  {background-color:black; transform: translate(420px, 400px);}
+  17%  {background-color:black; left: 420px; top:400px;}
+  30%  {background-color:red; left: 420px; top:400px;}
+  99%  {background-color:black; left: 420px; top:400px;}
 }
 @keyframes example5 {
-  0%    {background-color:red; left:0px; top:0px;}
-  5%    {background-color: aqua; left:54px; top: 450px;}
-  10%   {background-color: black; left: 480px; top: 142px;}
-  15%   {background-color: chartreuse; left: 86px; top: 732px;}
-  20%   {background-color: chocolate; left: 750; top: 73px;}
-  25%   {background-color:yellow; left:400px; top:55px;}
-  30%   {background-color: darkblue; left: 150px; top: 980px;}
-  35%   {background-color: darkgreen; left: 820px; top: 485px;}
-  40%   {background-color: darkgrey; left: 58px; top: 150px;}
-  45%   {background-color: darkmagenta; left: 260px; top: 245px}
-  50%   {background-color:blue; left:20px; top:230px;}
-  55%   {background-color: darkslategrey; left: 120px; top: 620px;}
-  60%   {background-color: firebrick; left: 470px; top: 340px;}
-  65%   {background-color: ghostwhite; left: 500px; top: 400px;}
-  75%  {background-color:green; left:2px; top:278px;}
-  80% {background-color:red; left:300px; top:300px;}
+  0%   {background-color:red; left:840px; top:42px;}
+  5%   {background-color:palevioletred; left:326px; top:382px;}
+  10%  {background-color:blue; left:1456px; top:672px;}
+  15%  {background-color:green; left:398px; top:567px;}
+  16%  {background-color:black; transform: translate(430px, 400px);}
+  17%  {background-color:black; left: 430px; top:400px;}
+  30%   {background-color:red; left: 430px; top:400px;}
+  99%  {background-color:black; left: 430px; top:400px;}
 }
 @keyframes example6 {
-  0%    {background-color:red; left:0px; top:0px;}
-  5%    {background-color: aqua; left:54px; top: 450px;}
-  10%   {background-color: black; left: 480px; top: 142px;}
-  15%   {background-color: chartreuse; left: 86px; top: 732px;}
-  20%   {background-color: chocolate; left: 750; top: 73px;}
-  25%   {background-color:yellow; left:400px; top:55px;}
-  30%   {background-color: darkblue; left: 150px; top: 980px;}
-  35%   {background-color: darkgreen; left: 820px; top: 485px;}
-  40%   {background-color: darkgrey; left: 58px; top: 150px;}
-  45%   {background-color: darkmagenta; left: 260px; top: 245px}
-  50%   {background-color:blue; left:20px; top:230px;}
-  55%   {background-color: darkslategrey; left: 120px; top: 620px;}
-  60%   {background-color: firebrick; left: 470px; top: 340px;}
-  65%   {background-color: ghostwhite; left: 500px; top: 400px;}
-  75%  {background-color:green; left:2px; top:278px;}
-  80% {background-color:red; left:305px; top:300px;}
+  0%   {background-color:red; left:296px; top:84px;}
+  5%   {background-color:palevioletred; left:126px; top:282px;}
+  10%  {background-color:blue; left:325px; top:428px;}
+  15%  {background-color:green; left:35px; top:208px;}
+  16%  {background-color:black; transform: translate(440px, 410px);}
+  17%  {background-color:black; left: 440px; top:410px;}
+  30%   {background-color:red; left: 440px; top:410px;}
+  99%  {background-color:black; left: 440px; top:410px;}
 }
 @keyframes example7 {
-  0%    {background-color:red; left:0px; top:0px;}
-  5%    {background-color: aqua; left:54px; top: 450px;}
-  10%   {background-color: black; left: 480px; top: 142px;}
-  15%   {background-color: chartreuse; left: 86px; top: 732px;}
-  20%   {background-color: chocolate; left: 750; top: 73px;}
-  25%   {background-color:yellow; left:400px; top:55px;}
-  30%   {background-color: darkblue; left: 150px; top: 980px;}
-  35%   {background-color: darkgreen; left: 820px; top: 485px;}
-  40%   {background-color: darkgrey; left: 58px; top: 150px;}
-  45%   {background-color: darkmagenta; left: 260px; top: 245px}
-  50%   {background-color:blue; left:20px; top:230px;}
-  55%   {background-color: darkslategrey; left: 120px; top: 620px;}
-  60%   {background-color: firebrick; left: 470px; top: 340px;}
-  65%   {background-color: ghostwhite; left: 500px; top: 400px;}
-  75%  {background-color:green; left:2px; top:278px;}
-  80% {background-color:red; left:310px; top:300px;}
+  0%   {background-color:red; left:824px; top:32px;}
+  5%   {background-color:palevioletred; left:675px; top:582px;}
+  10%  {background-color:blue; left:42px; top:25px;}
+  15%  {background-color:green; left:325px; top:245px;}
+  16%  {background-color:black; transform: translate(450px, 420px);}
+  17%  {background-color:black; left: 450px; top:420px;}
+  30%   {background-color:red; left: 450px; top:420px;}
+  99%  {background-color:black; left: 450px; top:420px;}
 }
-@keyframes example8 {
-  0%    {background-color:red; left:0px; top:0px;}
-  5%    {background-color: aqua; left:54px; top: 450px;}
-  10%   {background-color: black; left: 480px; top: 142px;}
-  15%   {background-color: chartreuse; left: 86px; top: 732px;}
-  20%   {background-color: chocolate; left: 750; top: 73px;}
-  25%   {background-color:yellow; left:400px; top:55px;}
-  30%   {background-color: darkblue; left: 150px; top: 980px;}
-  35%   {background-color: darkgreen; left: 820px; top: 485px;}
-  40%   {background-color: darkgrey; left: 58px; top: 150px;}
-  45%   {background-color: darkmagenta; left: 260px; top: 245px}
-  50%   {background-color:blue; left:20px; top:230px;}
-  55%   {background-color: darkslategrey; left: 120px; top: 620px;}
-  60%   {background-color: firebrick; left: 470px; top: 340px;}
-  65%   {background-color: ghostwhite; left: 500px; top: 400px;}
-  75%  {background-color:green; left:2px; top:278px;}
-  80% {background-color:red; left:315px; top:300px;}
-}
-@keyframes example9 {
-  0%    {background-color:red; left:0px; top:0px;}
-  5%    {background-color: aqua; left:54px; top: 450px;}
-  10%   {background-color: black; left: 480px; top: 142px;}
-  15%   {background-color: chartreuse; left: 86px; top: 732px;}
-  20%   {background-color: chocolate; left: 750; top: 73px;}
-  25%   {background-color:yellow; left:400px; top:55px;}
-  30%   {background-color: darkblue; left: 150px; top: 980px;}
-  35%   {background-color: darkgreen; left: 820px; top: 485px;}
-  40%   {background-color: darkgrey; left: 58px; top: 150px;}
-  45%   {background-color: darkmagenta; left: 260px; top: 245px}
-  50%   {background-color:blue; left:20px; top:230px;}
-  55%   {background-color: darkslategrey; left: 120px; top: 620px;}
-  60%   {background-color: firebrick; left: 470px; top: 340px;}
-  65%   {background-color: ghostwhite; left: 500px; top: 400px;}
-  75%  {background-color:green; left:2px; top:278px;}
-  80% {background-color:red; left:320px; top:300px;}
-}
-@keyframes example10 {
-  0%    {background-color:red; left:0px; top:0px;}
-  5%    {background-color: aqua; left:54px; top: 450px;}
-  10%   {background-color: black; left: 480px; top: 142px;}
-  15%   {background-color: chartreuse; left: 86px; top: 732px;}
-  20%   {background-color: chocolate; left: 750; top: 73px;}
-  25%   {background-color:yellow; left:400px; top:55px;}
-  30%   {background-color: darkblue; left: 150px; top: 980px;}
-  35%   {background-color: darkgreen; left: 820px; top: 485px;}
-  40%   {background-color: darkgrey; left: 58px; top: 150px;}
-  45%   {background-color: darkmagenta; left: 260px; top: 245px}
-  50%   {background-color:blue; left:20px; top:230px;}
-  55%   {background-color: darkslategrey; left: 120px; top: 620px;}
-  60%   {background-color: firebrick; left: 470px; top: 340px;}
-  65%   {background-color: ghostwhite; left: 500px; top: 400px;}
-  75%  {background-color:green; left:2px; top:278px;}
-  80% {background-color:red; left:325px; top:300px;}
-}
+
+
 </style>
 </head>
 <body>

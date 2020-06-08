@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from zakopane_weather.models import DailyForecast, AvalancheStatus, AreaWeatherForecast, PeakForecast, HourlyForecast
@@ -57,15 +57,12 @@ class CurrentDayView(TemplateView):
         context['DailyForecast'] = DailyForecast.objects.order_by('date')[1:]
 
         return context
-'''
-class BanikovOctaveOfDayView(TemplateView):
-    template_name = 'mountain_base.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(BanikovOctaveOfDayView, self).get_context_data(**kwargs)
-        context['Banikov'] = OctaveOfDay.objects.filter(name_of_peak__name_of_peak='Baníkov').order_by('date')
-        return context
-'''
+class MapView(ListView):
+    template_name = 'map.html'
+    queryset = Post.objects.all()
+
+
 class ZakopaneAreaWeatherForecastView(TemplateView):
     template_name = 'area_base.html'
 

@@ -30,6 +30,7 @@ from zakopane_weather.views import (IndexView,
                                     DailyForecastViewset,
                                     CurrentDayView,
                                     DziekiView,
+                                    MapView
                                     )
 
 
@@ -65,6 +66,7 @@ urlpatterns = [
     path('volovec/', VolovecForecastView.as_view(), name='Volovec'),
     path('vychodna/', VychodnaForecastView.as_view(), name='Vychodna'),
     path('woloszyn/', WoloszynForecastView.as_view(), name='Woloszyn'),  
+    path('map/', MapView.as_view(), name='map'),
     path('dzieki/', DziekiView.as_view(), name='dzieki'),
     path('viewset/', include(router.urls)),
     path('viewset/hourlyforecast/<int:pk>/', include(router.urls)),
