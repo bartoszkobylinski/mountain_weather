@@ -57,7 +57,10 @@ class MyCronJob(CronJobBase):
             hourly_objects = [HourlyForecast(**element) for element in hourly_weather_forecast_from_accuweather]
         except Exception as error:
             print(error)
-        HourlyForecast.objects.bulk_create(hourly_objects)
+        try:
+            HourlyForecast.objects.bulk_create(hourly_objects)
+        except Exception as err:
+            print(f"while cron tried bulkcreate objects en error occured: {err}")
         print("I have finished scraping and uploading hourly weather")
         AvalancheStatus.objects.all().delete()
 
