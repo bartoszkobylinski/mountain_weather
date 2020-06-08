@@ -37,7 +37,10 @@ class MyCronJob(CronJobBase):
             print(f"that is {daily_weather_forecast_from_accuweather}")
         except Exception as err:
             print(f"som as: {err}")
-        daily_objects = [DailyForecast(**element) for element in daily_weather_forecast_from_accuweather]
+        try:
+            daily_objects = [DailyForecast(**element) for element in daily_weather_forecast_from_accuweather]
+        except Exception as err:
+            print(f"while cron trying to unpack objects to daily_objects an error occur: {err}")
         try:
             DailyForecast.objects.bulk_create(daily_objects)
         except Exception as error:
@@ -45,8 +48,11 @@ class MyCronJob(CronJobBase):
         print("I have finished scraping and uploading daily weather")
 
         HourlyForecast.objects.all().delete()
+        try:
+            hourly_weather_forecast_from_accuweather = get_zakopane_hourly_weather()
+        except Exception as err:
+            print(f"while cron trying to get from accu hourly forecast an error occured: {err}")
 
-        hourly_weather_forecast_from_accuweather = get_zakopane_hourly_weather()
         try:
             hourly_objects = [HourlyForecast(**element) for element in hourly_weather_forecast_from_accuweather]
         except Exception as error:
