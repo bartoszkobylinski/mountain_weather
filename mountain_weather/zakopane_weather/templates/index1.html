@@ -9,28 +9,29 @@
                             <div class="place-weatherforecast-today-up__name">
                                 <h3>Zakopane</h3>
                             </div>
-                            <div class="place-weatherforecast-today-up__icon"><i class="fas fa-sun"></i></div>
+                            <div class="place-weatherforecast-today-up__icon">
+                                <i class="fas fa-sun"></i>
+                            </div>
                             <div class="place-weatherforecast-today-up__date">
                                 <h3>{{ FirstDay.date|date:"d F" }}</h3>
                             </div>
                         </div>
                         <div class="place-weatherforecast-today-bottom">
-                            <div class="place-weatherforecast-today-bottom__temp_min"><i class="fas fa-temperature-low"></i>{{ FirstDay.min_temp }}&#8451;</div>
-                            <div class="place-weatherforecast-today-bottom__temp_max"><i class="fas fa-temperature-high"></i>{{ FirstDay.max_temp }}&#8451;</div>
-                            <div class="place-weatherforecast-today-bottom__rain"><i class="fas fa-umbrella"></i> {{FirstDay.probability}} %</div>
-                            <div class="place-weatherforecast-today-bottom__wind"><i class="fas fa-wind"></i>{{FirstDay.wind_speed}} km/h</div>
+                            <div class="place-weatherforecast-today-bottom__temp_min"><i class="fas fa-temperature-low"></i><br>{{ FirstDay.min_temp }}&#8451;</div>
+                            <div class="place-weatherforecast-today-bottom__temp_max"><i class="fas fa-temperature-high"></i><br>{{ FirstDay.max_temp }}&#8451;</div>
+                            <div class="place-weatherforecast-today-bottom__rain"><i class="fas fa-umbrella"></i><br>{{FirstDay.probability}}%</div>
+                            <div class="place-weatherforecast-today-bottom__wind"><i class="fas fa-wind"></i><br>{{FirstDay.wind_speed}}km/h</div>
                         </div>
                     </div>
                     <div class="place-weatherforecast-today-button">
                         <a href="{% url 'detail-day' %}">
-                            <button>szczegóły</button>
+                            <button>details</button>
                         </a>
                     </div>
                 </div>
-
             </div>
             <div class="glider-contain multiple">
-                <h3>Zdjęcia aktualnych warunków w górach</h3>
+                <h3>Pictures of current conditions in the mountains</h3>
                 <button class="glider-prev">
                     <i class="fa fa-chevron-left"></i>
                 </button>
@@ -44,7 +45,8 @@
                 <button class="glider-next">
                     <i class="fa fa-chevron-right"></i>
                 </button>
-           <div class="avalanche-wrapper">
+            </div>
+            <div class="avalanche-wrapper">
                 <div class="avalanche-title">
                     <h3>avalanche status</h3>
                 </div>
@@ -84,9 +86,9 @@
                         </div>
                     </div>
                     <div class="avalanche-info_right">
-                        <h4>To dane poglądowe.<br>Aktualne warunki zweryfikuj na stronie topr</h4>
+                        <h4>This is an overview. <br> Verify the current avalanche status on the TOPR page</h4>
                         <a href="http://lawiny.topr.pl/">
-                            <button>szczegóły</button>
+                            <button>details</button>
                         </a>
                     </div>
                     {% endfor %}
@@ -94,18 +96,18 @@
             </div>
             <div class="content-bottom-tables">
                 <div class="content-bottom-tables_info">
-                    <h3>warunki atmosferyczne dla poszczególnych lokalizacji</h3>
+                    <h3>Weather forecast for specific areas</h3>
                 </div>
                 <div class="content-bottom-tables_tables">
                     
                     <div class="tpn-weatherforecast"> 
                         <table>
                             <thead>
-                                <th class="tpn-td">Miejsce</th>
-                                <th class="tpn-td">temp min</th>
-                                <th class="tpn-td">temp max</th>
-                                <th class="tpn-td">ciśnienie</th>
-                                <th>opady</th>
+                                <th class="tpn-td">place</th>
+                                <th class="tpn-td">low</th>
+                                <th class="tpn-td">high</th>
+                                <th class="tpn-td">pressure</th>
+                                <th>rain</th>
                                 <th> </th>
                             </thead>
                             <tbody>
@@ -118,7 +120,7 @@
                                     <td class="tpn-td">{{ area.rain }} mm</td>
                                     <td>
                                         <a href="{% url area.name %}">
-                                            <button class="table-button">szczegóły</button>
+                                            <button class="table-button">details</button>
                                         </a>
                                     </td>
                                 </tr>
@@ -128,17 +130,17 @@
                     </div>
                     <div class="peaks-weatherforecast">
                         <div class="peaks-weatherforecast-info">
-                            <h3>Progonoza pogody dla poszczególnych szczytów</h3>
+                            <h3>Weather forecast for specific peaks</h3>
                         </div>
                         <div class="peak-weatherforecast">
                             <table>
                                 <thead>
-                                    <th>Szczyt</th>
-                                    <th>temperatura odczuwalna</th>
-                                    <th>prędkość wiatru</th>
-                                    <th>opady deszczu</th>
-                                    <th>opady śniegu</th>
-                                    <th>opis</th>
+                                    <th>peak</th>
+                                    <th>real feel temp</th>
+                                    <th>windspeed</th>
+                                    <th>rain</th>
+                                    <th>snow</th>
+                                    <th>summary</th>
                                     <th> </th>
                                 </thead>
                                 <tbody>
@@ -152,7 +154,7 @@
                                         <td>{{ peak.summary }}</td>
                                         <td>
                                             <a href="{% url peak.name_of_peak %}">
-                                                <button class="table-button">szczegóły</button>
+                                                <button class="table-button">details</button>
                                             </a>
                                         </td>
                                     </tr>

@@ -1,16 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <form action="" method="post" enctype="multipart/form-data">
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <form class="add-photo-form" action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-        {{form.as_p}}
-        <input type="submit" value="Post It!">
+        {% for field in form %}
+            <p>{{ field.label_tag}}</p>
+            <p>{{ field }}</p>
+            {% if form.errors %}
+                {% for error in form.errors %}
+                <li><strong>{{ error }}</strong></li>
+                {% endfor %}
+                {% endif %}
+        {% endfor %}
+        <input class="register-button" type="submit" value="Post It!">
     </form>
-   
-</body>
-</html>
+ 
+{% endblock %}

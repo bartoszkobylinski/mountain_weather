@@ -2,17 +2,21 @@ body{
     margin: 0;
     padding: 0;
     font-family: 'Lato', sans-serif;
-    color: #16516d;
-    background-color: #f7faf9;
+    color: #555;
+    /*background-color: #f7faf9;*/
+    background-color: #F1F1F1;
 }
-nav{
+@media screen and (min-width: 1120px){
+   nav{
     display: flex;
     justify-content: space-around;
     align-items: center;
     padding: 1rem;
     margin-bottom: 2rem;
     height: 6rem;
-}
+} 
+
+
 table{
     border-collapse: collapse;
 }
@@ -598,4 +602,587 @@ text-align: center;
 }
 .leaflet-popup-content-wrapper img{
     width: 100%;
+}
+}
+/* @media screen and (max-width: 320px){*/
+    main{
+        display: flex;
+        flex-direction: column;
+    }
+    footer{
+        margin: 5rem 0rem 0rem 1rem;
+    }
+    footer small{
+        text-transform: uppercase;
+    }
+
+
+/*--------------navigation--------------*/
+    nav {
+        display: flex;
+        flex-direction: column;
+    }
+    .main-nav_user{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        order: 1;
+
+    }
+    .main-nav_user a{
+        padding: 0.5rem 0rem;
+        color: #333;
+        border-radius: 15px;
+        width: 60%;
+        text-decoration: none;
+        border: 1px solid #4E6969;
+        background-color: #BFC2C5;
+        opacity: 0.7;
+        text-align: center;
+        margin: 0.5rem;
+    }
+    .main-nav_user #logout{
+        text-align: center;
+    }
+    .main-nav_user a:hover{
+        color: #BFC2C5;
+        background-color: #4E6969;
+    }
+    .logo{
+        text-align: center;
+        order: 2;
+    }
+    .logo img{
+        margin: 0.5rem;
+        width: 50%;
+    }
+    .main-nav_info{
+        order: 3;
+        text-align: center;
+    }
+    .main-nav_info h3{
+        padding: 2rem 2rem;
+        margin: 0;
+        text-transform: uppercase;
+        font-size: 1.5rem;
+        letter-spacing: 0.2rem;
+        font-weight: 500;
+    }
+/*-----------index-daily-weather-------------*/
+.place-weatherforecast-wrapper{
+    margin: 1rem;
+}
+
+.place-weatherforecast{
+    margin: 0.5rem;
+}
+.place-weatherforecast-today{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+.place-weatherforecast-today-up{
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    padding: 1.5rem 0rem;
+}
+.place-weatherforecast-today-up__icon{
+    display: flex;
+    align-items: center;
+    color:#febc09;
+    font-size: 3rem;
+}
+.place-weatherforecast-today-bottom{
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.25rem;
+    text-align: center;
+    padding: 1rem 0rem;
+}
+.place-weatherforecast-today-bottom__temp_min,
+.place-weatherforecast-today-bottom__temp_max,
+.place-weatherforecast-today-bottom__rain,
+.place-weatherforecast-today-bottom__wind{
+    margin: 0rem 1rem;
+}
+.fa-temperature-low,
+.fa-umbrella{
+    color: #276DC2;
+}
+.fa-wind{
+    color: #22E3ED;
+}
+
+.fa-temperature-high,
+.fa-thermometer-three-quarters{
+    color: #EF3029;
+}
+.place-weatherforecast-today-button{
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+.place-weatherforecast-today-button button{
+        padding: 0.5rem 0rem;
+        color: #333;
+        border-radius: 15px;
+        width: 10rem;
+        text-decoration: none;
+        border: 1px solid #4E6969;
+        background-color: #BFC2C5;
+        opacity: 0.7;
+        text-align: center;
+        margin: 0.5rem;
+        margin-bottom: 2rem;
+    }
+.place-weatherforecast-today-button button:hover{
+        color: #BFC2C5;
+        background-color: #4E6969;
+    
+}
+
+/*--------------index - image glider----------------*/
+
+.glider-contain{
+    margin: 1rem;
+}
+.glider-contain h3,
+.avalanche-title h3,
+.avalanche-info__level h4{
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    font-weight: 500;
+    text-align: center;
+}
+/*-------------index - avalanche status-------------*/
+.avalanche-wrapper{
+    margin: 1rem;
+}
+.avalanche-title h3{
+    font-weight: 700;
+}
+.avalanche-info__level h4{
+    font-size: 1rem;
+}
+.avalanche-info__description{
+    padding: 1rem 0rem;
+}
+.avalanche-info__description h4{
+    margin: 0;
+    padding: 0rem 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+}
+.warnings-time{
+    display: flex;
+    justify-content: space-around;
+}
+.warnings-time__published h4,
+.warnings-time__until h4{
+    font-size: 0.5rem;
+    font-weight: 500;
+    text-align: center;
+    margin: 0;
+}
+.avalanche-info_right{
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    color:  #EF3029;
+
+}
+.avalanche-info_right button{
+    padding: 0.5rem 0rem;
+    color: #333;
+    border-radius: 15px;
+    width: 10rem;
+    text-decoration: none;
+    border: 1px solid #4E6969;
+    background-color: #BFC2C5;
+    opacity: 0.7;
+    text-align: center;
+    margin: 0.5rem;
+    margin-bottom: 2rem;
+}
+.avalanche-info_right button:hover{
+    color: #BFC2C5;
+    background-color: #4E6969;
+
+}
+/*-----------index - tables bottom ---------*/
+.content-bottom-tables{
+    margin: 1rem;
+}
+.content-bottom-tables_info h3,
+.peaks-weatherforecast-info h3{
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    font-weight: 500;
+    text-align: center;
+}
+.tpn-weatherforecast table th,td
+.peak-weatherforecast table th,td{
+    font-size: 0.8rem;
+    text-align: center;
+}
+.tpn-weatherforecast table th,
+.peak-weatherforecast table th{
+    text-transform: uppercase;
+}
+.tpn-weatherforecast button,
+.peak-weatherforecast button{
+    color: #333;
+    border-radius: 15px;
+    width: 4rem;
+    text-decoration: none;
+    border: 1px solid #4E6969;
+    background-color: #BFC2C5;
+    opacity: 0.7;
+    text-align: center;
+}
+.peak-weatherforecast button:hover,
+.tpn-weatherforecast button:hover{
+    color: #BFC2C5;
+    background-color: #4E6969;
+}
+/*--------------register base --------------*/
+.register-login-main{
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+}
+.register-login-nav{
+    display: flex;
+    flex-direction: column;
+}
+.register-login-nav_logo{
+    text-align: center;
+}
+.register-login-nav_logo img{
+    width: 50%;
+}
+.register-login-nav_info h3{
+    padding: 2rem 2rem;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.registration-picture{
+    width: 100%;
+}
+.registration-picture img{
+    width: 100%;
+} 
+
+/*--------register and login page--------------*/
+
+.registration-form,
+.login-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.registration-form h3,
+.login-form h3{
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3rem;
+    padding: 0.5rem;
+    margin: 0;
+}
+.login-form h3{
+    margin-top: 1rem;
+}
+.registration-form form,
+.login-form form{
+    justify-content: center;
+}
+#id_username,
+#id_email,
+#id_password1,
+#id_password2,
+#id_password{
+    border: none;
+    border-bottom: 1px solid #4E6969;
+    background-color: #F1F1F1;
+    font-size: 0.8rem;
+    width: 10rem;
+    margin-bottom: 1rem;
+}
+.registration-form p label,
+.login-form p label{
+    text-transform: uppercase;
+    font-size: 1rem;
+}
+.register-button{
+    color: #333;
+    border-radius: 15px;
+    width: 10rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 1px solid #4E6969;
+    background-color: #BFC2C5;
+    opacity: 0.7;
+    text-align: center;
+
+}
+.register-button:hover{
+    color: #BFC2C5;
+    background-color: #4E6969;
+}
+.registration-form small,
+.login-form small {
+    padding-top: 1rem;
+    margin-bottom: 3rem;
+}
+/*--------------------profile page---------------------*/
+.user-info_information{
+    margin-top: 3rem;
+    padding-left: 2rem;
+}
+.user-info_picture{
+    width: 25%;
+}
+.user-info_picture img{
+    width: 90%;
+}
+.user-content-img-wrapper{
+    width: 90%;
+    padding: 1rem;
+}
+.user-content-img-wrapper img{
+    width: 100%;
+}
+.user-info_add-img{
+    padding-left: 2rem;
+}
+.user-info_add-img button{
+
+    color: #333;
+    border-radius: 15px;
+    width: 10rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 1px solid #4E6969;
+    background-color: #BFC2C5;
+    opacity: 0.7;
+    text-align: center;    
+    
+    }
+.user-info_add-img button:hover{
+    color: #BFC2C5;
+    background-color: #4E6969;
+}
+/*---------------current-day detail--------------*/
+.place-weatherforecast-hourly,
+.daily-weather-table{
+    margin: 2rem;
+}
+
+.place-weatherforecast-hourly h3,
+.current-content-future-forecast-header h3{
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    font-weight: 500;
+    text-align: center;
+}
+.place-weatherforecast-hourly-table table th, td,
+.daily-weather-table table th, td{
+    font-size: 0.75rem;
+    text-align: center;
+    padding: 1rem 0rem;
+}
+
+.place-weatherforecast-hourly-table table th,
+.daily-weather-table th{
+    text-transform: uppercase;
+}
+/*-----------------area base --------------------*/
+.area-detail-forecast-content{
+    display: flex;
+    flex-direction: column;
+    margin-top: 4rem;
+}
+.area-detail-forecast-content-bottom{
+    display: flex;
+    flex-direction: column;
+}
+.area-detail-forecast-content-bottom-image{
+    width: 100%;
+}
+.area-detail-forecast-content-bottom-image img{
+    width: 100%;
+}
+.area-detail-forecast-content-info h3{
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    font-weight: 500;
+    text-align: center;
+}
+.area-detail-forecast-content-bottom-table{
+    margin: 0.5rem;
+}
+
+.area-detail-forecast-content-bottom-table th{
+    text-transform: uppercase;
+}
+.area-detail-forecast-content-bottom-links-header h3{
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 0.2rem;
+}
+.area-detail-forecast-content-bottom-links{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 1rem;
+}
+.area-detail-forecast-content-bottom-links button{
+    color: #333;
+    border-radius: 15px;
+    width: 12rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 1px solid #4E6969;
+    background-color: #BFC2C5;
+    opacity: 0.7;
+    margin: 0.5rem;
+    text-align: center;  
+}
+.area-detail-forecast-content-bottom-links button:hover{
+    color: #BFC2C5;
+    background-color: #4E6969;
+}
+/*--------------mountain-weather----------------*/
+.content-wrapper{
+    display: flex;
+    flex-direction: column;
+    margin-top: 4rem;
+}
+.content-table{
+    margin: 1rem;
+}
+.content-info h3{
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 0.2rem;
+    margin-bottom: 2rem;
+    padding-left: 2rem;
+}
+.peak-detailed-weatherforecast-table th{
+    text-transform: uppercase;
+}
+/*----------------Add photo ---------------------*/
+.add-photo-form{
+    margin: 5rem 0rem 0rem 2rem;
+}
+
+#id_title{
+    border: none;
+    border-bottom: 1px solid #4E6969;
+    background-color: #F1F1F1;
+    font-size: 0.8rem;
+    width: 10rem;
+    margin-bottom: 1rem;
+}
+.add-photo-form p label{
+    text-transform: uppercase;
+    font-size: 1rem;
+}
+#id_image{
+    background-color: #BFC2C5;
+    opacity: 0.7;
+}
+/*---------------Post detail-------------------------*/
+.post-detail{
+    margin: 2rem;
+}
+.post-detail_image{
+    width: 100%;
+}
+.post-detail_image img{
+    width: 100%;
+}
+.post-detail button{
+    color: #333;
+    border-radius: 15px;
+    width: 12rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 1px solid #4E6969;
+    background-color: #BFC2C5;
+    opacity: 0.7;
+    margin: 0.5rem;
+    text-align: center;  
+}
+.post-detail button:hover{
+    color: #BFC2C5;
+    background-color: #4E6969;
+}
+
+@media screen and (min-width:360px){
+
+.content-wrapper{
+    margin-top: 0;
+}
+/*------------------register and login page---------------*/
+
+.registration-form h3,
+.login-form h3{
+    font-size: 2rem;
+    margin-top: 2rem;
+}
+
+#id_username,
+#id_email,
+#id_password1,
+#id_password2,
+#id_password{
+    width: 15rem;
+}
+
+.registration-form p label,
+.login-form p label{
+    font-size: 1.5rem;
+}
+.register-button{
+    width: 15rem;
+    padding: 0.6rem;
+}
+/*---------------------user profile----------------------------*/
+.user-info_add-img button {
+    padding: 0.5rem;
+}
+/*---------------------------post detial-----------------------*/
+.post-detail button {
+    padding: 0.5rem;
+}
+
+/*--------------------------detail weather---------------------*/
+.area-detail-forecast-content-bottom-table th, td{
+    font-size: 0.85rem;
+}
+}
+@media screen and (min-width:568px) {
+
+    .place-weatherforecast-today-bottom,
+    .place-weatherforecast-today-up {
+        font-size: 2rem;
+    }  
+/*------------------register and login page---------------*/
+    .tpn-weatherforecast th,td{
+        font-size: 1.25rem;
+    }
+    .place-weatherforecast-hourly-table th,td{
+        font-size: 1.5rem;
+    }
 }

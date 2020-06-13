@@ -29,7 +29,6 @@ from zakopane_weather.views import (IndexView,
                                     HourlyForecastViewset, 
                                     DailyForecastViewset,
                                     CurrentDayView,
-                                    DziekiView,
                                     MapView
                                     )
 
@@ -37,7 +36,6 @@ from zakopane_weather.views import (IndexView,
 router = routers.DefaultRouter()
 router.register('hourlyforecast', HourlyForecastViewset)
 router.register('dailyforecast', DailyForecastViewset)
-#router.register('octaveofday', OctaveOfDayViewset)
 
 urlpatterns = [
     path('', IndexView.as_view(template_name="index1.html"), name='index'),
@@ -67,12 +65,7 @@ urlpatterns = [
     path('vychodna/', VychodnaForecastView.as_view(), name='Vychodna'),
     path('woloszyn/', WoloszynForecastView.as_view(), name='Woloszyn'),  
     path('map/', MapView.as_view(), name='map'),
-    path('dzieki/', DziekiView.as_view(), name='dzieki'),
     path('viewset/', include(router.urls)),
     path('viewset/hourlyforecast/<int:pk>/', include(router.urls)),
     
 ]
-
-'''
-  
-'''

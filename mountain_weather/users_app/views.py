@@ -39,12 +39,6 @@ class CreatePost(CreateView):
         
         return super().form_valid(form)
 
-###############################################
-class PostListView(ListView):
-    queryset = Post.objects.all()
-    template_name = 'accounts/profile.html'
-################################################
-
 class UserProfileView(ListView):
     template_name = 'accounts/profile.html'
 

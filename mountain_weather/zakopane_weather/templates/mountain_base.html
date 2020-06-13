@@ -4,18 +4,18 @@
 
     <div class="content-wrapper">
         <div class="content-info">
-            <h3>Szczegolowa analiza warunkow atmosferycznych dla {{Banikov.name_of_peak}}</h3>
+            <h3>Detailed weather forecast for {{Peak.name_of_peak}}</h3>
         </div>
         <div class="content-table">
             <table class="peak-detailed-weatherforecast-table">
             <thead>
-                <th>data</th>
-                <th>temperatura</th>
-                <th>temperatura odczuwalna</th>
-                <th>predkosc wiatru</th>
-                <th>opady deszczu</th>
-                <th>opady sniegu</th>
-                <th>podsumowanie</th>
+                <th>date</th>
+                <th>temp</th>
+                <th>real feel temp</th>
+                <th>wind</th>
+                <th>rain</th>
+                <th>snow</th>
+                <th>summary</th>
             </thead>
             <tbody>
                 {% for x in Peak %}

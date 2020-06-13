@@ -1,18 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    333333333333333333333333
-    {{ object.title}}
-    <p>That is your image</p>
-    <div class="image" style="width: 500px;">
-    <img style="width: 100%" src="{{object.image.url}}" alt="">
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="post-detail">
+
+
+    <p>That is your post.</p>
+
+
+    <div class="post-detail_image">
+    <img src="{{object.image.url}}" alt="Image posted by user">
     </div>
     
-    <a href="{% url 'posts-list' %}"> Go to posts list</a>
-</body>
-</html>
+    <a href="{% url 'posts-list' %}"><button>Go to posts list</button></a>
+
+</div>
+    {% endblock %}

@@ -4,7 +4,7 @@
 
     <div class="area-detail-forecast-content">
         <div class="area-detail-forecast-content-info">
-            <h3>Szczegółowa prognoza warunków atmosferycznych dla  {{Place.name}}</h3>
+            <h3>Detailed weather forecast for {{Place.name}}</h3>
         </div>
         <div class="area-detail-forecast-content-bottom">
             <div class="area-detail-forecast-content-bottom-image">
@@ -27,13 +27,13 @@
             <div class="area-detail-forecast-content-bottom-table">
                 <table class="area-detail-forecast-content-table">
                     <thead>
-                        <th>data</th>
+                        <th>date</th>
                         <th> </th>
-                        <th>opis</th>
-                        <th>temp min</th>
-                        <th>temp max</th>
-                        <th>ciśnienie</th>
-                        <th>opady deszczu</th>
+                        <th>summary</th>
+                        <th>low</th>
+                        <th>high</th>
+                        <th>pressure</th>
+                        <th>rain</th>
                     </thead>
                     <tbody>
                         {% for x in Area %}
@@ -63,8 +63,8 @@
         </div>
             
             <div class="area-detail-forecast-content-bottom-links-wrapper">
-                <div class="area-detail-forecast-contern-bottom-links-header">
-                    <h3>Zobacz również</h3>
+                <div class="area-detail-forecast-content-bottom-links-header">
+                    <h3>Check also</h3>
                 </div>
                 <div class="area-detail-forecast-content-bottom-links">
                     {% for place in Places %}

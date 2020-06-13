@@ -26,24 +26,6 @@ class IndexView(TemplateView):
         context['Peaks'] = PeakForecast.objects.filter(date=datetime(2020,6,5,5,00))
         context['Areas'] = AreaWeatherForecast.objects.filter(date=datetime(2020,6,7))
         
-        '''
-        try:
-            context['First'] = OctaveOfDay.objects.filter(name_of_peak__name_of_peak='Volovec').order_by('date')
-            context['Second'] = OctaveOfDay.objects.filter(name_of_peak__name_of_peak='Volovec').filter(date__range=(today,tommorow)).order_by('date')
-            print(context['Second'])
-            #print(context['First'])
-        except Exception as err:
-            print(f"That is error")
-
-        context.update(
-            HourlyForecast=HourlyForecast.objects.all(),
-            FirstDay=DailyForecast.objects.order_by('date').first(),
-            DailyForecast=DailyForecast.objects.order_by('date')[1:],
-            OctaveOfDay=OctaveOfDay.objects.all().order_by('name_of_peak', 'date'),
-            First=OctaveOfDay.objects.all(),
-            Avalanche=AvalancheStatus.objects.all(),
-            )
-        '''
         return context
 
 class CurrentDayView(TemplateView):
@@ -270,8 +252,6 @@ class WoloszynForecastView(TemplateView):
         context['Peak'] = PeakForecast.objects.filter(name_of_peak='Woloszyn').order_by('date')
         return context
 
-class DziekiView(TemplateView):
-    template_name = 'dzieki.html'
 
 class HourlyForecastViewset(viewsets.ModelViewSet):
     queryset = models.HourlyForecast.objects.all()

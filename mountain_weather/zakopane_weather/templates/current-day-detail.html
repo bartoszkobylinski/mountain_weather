@@ -24,23 +24,23 @@
         </div>    
     </div>
     <div class="place-weatherforecast-hourly">
-        <h3>prognoza pogody dla Zakopane na najbliższe 12h</h3>
+        <h3>Weather Forecsat for Zakopane for next 11 hours</h3>
         <div class="place-weatherforecast-hourly-table">
             <table class="hourly-weather-table">
                 <thead>
-                    <th>Czas</th>
-                    <th>Temperatura</th>
-                    <th>Temperatura odczuwalna</th>
-                    <th>Prędkość wiatru</th>
-                    <th>Prawdopodobieństwo opadów</th>
-                    <th>Stan zachmurzenia</th>
+                    <th>Time</th>
+                    <th>temp</th>
+                    <th>reel temp</th>
+                    <th>wind</th>
+                    <th>rain</th>
+                    <th>cloud cover</th>
                 </thead>
                 <tbody>
                     {% for data in HourlyForecast %}
                     <tr>
                         <td>{{ data.date_time|date:"H" }}:00</td>
                         <td><i class="fas fa-thermometer-three-quarters"></i>{{ data.temp }}&#8451;</td>
-                        <td><i class="fas fa-thermometer"></i>  {{ data.real_feel_temp }}&#8451;</td>
+                        <td>{{ data.real_feel_temp }}&#8451;</td>
                         <td><i class="fas fa-wind"></i>  {{ data.wind_speed }} km/h</td>
                         <td><i class="fas fa-umbrella"></i>  {{ data.rain_probability }} %</td>
                         <td><i class="fas fa-cloud"></i>  {{ data.cloud_cover }} %</td>
@@ -53,16 +53,16 @@
     </div> 
     <div class="current-content-future-forecast">
         <div class="current-content-future-forecast-header">
-            <h3>Prognoza pogody na najbliższe 4 dni</h3>
+            <h3>Weather forecast for the next 4 days</h3>
         </div>
         <div class="daily-weather-table-wrapper">
             <table class="daily-weather-table">
             <thead>
-                <th>Data</th>
-                <th>Temperatura minimalna</th>
-                <th>Temperatura maksymalna</th>
-                <th>Prędkość wiatru</th>
-                <th>Prawdopodobieństwo opadów</th>
+                <th>date</th>
+                <th>low</th>
+                <th>high</th>
+                <th>wind</th>
+                <th>rain</th>
             </thead>
             <tbody>
                 {% for day in DailyForecast %}

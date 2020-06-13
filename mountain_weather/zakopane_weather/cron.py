@@ -62,9 +62,11 @@ class MyCronJob(CronJobBase):
         except Exception as err:
             print(f"while cron tried bulkcreate objects en error occured: {err}")
         print("I have finished scraping and uploading hourly weather")
-        AvalancheStatus.objects.all().delete()
-
-        avalanche_status = get_avalanche_status()
+        #AvalancheStatus.objects.all().delete()
+        try:
+            avalanche_status = get_avalanche_status()
+        except Exception as err:
+            print(f"while trying get avalanche status from avalanche scraper an error occur: {err}")
         try:
             avalanche = AvalancheStatus(**avalanche_status)
         except Exception as error:
@@ -74,10 +76,10 @@ class MyCronJob(CronJobBase):
         except Exception as error:
             print(f"Occured error while saving {error}")
         print("I have finished scraping and uploadnig avalanche warning")
-        
-        for forecast in get_pekas_detailed_weather():
-            for peak in forecast:
-                peak_weatherforecast = PeakForecast(
+        try:
+            for forecast in get_pekas_detailed_weather():
+                for peak in forecast:
+                    peak_weatherforecast = PeakForecast(
                                                 name_of_peak=peak['name_of_peak'],
                                                 elevation=peak['elevation'],
                                                 date=peak['date'],
@@ -88,33 +90,10 @@ class MyCronJob(CronJobBase):
                                                 temperature=peak['temperature'],
                                                 chill_temperature=peak['chill_temperature']
                                                 )
-                print(peak_weatherforecast)
-                peak_weatherforecast.save()
-            '''
-            for forecast in peak:
-                try:
-                    name = Mountain.objects.get(name_of_peak = forecast['name_of_peak'])   
-                except Exception as error:
-                    print("I tried assign name to mountain object but some error occured: " + str(error))
-                try:
-                    print(f"I have printed a datetime:{forecast['date']}")
-                    a = OctaveOfDay(
-                        name_of_peak=name,
-                        date=forecast['date'],
-                        windspeed=forecast['windspeed'],
-                        summary=forecast['summary'],
-                        rain=forecast['rain'],
-                        snow=forecast['snow'],
-                        temperature=forecast['temperature'],
-                        chill_temperature=forecast['chill_temperature'])
-                except Exception as error:
-                    print("I tried assign a to Octave of a day but some error occured: " + str(error))
-                try:
-                    a.save()
-                    print("I have saved data")
-                except Exception as error:
-                    logging.warning("Error ocured: " + str(error))
-            '''
+                    print(peak_weatherforecast)
+                    peak_weatherforecast.save()
+        except Exception as err:
+            print(f"While scraper try get peaks data en error ocurred: {err}")
         print("I have finised scraping octave of day and uploading to database")
         AreaWeatherForecast.objects.all().delete()
         tatras_areas_weather_forecast = get_tatras_areas_weather_forecast()
