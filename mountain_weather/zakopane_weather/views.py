@@ -1,5 +1,6 @@
-from datetime import datetime
+import datetime
 
+from datetime import date
 from django.views.generic import TemplateView, ListView
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
@@ -16,15 +17,18 @@ class IndexView(TemplateView):
     template_name = 'index1.html'
 
     def get_context_data(self, **kwargs):
-        today = datetime(2020,4,2,0,0)
-        tommorow = datetime(2020,4,3,0,0)
+        #today = date.today()
+        today = date.today().strftime("%Y-%m-%d").replace(" 0", "")
+        morning = datetime.time(5,0)
+        now = datetime.datetime.combine(date.today(),morning)
+        print(now)
 
         context = super(IndexView, self).get_context_data(**kwargs)
         context['FirstDay'] = DailyForecast.objects.order_by('date').first()
         context['Post'] = Post.objects.all().order_by('-date')
         context['Avalanche'] = AvalancheStatus.objects.all()
-        context['Peaks'] = PeakForecast.objects.filter(date=datetime(2020,6,5,5,00))
-        context['Areas'] = AreaWeatherForecast.objects.filter(date=datetime(2020,6,7))
+        context['Peaks'] = PeakForecast.objects.filter(date=now)
+        context['Areas'] = AreaWeatherForecast.objects.filter(date=today)
         
         return context
 
