@@ -25,21 +25,13 @@
                 {% endif %}
             </div>
             <div class="area-detail-forecast-content-bottom-table">
-                <table class="area-detail-forecast-content-table">
-                    <thead>
-                        <th>date</th>
-                        <th> </th>
-                        <th>summary</th>
-                        <th>low</th>
-                        <th>high</th>
-                        <th>pressure</th>
-                        <th>rain</th>
-                    </thead>
-                    <tbody>
-                        {% for x in Area %}
-                            <tr class="tr-upper">
-                                <td class="area-table-date">{{ x.date|date:"d M" }}</td>
-                                <td>
+                {% for x in Area %}
+                <div class="area-detail-day">
+                    <div class="area-detail-day_up">
+                        <div class="area-detail-day_up-date">
+                            {{ x.date|date:"d M" }}
+                        </div>
+                        <div class="area-detail-day_up-icon">
                                     {% if x.icon_number == 1 %}
                                     <i class="fas fa-poo-storm"></i>
                                     {% elif x.icon_number == 2 %}
@@ -49,20 +41,32 @@
                                     {% else %}
                                     <i class="fas fa-sun"></i>
                                     {% endif %}
-                                </td>
-                                <td class="td-summary">{{ x.summary }}</td>
-                                <td>{{ x.temp_min }}&#8451;</td>
-                                <td>{{ x.temp_max }}&#8451;</td>
-                                <td>{{ x.pressure }} hPa</td>
-                                <td>{{ x.rain }} mm/12h</td>
-                            </tr>   
-                        {% endfor %}
-                    </tbody>
-                </table>
+                        </div>
+                    </div>
+                    <div class="area-detail-day_bottom">
+                        <div class="area-detail-day_bottom-temp-min">
+                            <i class="fas fa-temperature-low"></i>{{ x.temp_min }}&#8451;
+                        </div>
+                        <div class="area-detail-day_bottom-temp-max">
+                            <i class="fas fa-temperature-high"></i>{{ x.temp_max }}&#8451;
+                        </div>
+                        <div class="area-detail-day_bottom-pressure">
+                            {{ x.pressure }} hPa
+                        </div>
+                        <div class="area-detail-day_bottom-rain">
+                            <i class="fas fa-umbrella"></i>{{ x.rain }} mm/12h
+                        </div>
+                    </div>
+                    <div class="area-detail-day_summary">
+                        {{ x.summary }}
+                    </div>
+                </div>
+                {% endfor %}
+               
             </div>
         </div>
             
-            <div class="area-detail-forecast-content-bottom-links-wrapper">
+        <div class="area-detail-forecast-content-bottom-links-wrapper">
                 <div class="area-detail-forecast-content-bottom-links-header">
                     <h3>Check also</h3>
                 </div>
@@ -77,7 +81,7 @@
                     {% endfor %}
                 </div>
                     
-            </div>
+        </div>
         
     </div>
 {% endblock %}

@@ -17,11 +17,9 @@ class IndexView(TemplateView):
     template_name = 'index1.html'
 
     def get_context_data(self, **kwargs):
-        #today = date.today()
         today = date.today().strftime("%Y-%m-%d").replace(" 0", "")
         morning = datetime.time(5,0)
         now = datetime.datetime.combine(date.today(),morning)
-        print(now)
 
         context = super(IndexView, self).get_context_data(**kwargs)
         context['FirstDay'] = DailyForecast.objects.order_by('date').first()

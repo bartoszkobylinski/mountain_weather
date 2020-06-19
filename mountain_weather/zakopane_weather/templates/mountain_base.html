@@ -21,11 +21,11 @@
                 {% for x in Peak %}
                 <tr>
                     <td>{{ x.date|date:"d M H:i" }}</td>
-                    <td>{{ x.temperature }}</td>
-                    <td>{{ x.chill_temperature }}</td>
-                    <td>{{ x.windspeed }}</td>
-                    <td>{{ x.rain }}</td>
-                    <td>{{ x.snow }}</td>
+                    <td>{{ x.temperature }}&#8451;</td>
+                    <td>{{ x.chill_temperature }}&#8451;</td>
+                    <td>{{ x.windspeed }}km/h</td>
+                    <td>{{ x.rain }}mm</td>
+                    <td>{{ x.snow }}mm</td>
                     <td>{{ x.summary }}</td>
                 </tr>
                 {% endfor %}
@@ -33,4 +33,4 @@
         </table>
         </div>
     </div>
-{% endblock %}
+{% endblock %}potter pris 
