@@ -5,6 +5,7 @@ Module to scrape weatherforecast for peaks
 from urllib.parse import urljoin
 from datetime import datetime, timedelta
 import logging
+import os
 import time
 
 from selenium import webdriver
@@ -49,10 +50,9 @@ def get_url(peaks):
 
 
 class Scraper:
-    path = "/home/bart/PythonProjects/mountain/chromedriver"
+    path = os.environ.get("PATH_SCRAPER")
 
     def __init__(self):
-        # chrome_options.add_argument('--headless') Add that after testing!!!!
         chrome_options = webdriver.ChromeOptions()
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--window-size=1420,1080')

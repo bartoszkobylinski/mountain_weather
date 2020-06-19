@@ -28,7 +28,7 @@ SECRET_KEY = 'k)e@vzmeyd6kev^@x#sj2y(0y!sd83*v)x%-i*(k7q@_bdovpz'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-
+'*'
     ]
 
 
@@ -102,7 +102,7 @@ DATABASES = {
         'NAME': os.environ.get('DB_NAME'),
         'USER': os.environ.get('DB_USER'),
         'PASSWORD': os.environ.get('DB_PASS'),
-        'HOST':'localhost',
+        'HOST':os.environ.get('DB_HOST'),
         'PORT':'5432',
     }
 }
