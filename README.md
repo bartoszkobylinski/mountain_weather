@@ -1,5 +1,7 @@
 # WEATHER FORECAST FOR TATRAS FOR THE NEXT FEW DAYS
 
+![Main Page Screen](https://github.com/bartoszkobylinski/mountain_weather/blob/master/main_page.png)
+
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
