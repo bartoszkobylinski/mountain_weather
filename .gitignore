@@ -6,4 +6,6 @@ mountain_weather/zakopane_weather/chromedriver
 avalanche.log
 mountain_weather/zakopane_weather/temp.py
 mountain_weather/.env
+media/
+scraper.log
 
