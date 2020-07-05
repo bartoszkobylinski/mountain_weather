@@ -43,7 +43,8 @@ class Post(models.Model):
         for (idx, tag) in TAGS.items():
             if tag == 'GPSInfo':
                 if idx not in exif:
-                    raise ValueError("No EXIF geotagging found")
+                    geotagging['val'] = 0
+                    return geotagging
 
                 for (key, val) in GPSTAGS.items():
                     if key in exif[idx]:
@@ -75,10 +76,14 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         exif = self.get_exif(self.image)
         geotags = self.get_geotagging(exif)
-        coordinates =  self.get_coordinates(geotags)
-        lat = coordinates[0]
-        lon = coordinates[1]
-        self.lat = lat
-        self.lon = lon
+        if geotags['val'] == 0:
+            self.lat = 0
+            self.lon = 0
+        else:
+            coordinates =  self.get_coordinates(geotags)
+            lat = coordinates[0]
+            lon = coordinates[1]
+            self.lat = lat
+            self.lon = lon
+
         super(Post, self).save(*args, **kwargs)
-        print(f"And that is: {lat} and lon: {lon} ")

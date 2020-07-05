@@ -2,6 +2,7 @@ import datetime
 
 from datetime import date
 from django.views.generic import TemplateView, ListView
+from django.core.serializers import serialize
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from zakopane_weather.models import DailyForecast, AvalancheStatus, AreaWeatherForecast, PeakForecast, HourlyForecast
@@ -18,7 +19,7 @@ class IndexView(TemplateView):
 
     def get_context_data(self, **kwargs):
         today = date.today().strftime("%Y-%m-%d").replace(" 0", "")
-        morning = datetime.time(5,0)
+        morning = datetime.time(20,0)
         now = datetime.datetime.combine(date.today(),morning)
 
         context = super(IndexView, self).get_context_data(**kwargs)
@@ -27,7 +28,6 @@ class IndexView(TemplateView):
         context['Avalanche'] = AvalancheStatus.objects.all()
         context['Peaks'] = PeakForecast.objects.filter(date=now)
         context['Areas'] = AreaWeatherForecast.objects.filter(date=today)
-        
         return context
 
 class CurrentDayView(TemplateView):
@@ -44,7 +44,8 @@ class CurrentDayView(TemplateView):
 
 class MapView(ListView):
     template_name = 'map.html'
-    queryset = Post.objects.all()
+    queryset = serialize('json', Post.objects.all(), fields = ['lat','lon'])
+    print (queryset)
 
 
 class ZakopaneAreaWeatherForecastView(TemplateView):
