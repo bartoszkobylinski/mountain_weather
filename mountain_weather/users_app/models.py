@@ -20,7 +20,7 @@ class Post(models.Model):
     date = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=250)
     image = models.ImageField(upload_to='place_picture', blank=True)
-    lat = models.DecimalField(default= 0.0, decimal_places=6, max_digits=10)
+    lat = models.DecimalField(default=0.0, decimal_places=6, max_digits=10)
     lon = models.DecimalField(default=0.0, decimal_places=6, max_digits=10)
 
 
@@ -40,10 +40,10 @@ class Post(models.Model):
             raise ValueError("No EXIF metadata found")
 
         geotagging = {}
+
         for (idx, tag) in TAGS.items():
             if tag == 'GPSInfo':
                 if idx not in exif:
-                    geotagging['val'] = 0
                     return geotagging
 
                 for (key, val) in GPSTAGS.items():
@@ -74,16 +74,19 @@ class Post(models.Model):
 
 
     def save(self, *args, **kwargs):
-        exif = self.get_exif(self.image)
-        geotags = self.get_geotagging(exif)
-        if geotags['val'] == 0:
+        if self.get_exif(self.image) is None:
             self.lat = 0
             self.lon = 0
         else:
-            coordinates =  self.get_coordinates(geotags)
-            lat = coordinates[0]
-            lon = coordinates[1]
-            self.lat = lat
-            self.lon = lon
-
+            exif = self.get_exif(self.image)
+            if self.get_geotagging(exif):
+                geotags = self.get_geotagging(exif)
+                coordinates = self.get_coordinates(geotags)
+                lat = coordinates[0]
+                lon = coordinates[1]
+                self.lat = lat
+                self.lon = lon
+            else:
+                self.lat = 0
+                self.lon = 0
         super(Post, self).save(*args, **kwargs)

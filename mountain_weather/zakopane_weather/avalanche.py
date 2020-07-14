@@ -10,6 +10,7 @@ class AvalancheWarningScraper(Scraper):
 
     def __init__(self,url):
         super().__init__()
+        print('oeueue')
         self.url = url
     
     def _navigate_and_extract_avalanche_data(self):
@@ -34,6 +35,8 @@ class AvalancheWarningScraper(Scraper):
         return f"that is my {self.url}"
     
 def get_avalanche_status():
+    print("11111111111")
     avalanche = AvalancheWarningScraper("http://lawiny.topr.pl/")
+    print("aft")
     avalanche_status = avalanche._navigate_and_extract_avalanche_data()
     return avalanche_status

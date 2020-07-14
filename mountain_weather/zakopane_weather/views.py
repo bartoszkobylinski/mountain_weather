@@ -44,8 +44,8 @@ class CurrentDayView(TemplateView):
 
 class MapView(ListView):
     template_name = 'map.html'
-    queryset = serialize('json', Post.objects.all(), fields = ['lat','lon'])
-    print (queryset)
+    model = Post
+    queryset = serialize('json', Post.objects.all(), fields = ['lat','lon', 'image'])
 
 
 class ZakopaneAreaWeatherForecastView(TemplateView):

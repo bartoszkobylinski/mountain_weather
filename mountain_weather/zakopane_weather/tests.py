@@ -65,3 +65,12 @@ class NewVisitorTest(StaticLiveServerTestCase):
 
 
 
+
+a=1
+b=2
+c=3
+d=4
+given_parabola = str(a) + "x^2 + " + str(b) + "x + " + (str(c)) + " = " + str(d)
+print(given_parabola)
+given_parabola = f"{a} x^2 {b} x {c} = {d}"
+print(given_parabola)

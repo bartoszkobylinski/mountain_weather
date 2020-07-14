@@ -14,24 +14,44 @@
 
 {% block content %}
 
+
 <div style="width: 90%; height: 100vh;" id="map"></div>
 
-<script >  
-    var map = L.map('map').setView([49.175573,20.072700], 11);
+<script>  
+
+var map = L.map('map').setView([49.175573,20.072700], 11);
     
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
-{% for key, value in Post %}
-console.log("{{Post}}")
-{% endfor %}
-marker = new L.marker(["{{post.lat|safe}}", "{{post.lon|safe}}"]).addTo(map)
-    .bindPopup("<img src={% static 'images/zakopane_image.jpg' %}/>");
- 
-marker1 = new L.marker([49.295236, 20.413089]).addTo(map)
-    .bindPopup("<img style=10%; src={% static 'images/lomnica_image.jpeg' %}/>");
+
+var post_base = {{object_list|safe}}
+console.log(post_base)
+    
+    for (let index = 0; index < post_base.length; index++) {
+        console.log(post_base[index]['fields']['lat']);
+
+        /*var image_path = post_base[index]['fields']['images']
+        console.log(image_path);
+        marker = new L.marker([post_base[index]["fields"]["lat"],post_base[index]["fields"]["lon"]]).addTo(map)
+        .bindPopup("<img style=10%; src={% static 'images/{{object_list|safe}}'%}/>");
+        */
+        var image_path = post_base[index]['fields']['images']
+        console.log(image_path);
+        var temp = "{% static 'images/dolina_chocholowska_image.jpg' %}"
+        console.log(temp)
+        var image_path2 = temp.replace("dolina_chocholowska_image.jpg", image_path)
+        console.log(image_path2)
+        marker = new L.marker([post_base[index]["fields"]["lat"],post_base[index]["fields"]["lon"]]).addTo(map)
+        .bindPopup("<img style=10%; src=${image_path2}/>");
+    }
+
+
+marker1 = new L.marker([49.295236, 20.413089],{opacity:0.5}).addTo(map)
+    .bindPopup("<img src={% static 'images/lomnica_image.jpeg' %}/>");
 marker2 = new L.marker([49.266596, 19.833505]).addTo(map)
-    .bindPopup("<img style=10%; src={% static 'images/dolina_chocholowska_image.jpg' %}/>");
+    .bindPopup("<img src={% static 'images/dolina_chocholowska_image.jpg' %}/>");
+
 
 </script>
 {% endblock %}
