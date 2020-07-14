@@ -26,24 +26,10 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 var post_base = {{object_list|safe}}
-console.log(post_base)
     
     for (let index = 0; index < post_base.length; index++) {
-        console.log(post_base[index]['fields']['lat']);
-
-        /*var image_path = post_base[index]['fields']['images']
-        console.log(image_path);
         marker = new L.marker([post_base[index]["fields"]["lat"],post_base[index]["fields"]["lon"]]).addTo(map)
-        .bindPopup("<img style=10%; src={% static 'images/{{object_list|safe}}'%}/>");
-        */
-        var image_path = post_base[index]['fields']['images']
-        console.log(image_path);
-        var temp = "{% static 'images/dolina_chocholowska_image.jpg' %}"
-        console.log(temp)
-        var image_path2 = temp.replace("dolina_chocholowska_image.jpg", image_path)
-        console.log(image_path2)
-        marker = new L.marker([post_base[index]["fields"]["lat"],post_base[index]["fields"]["lon"]]).addTo(map)
-        .bindPopup("<img style=10%; src=${image_path2}/>");
+        .bindPopup("<img style=10%; src={% static 'images/{{object_list|safe}}'%}/>");   
     }
 
 
