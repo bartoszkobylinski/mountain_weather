@@ -68,4 +68,5 @@ urlpatterns = [
     path('viewset/', include(router.urls)),
     path('viewset/hourlyforecast/<int:pk>/', include(router.urls)),
     
+    
 ]

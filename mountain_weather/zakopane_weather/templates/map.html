@@ -13,10 +13,12 @@
 {% endblock%}
 
 {% block content %}
-
+{% for object in Post %}
+    <p>{{object.lat}} and {{object.lon}} and {{object.image}}</p>
+{% endfor %}
 
 <div style="width: 90%; height: 100vh;" id="map"></div>
-
+{{Image|json_script:"post"}}
 <script>  
 
 var map = L.map('map').setView([49.175573,20.072700], 11);
@@ -25,18 +27,36 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-var post_base = {{object_list|safe}}
-    
+
+var post_base = JSON.parse(JSON.parse(document.getElementById('post').textContent));
+console.log(post_base)
+/*
+url = "http://127.0.0.1:8000/media/" + post_base[index]["fields"]["image"] + '"'
+fetch(url)
+.then(response => response.blob())
+.then(data => console.log(data));
+
+marker12 = new L.marker([10,10]).addTo(map).bindPopup("<img />")
+*/
     for (let index = 0; index < post_base.length; index++) {
-        marker = new L.marker([post_base[index]["fields"]["lat"],post_base[index]["fields"]["lon"]]).addTo(map)
-        .bindPopup("<img style=10%; src={% static 'images/{{object_list|safe}}'%}/>");   
+        url = "http://127.0.0.1:8000/media/" + post_base[index]["fields"]["image"]
+        console.log(url)
+        fetch(url)
+        .then(response => response.blob())
+        .then(data => console.log(data));
+        marker = new L.marker([post_base[index]["fields"]["lat"], post_base[index]["fields"]["lon"]]).addTo(map)
+        .bindPopup("<img class=alina src= />");
+        var image = document.getElementsByClassName('alina');
+        console.log(image)
+        image['src'] = url
+        
     }
 
 
 marker1 = new L.marker([49.295236, 20.413089],{opacity:0.5}).addTo(map)
     .bindPopup("<img src={% static 'images/lomnica_image.jpeg' %}/>");
 marker2 = new L.marker([49.266596, 19.833505]).addTo(map)
-    .bindPopup("<img src={% static 'images/dolina_chocholowska_image.jpg' %}/>");
+    .bindPopup("<img id=halina src={% static 'images/dolina_chocholowska_image.jpg' %}/>");
 
 
 </script>

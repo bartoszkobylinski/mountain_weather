@@ -41,12 +41,19 @@ class CurrentDayView(TemplateView):
         context['DailyForecast'] = DailyForecast.objects.order_by('date')[1:]
 
         return context
-
+'''
 class MapView(ListView):
     template_name = 'map.html'
     model = Post
     queryset = serialize('json', Post.objects.all(), fields = ['lat','lon', 'image'])
-
+'''
+class MapView(TemplateView):
+    template_name = 'map.html'
+    def get_context_data(self, **kwargs):
+        context = super(MapView,self).get_context_data(**kwargs)
+        context['Image'] = serialize('json', Post.objects.all(), fields = ['lat','lon','image'])
+        context['Post'] = Post.objects.all()
+        return context
 
 class ZakopaneAreaWeatherForecastView(TemplateView):
     template_name = 'area_base.html'
