@@ -13,9 +13,6 @@
 {% endblock%}
 
 {% block content %}
-{% for object in Post %}
-    <p>{{object.lat}} and {{object.lon}} and {{object.image}}</p>
-{% endfor %}
 
 <div style="width: 90%; height: 100vh;" id="map"></div>
 {{Image|json_script:"post"}}
@@ -29,39 +26,14 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 
 var post_base = JSON.parse(JSON.parse(document.getElementById('post').textContent));
-console.log(post_base)
-/*
-url = "http://127.0.0.1:8000/media/" + post_base[index]["fields"]["image"] + '"'
-fetch(url)
-.then(response => response.blob())
-.then(data => console.log(data));
 
-marker12 = new L.marker([10,10]).addTo(map).bindPopup("<img />")
-*/
-    for (let index = 0; index < post_base.length; index++) {
-        url = "http://127.0.0.1:8000/media/" + post_base[index]["fields"]["image"]
-        console.log(url)
-        /*console.log(url)
-        fetch(url)
-        .then(response => response.blob())
-        .then(data => console.log(data));
-        */
-       let markerimg = new Image()
-       markerimg.src = url
-        marker = new L.marker([post_base[index]["fields"]["lat"], post_base[index]["fields"]["lon"]]).addTo(map)
-        .bindPopup(markerimg);
-        var image = document.getElementsByClassName('alina');
-        console.log(image)
-        image['src'] = url
-        
+for (let index = 0; index < post_base.length; index++) {
+    url = "http://127.0.0.1:8000/media/" + post_base[index]["fields"]["image"]
+           
+    let markerimg = new Image()
+    markerimg.src = url
+    marker = new L.marker([post_base[index]["fields"]["lat"], post_base[index]["fields"]["lon"]]).addTo(map)
+    .bindPopup(markerimg);
     }
-
-
-marker1 = new L.marker([49.295236, 20.413089],{opacity:0.5}).addTo(map)
-    .bindPopup("<img src={% static 'images/lomnica_image.jpeg' %}/>");
-marker2 = new L.marker([49.266596, 19.833505]).addTo(map)
-    .bindPopup("<img id=halina src={% static 'images/dolina_chocholowska_image.jpg' %}/>");
-
-
 </script>
 {% endblock %}
