@@ -41,11 +41,15 @@ marker12 = new L.marker([10,10]).addTo(map).bindPopup("<img />")
     for (let index = 0; index < post_base.length; index++) {
         url = "http://127.0.0.1:8000/media/" + post_base[index]["fields"]["image"]
         console.log(url)
+        /*console.log(url)
         fetch(url)
         .then(response => response.blob())
         .then(data => console.log(data));
+        */
+       let markerimg = new Image()
+       markerimg.src = url
         marker = new L.marker([post_base[index]["fields"]["lat"], post_base[index]["fields"]["lon"]]).addTo(map)
-        .bindPopup("<img class=alina src= />");
+        .bindPopup(markerimg);
         var image = document.getElementsByClassName('alina');
         console.log(image)
         image['src'] = url
