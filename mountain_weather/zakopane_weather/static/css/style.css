@@ -418,20 +418,43 @@ body{
     margin-bottom: 3rem;
 }
 /*--------------------profile page---------------------*/
+.profile-container{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    align-self: center;
+}
+.user-info{
+    display: flex;
+    justify-content: space-evenly;
+}
+
 .user-info_information{
-    margin-top: 3rem;
-    padding-left: 2rem;
+    display: flex;
+}
+.user-info_information p{
+    font-size: 1rem;
+    font-weight: 500;
 }
 .user-info_picture{
     width: 25%;
+}
+.user-content{
+    display: flex;
+    flex-wrap: wrap;
 }
 .user-info_picture img{
     width: 90%;
 }
 .user-content-img-wrapper{
-    width: 90%;
+    width: 30%;
     padding: 1rem;
 }
+.user-content-img-wrapper h3{
+    text-align: center;
+    text-transform: uppercase;
+}
+
 .user-content-img-wrapper img{
     width: 100%;
 }
