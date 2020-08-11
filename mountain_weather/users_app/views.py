@@ -66,11 +66,14 @@ class UpdatePost(UpdateView):
     '''
     View for template updating a Post by user
     '''
-    pass
+    model = Post
+    fields = ["title", "image"]
+    template_name_suffix = '_update_form'
 
 
 class DeletePost(DeleteView):
     '''
     View for template deleting a Post by user
     '''
-    pass
+    model = Post
+    success_url = reverse_lazy('posts-list')

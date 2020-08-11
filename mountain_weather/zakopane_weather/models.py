@@ -5,6 +5,7 @@ Model sturcture
 from datetime import date
 from django.db import models
 
+
 class HourlyForecast(models.Model):
     """
     Model for hourly forecast of Zakopane city
@@ -18,6 +19,7 @@ class HourlyForecast(models.Model):
 
     def __str__(self):
         return f"Weather forecast for {self.date_time}"
+
 
 class DailyForecast(models.Model):
     """
@@ -51,6 +53,7 @@ class PeakForecast(models.Model):
     def __str__(self):
         return f'{self.name_of_peak}'
 
+
 class AvalancheStatus(models.Model):
     """
     Model for avalanche status in Tatras mountains
@@ -59,17 +62,17 @@ class AvalancheStatus(models.Model):
     avalanche_description = models.CharField(max_length=1500)
     avalanche_warning_published = models.DateTimeField()
     avalanche_warning_valid_until = models.DateTimeField()
-
     date = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return f''' Avalanche warnings at {self.date}.'''
 
+
 class AreaWeatherForecast(models.Model):
     """ Model for particular area in Tatras Mountain """
     name = models.CharField(max_length=40)
     date = models.DateField()
-    #weather_icon = models.ImageField()
+    # weather_icon = models.ImageField()
     summary = models.CharField(max_length=60, default="brak informacji")
     temp_min = models.IntegerField()
     temp_max = models.IntegerField()
@@ -79,4 +82,3 @@ class AreaWeatherForecast(models.Model):
 
     def __str__(self):
         return f"""Weather forecast for {self.name} at {self.date}."""
-        
