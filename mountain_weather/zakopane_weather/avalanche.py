@@ -26,7 +26,8 @@ class AvalancheWarningScraper(Scraper):
             avalanche_level = self.browser.find_element_by_xpath(
                 '//*[@id="law-master"]/div[1]/div[1]/span/span')
             avalanche_status['avalanche_level'] = avalanche_level.text
-            avalanche_warning_published = self.browser.find_element_by_class_name('law-mst-iat')
+            avalanche_warning_published = self.browser.find_element_by_class_name(
+                'law-mst-iat')
             avalanche_status['avalanche_warning_published'] = avalanche_warning_published.text
             avalanche_warning_valid_until = self.browser.find_element_by_class_name('law-mst-exp')
             avalanche_status['avalanche_warning_valid_until'] = avalanche_warning_valid_until.text

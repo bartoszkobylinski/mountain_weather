@@ -650,6 +650,15 @@ body{
     background-color: #4E6969;
 }
 /*---------------map-------------------*/
+.map-wrapper{
+    display: flex;
+    justify-content: center;
+}
+
+#map{
+    height: 80vh;
+    width: 90%;
+}
 
 .leaflet-popup-content{
     width: 300px;
