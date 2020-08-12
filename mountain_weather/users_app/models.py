@@ -113,4 +113,4 @@ class Post(models.Model):
             else:
                 self.lat = 0
                 self.lon = 0
-        super(Post, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)

@@ -1,7 +1,7 @@
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from .views import (RegisterUserView, CreatePost, PostDetailView,
-                    UserProfileView)
+                    UserProfileView, DeletePost)
 
 urlpatterns = [
     path('register_user/', RegisterUserView.as_view(
@@ -21,4 +21,8 @@ urlpatterns = [
         'accounts/profiel/posts/new',
         CreatePost.as_view(),
         name='create-post'),
+    path(
+        'accounts/profile/post/<int:pk>/',
+        DeletePost.as_view(),
+        name='delete')
 ]

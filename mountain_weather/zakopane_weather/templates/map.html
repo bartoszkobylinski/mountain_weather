@@ -13,8 +13,10 @@
 {% endblock%}
 
 {% block content %}
+<div class="map-wrapper">
+    <div style="width: 90%; height: 100vh;" id="map"></div>
+</div>
 
-<div style="width: 90%; height: 100vh;" id="map"></div>
 {{Image|json_script:"post"}}
 <script>  
 

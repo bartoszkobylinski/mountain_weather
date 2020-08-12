@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+{% if user.is_authenticated %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <p>Are you sure you want to delete "{{ post.image }}"</p>
+        <input type="submit" value="Delete">
+    </form>
+
+{% else %}
+<p>Sorry you are not loged in.</p>
+{% endif%}
+{% endblock %}
