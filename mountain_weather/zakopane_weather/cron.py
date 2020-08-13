@@ -1,39 +1,46 @@
 import logging
 import datetime
 from time import time
-
 from django.conf import settings
 from django.utils.timezone import make_aware
 from django_cron import CronJobBase, Schedule
 from zakopane_weather.avalanche import get_avalanche_status
-from zakopane_weather.mountain import get_zakopane_daily_weather, get_zakopane_hourly_weather
+from zakopane_weather.mountain import (get_zakopane_daily_weather,
+                                       get_zakopane_hourly_weather)
 from zakopane_weather.scraper import get_pekas_detailed_weather
-from zakopane_weather.models import DailyForecast, HourlyForecast, AvalancheStatus, AreaWeatherForecast, PeakForecast
+from zakopane_weather.models import (DailyForecast, 
+                                     HourlyForecast,
+                                     AvalancheStatus,
+                                     AreaWeatherForecast,
+                                     PeakForecast)
 from zakopane_weather.location import location
 from zakopane_weather.area_scraper import get_tatras_areas_weather_forecast
 
 logging.basicConfig(filename="cron.log",level=logging.WARNING)
 
 
-
 class MyCronJob(CronJobBase):
+    """
+    class for uploading database 
+    """
     RUN_EVERY_MINS = 1440
 
     schedule = Schedule(run_every_mins=RUN_EVERY_MINS)
-    code = 'zakopane_weather.my_cron_job' 
-    
-    #Add function sending mail when cron jobs failed!
+    code = 'zakopane_weather.my_cron_job'
+
+    # Add function sending mail when cron jobs failed!
 
     def do(self):
         start = time()
         print(start)
+        
         naive_datetime = datetime.datetime.now()
         naive_datetime.tzinfo
 
         settings.TIME_ZONE
         aware_datetime = make_aware(naive_datetime)
         aware_datetime.tzinfo
-
+        
 
         print("I started cron jobs")
 
