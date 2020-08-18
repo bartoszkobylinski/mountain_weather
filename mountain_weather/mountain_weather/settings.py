@@ -59,7 +59,6 @@ MIDDLEWARE = [
 ]
 
 CRON_CLASSES = [
-    # 'zakopane_weather.cron.MyCronJob',
     'zakopane_weather.cron.DailyForecastAccuweatherJob',
     'zakopane_weather.cron.HourlyForecastAccuweatherJob',
     'zakopane_weather.cron.AvalancheStatusJob',

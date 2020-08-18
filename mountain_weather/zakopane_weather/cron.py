@@ -27,7 +27,7 @@ class DailyForecastAccuweatherJob(CronJobBase):
     def do(self):
         """
         method describing procedure to upload and save
-        current weather forecast for next 5days.
+        current weather forecast for next 5 days.
         """
         DailyForecast.objects.all().delete()
         daily_weather_forecast_from_accuweather = get_zakopane_daily_weather()
