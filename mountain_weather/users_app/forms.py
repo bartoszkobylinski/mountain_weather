@@ -53,3 +53,14 @@ class CreatePostForm(forms.ModelForm):
             'title',
             'image'
         ]
+
+
+class DeletePostForm(forms.ModelForm):
+    """
+    Form for removing a picture
+    """
+    class Meta:
+        model = Post
+        fields = [
+            'title',
+        ]

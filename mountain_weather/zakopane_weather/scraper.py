@@ -11,34 +11,10 @@ import time
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from unidecode import unidecode
-#from zakopane_weather.location import peaks
+from zakopane_weather.location import peaks
 
-location = {'zakopane':'2700353'}
-
-peaks = {
-        'Banikov':'2178',
-        'Baranec':'2184',
-        'Gerlach':'2655',
-        'Giewont':'1909',
-        'Gubalowka':'1126',
-        'Kasprowy-Wierch':'1987',
-        'Koscielec':'2155',
-        'Krivan':'2494',
-        'Mieguszowiecki-Szczyt-Wielki':'2438',
-        'Mnich-mountain':'2068',
-        'Ostry-Rohac':'2087',
-        'Rysy':'2499',
-        'Slavkovsky-Stit':'2452',
-        'Swinica':'2301',
-        'Volovec-Tatra':'2063',
-        'Vychodna-Vysoka':'2574',
-        'Woloszyn':'2155'
-    }
-
-
-
-# logger settings
 logging.basicConfig(filename="scraper.log", level=logging.WARNING)
+
 
 def get_url(peaks):
     base_url = "https://www.mountain-forecast.com/peaks/"
@@ -58,7 +34,8 @@ class Scraper:
         chrome_options.add_argument('--window-size=1420,1080')
         chrome_options.add_argument('--headless')
         chrome_options.add_argument('--disable-gpu')
-        self.browser = webdriver.Chrome(executable_path=self.path, options = chrome_options)
+        self.browser = webdriver.Chrome(
+            executable_path=self.path, options=chrome_options)
 
 # move it to another file after tests
 
@@ -66,73 +43,81 @@ class Scraper:
 class MountainWeatherScraper(Scraper):
 
     dict_octave_of_day = {
-        '1AM':'01::00',
-        '2AM':'02::00',
-        '4AM':'04::00',
-        '5AM':'05::00',
-        '7AM':'07::00',
-        '8AM':'08::00',
-        '10AM':'10::00',
-        '11AM':'11::00',
-        '1PM':'13::00',
-        '2PM':'14::00',
-        '4PM':'16::00',
-        '5PM':'17::00',
-        '7PM':'19::00',
-        '8PM':'20::00',
-        '10PM':'22::00',
-        '11PM':'23::00',
+        '1AM': '01::00',
+        '2AM': '02::00',
+        '4AM': '04::00',
+        '5AM': '05::00',
+        '7AM': '07::00',
+        '8AM': '08::00',
+        '10AM': '10::00',
+        '11AM': '11::00',
+        '1PM': '13::00',
+        '2PM': '14::00',
+        '4PM': '16::00',
+        '5PM': '17::00',
+        '7PM': '19::00',
+        '8PM': '20::00',
+        '10PM': '22::00',
+        '11PM': '23::00',
         }
 
     def __init__(self, url):
         super().__init__()
         self.url = url
 
-
     def _navigate_to_data_table(self):
         self.browser.get(self.url)
         time.sleep(5)
         mountain_name = self.browser.title
-        logging.info(f"Scraper navigate to data table on the website: {mountain_name}")
+        logging.info(
+            f"Scraper navigate to data table on the website: {mountain_name}")
 
         try:
             cookie_button = self.browser.find_element_by_xpath(
                 '/html/body/div[1]/div/div/div[2]/div[1]/button'
                 )
             if cookie_button:
-                try: 
+                try:
                     cookie_button.click()
                     logging.info("i have clicked cookie button")
                 except NoSuchElementException:
-                    logging.warning("No Such Element Excertion has occured: cookie button has not been found")
+                    logging.warning(
+                        """No Such Element Excertion has occured:
+                        cookie button has not been found""")
         except Exception as error:
-            logging.warning(f"Other exception than NoSuchElementException has occured with error: {error}")
-        buttons = self.browser.find_elements_by_class_name('forecast__table-days-toggle')
+            logging.warning(f"""
+            Other exception than NoSuchElementException has occured
+            with error: {error}""")
+        buttons = self.browser.find_elements_by_class_name(
+            'forecast__table-days-toggle')
         try:
             for index in range(len(buttons)):
-                java_script = f"document.getElementsByClassName('forecast__table-days-toggle')[{index}].click();"
-                self.browser.execute_script(java_script) 
+                java_script = f"""document.getElementsByClassName
+                ('forecast__table-days-toggle')[{index}].click();"""
+                self.browser.execute_script(java_script)
                 logging.info("java_script has been executed")
         except Exception as error:
-            logging.warning(f"Error while java script has been executed has occured: {error}")
-        logging.info("Script has found: " + str(len(buttons)) + " buttons and all are pushed")
+            logging.warning(f"""Error while java script has been
+            executed has occured: {error}""")
+        logging.info(f"""Script has found: {len(buttons)}
+            buttons and all are pushed""")
         
-
     def _get_number_of_columns(self):
         self._navigate_to_data_table()
-        table_days = self.browser.find_elements_by_class_name("forecast__table-days")
+        table_days = self.browser.find_elements_by_class_name(
+            "forecast__table-days")
         number_of_columns = []
         for tr in table_days:
             tags = tr.find_elements_by_tag_name("td")
             for tagname in tags:
                 number_of_columns.append(int(tagname.get_attribute("colspan")))
-        logging.info("Scraper has found table with " + str(number_of_columns) + " numbers of columns")
+        logging.info(f"""Scraper has found table with {str(number_of_columns)}
+            numbers of columns""")
         return number_of_columns
         
-
     def make_correction_in_octave(self, octave):
         """
-        Methods to fix format of octave of day which after scraping
+        Methods fixes format of octave of day which after scraping
         is like this 10\u2009PM and \u2009 has to be deleted
         """
         octave = [char for char in octave]
@@ -140,19 +125,20 @@ class MountainWeatherScraper(Scraper):
         octave = "".join(octave)
         return octave
 
-    def convert_timeinfo_to_requested_type(self, date, octaveofday, dict_octave_of_day):
+    def convert_timeinfo_to_requested_type(
+            self, date, octaveofday, dict_octave_of_day):
         try:
             if octaveofday is not None:
                 octaveofday = dict_octave_of_day.get(octaveofday, '')
-                time_to_convert = datetime.strptime(octaveofday, '%H::%M').time()
+                time_to_convert = datetime.strptime(
+                        octaveofday, '%H::%M').time()
                 converted_datetime = datetime.combine(date, time_to_convert)
                 return converted_datetime
             else:
                 return "None"
         except AttributeError as error:
             print(f"That is error: {error} and date is{date} and octaveofday {octaveofday}")
-
-        
+       
     def scrap_data_weather_for_octave_of_a_day(self):   
         try:     
             number_of_columns = self._get_number_of_columns()
@@ -249,17 +235,15 @@ class MountainWeatherScraper(Scraper):
                     "chill_temperature": chill_temp_element
                 })
                 date = current_date
-            current_date = current_date + delta    
+            current_date = current_date + delta
 
             beggining = end + 1
             try:
                 end = beggining + int(number_of_columns[i + 1]) - 1
-            except IndexError :
+            except IndexError:
                 break
         self.browser.close()
         return data_weather
-        #logging.info("I have gathered data from: " + self.browser.title)
-        #return data_weather
 
 
 def get_pekas_detailed_weather():
@@ -267,6 +251,3 @@ def get_pekas_detailed_weather():
         mountain = MountainWeatherScraper(url)
         mountain_weather = mountain.scrap_data_weather_for_octave_of_a_day()
         yield mountain_weather
-
-
-

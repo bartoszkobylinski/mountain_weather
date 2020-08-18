@@ -22,8 +22,9 @@ urlpatterns = [
     path('alina/', admin.site.urls),
     path('', include('zakopane_weather.urls')),
     path('', include('users_app.urls'))
-] 
-
+]
 if settings.DEBUG:
 
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(
+        settings.MEDIA_URL,
+        document_root=settings.MEDIA_ROOT)

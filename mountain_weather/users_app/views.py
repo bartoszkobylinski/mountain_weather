@@ -1,6 +1,7 @@
 
 from django.contrib.auth import login, authenticate
 from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404
 from django.views.generic import (
     CreateView,
     UpdateView,
@@ -66,11 +67,16 @@ class UpdatePost(UpdateView):
     '''
     View for template updating a Post by user
     '''
-    pass
+    model = Post
+    fields = ["title", "image"]
+    template_name_suffix = '_update_form'
 
 
 class DeletePost(DeleteView):
     '''
     View for template deleting a Post by user
     '''
-    pass
+    template_name = "delete.html"
+    model = Post
+    context_object_name = 'post'
+    success_url = reverse_lazy('posts-list')

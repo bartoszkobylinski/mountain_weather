@@ -1,4 +1,4 @@
-from PIL import Image 
+from PIL import Image
 from PIL.ExifTags import TAGS
 from PIL.ExifTags import GPSTAGS
 
@@ -8,14 +8,24 @@ from django.urls import reverse
 
 # Create your models here.
 
+
 class Profile(models.Model):
+    """
+    Model of User's profile
+    """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default='icon-user.png', upload_to='profile_picture')
+    image = models.ImageField(
+        default='icon-user.png',
+        upload_to='profile_picture')
 
     def __str__(self):
         return f"{self.user.username} profile"
 
+
 class Post(models.Model):
+    """
+    Model of User's Post
+    """
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=250)
@@ -23,19 +33,24 @@ class Post(models.Model):
     lat = models.DecimalField(default=0.0, decimal_places=6, max_digits=10)
     lon = models.DecimalField(default=0.0, decimal_places=6, max_digits=10)
 
-
     def __str__(self):
         return f" Post published {self.date} by {self.user.username}"
 
     def get_absolute_url(self):
-        return reverse('post-detail', kwargs={'pk': self.pk })
+        return reverse('post-detail', kwargs={'pk': self.pk})
 
     def get_exif(self, image):
+        """
+        method returns exif methadata if exist
+        """
         image = Image.open(self.image)
         image.verify()
         return image._getexif()
 
     def get_geotagging(self, exif):
+        """
+        method returns geotags information
+        """
         if not exif:
             raise ValueError("No EXIF metadata found")
 
@@ -51,8 +66,11 @@ class Post(models.Model):
                         geotagging[val] = exif[idx][key]
 
         return geotagging
-    
+
     def get_decimal_from_dms(self, dms, ref):
+        """
+        method convert geotags coordintes to degrees, minutes, seconds format
+        """
 
         degrees = dms[0][0] / dms[0][1]
         minutes = dms[1][0] / dms[1][1] / 60.0
@@ -66,12 +84,18 @@ class Post(models.Model):
         return round(degrees + minutes + seconds, 5)
 
     def get_coordinates(self, geotags):
-        lat = self.get_decimal_from_dms(geotags['GPSLatitude'], geotags['GPSLatitudeRef'])
+        """
+        method returns ready to use geotags coordinates
+        """
+        lat = self.get_decimal_from_dms(
+            geotags['GPSLatitude'],
+            geotags['GPSLatitudeRef'])
 
-        lon = self.get_decimal_from_dms(geotags['GPSLongitude'], geotags['GPSLongitudeRef'])
+        lon = self.get_decimal_from_dms(
+            geotags['GPSLongitude'],
+            geotags['GPSLongitudeRef'])
 
-        return (lat,lon)
-
+        return (lat, lon)
 
     def save(self, *args, **kwargs):
         if self.get_exif(self.image) is None:
@@ -89,4 +113,4 @@ class Post(models.Model):
             else:
                 self.lat = 0
                 self.lon = 0
-        super(Post, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)

@@ -4,24 +4,29 @@
 {% if user.is_authenticated %}
 <div class="profile-container">
     <div class="user-info">
-        <div class="user-info_information">
+        <div class="user-info_infoon">
             <div class="user-info_picture">
                 <img src="{{ user.profile.image.url }}" alt="User profile image">
             </div>
-            <p>Username: {{user.username}}</p>
-            <p>Your email: {{user.email}}</p>
+            <p>{{user.username}}</p>
         </div>
         <div class="user-info_add-img">
             <a href="{% url 'create-post' %}"><button>Add Photo</button></a>
         </div>
         
     </div>
+    <div class="delete-post">
+        <form action="" method="post"></form>
+        <p>Are you sure you want to delete "{{ object }}"?</p>
+        <input type="submit" value="Confirm">
+        </form>
+    </div>
     <div class="user-content">
         {% for post in object_list %}
         <div class="user-content-img-wrapper">
-            <h3>{{ post.title }}</h3>
+            <h3>{{ post.title }} - <a href="{% url 'delete' post.id %}">delete</a></h3>
             <img src="{{ post.image.url }}" alt="">
-            <p>published: {{post.date}}</p>
+            <small>published: {{post.date}}</small>
         </div>
         {% endfor %}
     </div>

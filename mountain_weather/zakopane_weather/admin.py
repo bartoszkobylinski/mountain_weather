@@ -1,8 +1,7 @@
 from django.contrib import admin
-
-from .models import (HourlyForecast, 
-                     DailyForecast, 
-                     AvalancheStatus, 
+from .models import (HourlyForecast,
+                     DailyForecast,
+                     AvalancheStatus,
                      PeakForecast,
                      AreaWeatherForecast)
 
