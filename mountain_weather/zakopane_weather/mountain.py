@@ -1,10 +1,11 @@
 
+from urllib.parse import urljoin
 import os
 import logging
 import requests
-from urllib.parse import urljoin
 
-location = {'zakopane': '2700353'}
+from zakopane_weather.location import location
+
 accu_api = os.environ.get("ACCU_API_KEY")
 
 logging.basicConfig(filename='mountain.log', level=logging.INFO)
@@ -42,6 +43,11 @@ class FiveDaysWeatherForecast:
         return weather_forcast
 
     def weather_details(self, days: int = None):
+        """
+        method returns a dictionary with date, minimal temperature,
+        maximum temperature, short text weather description like sunny, cloudy,
+        rain probability and wind speed
+        """
         forecast = self.get_forecast()
         headers = [
             "date",
@@ -57,37 +63,22 @@ class FiveDaysWeatherForecast:
             date = forecast["DailyForecasts"][i]['Date']
             date = date[:10]
             data.append(date)
-            min_temp = round(
-                (
-                    int(
-                        forecast["DailyForecasts"][i]["Temperature"]["Minimum"]["Value"]
-                    )
-                    - 32
-                )
-                / 1.8
-            )
+            min_temp = round((int(
+                (forecast["DailyForecasts"][i]["Temperature"]
+                 ["Minimum"]["Value"])) - 32) / 1.8)
             data.append(min_temp)
-            max_temp = round(
-                (
-                    int(
-                        forecast["DailyForecasts"][i]["Temperature"]["Maximum"]["Value"]
-                    )
-                    - 32
-                )
-                / 1.8
-            )
+            max_temp = round((int(
+                (forecast["DailyForecasts"][i]["Temperature"]
+                 ["Maximum"]["Value"])) - 32) / 1.8)
             data.append(max_temp)
             phrase = forecast["DailyForecasts"][i]["Day"]["LongPhrase"]
             data.append(phrase)
-            probability = forecast["DailyForecasts"][i]["Day"]["RainProbability"]
+            probability = (forecast["DailyForecasts"][i]["Day"]
+                           ["RainProbability"])
             data.append(probability)
-            wind_speed = round(
-                (
-                    int(forecast["DailyForecasts"][i]["Day"]["Wind"]["Speed"]["Value"])
-                    / 1.6
-                ),
-                1,
-            )
+            wind_speed = round((int(
+                (forecast["DailyForecasts"][i]["Day"]["Wind"]["Speed"]
+                 ["Value"]) / 1.6), 1))
             data.append(wind_speed)
             yield dict(zip(headers, data))
 
@@ -102,12 +93,18 @@ class TwelveHoursWeatherForecast:
         self.location = location
 
     def _parsing_url(self, accu_api):
+        """
+        method returning absolute url for Zakopane city
+        """
         url1 = "http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/"
         url2 = f"{self.location}?apikey={accu_api}&details=true"
         absolute_url = urljoin(url1, url2)
         return absolute_url
 
     def get_forecast(self):
+        """
+        method returns forecast from AccuWeather API external service
+        """
         url = self._parsing_url(accu_api)
         api_response = requests.get(url)
         if not api_response.ok:
