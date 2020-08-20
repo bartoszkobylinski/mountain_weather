@@ -45,7 +45,6 @@ class CurrentDayView(TemplateView):
         context = super(CurrentDayView, self).get_context_data(**kwargs)
         context['HourlyForecast'] = HourlyForecast.objects.all()
         context['FirstDay'] = DailyForecast.objects.order_by('date').first()
-        print(context['FirstDay'])
         context['DailyForecast'] = DailyForecast.objects.order_by('date')[1:]
 
         return context

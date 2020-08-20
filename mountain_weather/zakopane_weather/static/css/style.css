@@ -155,6 +155,26 @@ body{
     font-weight: 500;
     text-align: center;
 }
+/*------------------- map section ------------------*/
+
+.map-index-page{
+    text-align: center;
+}
+.map-index-page button{
+    color: #333;
+    border-radius: 15px;
+    width: 18rem;
+    text-decoration: none;
+    border: 1px solid #4E6969;
+    background-color: #BFC2C5;
+    opacity: 0.7;
+    text-align: center;
+    height: 4rem;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
 /*-------------index - avalanche status-------------*/
 .avalanche-wrapper{
     margin: 1rem;
