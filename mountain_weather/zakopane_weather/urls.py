@@ -64,7 +64,7 @@ urlpatterns = [
     path('gerlach/', GerlachForecastView.as_view(), name='Gerlach'),
     path('giewont/', GiewontForecastView.as_view(), name='Giewont'),
     path('gubalowka/', GubalowkaForecastView.as_view(), name='Gubalowka'),
-    path('szczyt_kasprowy_wierch/',
+    path('kasprowy_wierch_szczyt/',
          KasprowyWierchForecastView.as_view(),
          name='Kasprowy'),
     path('koscielec/', KoscielecForecastView.as_view(), name='Koscielec'),
