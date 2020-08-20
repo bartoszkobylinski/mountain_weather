@@ -17,6 +17,9 @@ logging.basicConfig(filename="scraper.log", level=logging.WARNING)
 
 
 def get_url(peaks):
+    """
+    function generates absolute url for specific paeaks
+    """
     base_url = "https://www.mountain-forecast.com/peaks/"
     for key, val in peaks.items():
         url1 = f"{key}/forecasts/{val}"
@@ -36,8 +39,6 @@ class Scraper:
         chrome_options.add_argument('--disable-gpu')
         self.browser = webdriver.Chrome(
             executable_path=self.path, options=chrome_options)
-
-# move it to another file after tests
 
 
 class MountainWeatherScraper(Scraper):
@@ -118,7 +119,7 @@ class MountainWeatherScraper(Scraper):
     def make_correction_in_octave(self, octave):
         """
         Methods fixes format of octave of day which after scraping
-        is like this 10\u2009PM and \u2009 has to be deleted
+        is looking like this 10\u2009PM and \u2009 has to be deleted
         """
         octave = [char for char in octave]
         octave.remove('\u2009')
@@ -139,13 +140,19 @@ class MountainWeatherScraper(Scraper):
         except AttributeError as error:
             print(f"That is error: {error} and date is{date} and octaveofday {octaveofday}")
        
-    def scrap_data_weather_for_octave_of_a_day(self):   
+    def scrap_data_weather_for_octave_of_a_day(self):
+        """
+        methods returns a dictionary with peak name and elevation,
+        date, windspeed, short summany, rain, snow, temperature and
+        chill temperature
+        """   
         try:     
             number_of_columns = self._get_number_of_columns()
             beggining = 1
             end = number_of_columns[0]
         except IndexError as error:
-            logging.warning(f"An error occured while script getting number of columns {error}")
+            logging.warning(
+                f"An error occured while script gets number of columns {error}")
         data_weather = []
         current_date = datetime.today()
         delta = timedelta(days=1)
@@ -173,14 +180,11 @@ class MountainWeatherScraper(Scraper):
                     date_after_scraping = date_after_scraping.strftime('%Y-%m-%d %H:%M')
                 else:
                     date_after_scraping = "None"
-                
                 windspeed_element = self.browser.find_element_by_xpath(
                     f'//*[@id="forecast-cont"]/table/tbody/tr[2]/td[{y}]/div/div/span'
                 )
                 windspeed_element = windspeed_element.text
-                if windspeed_element == '':
-                    windspeed_element = 0
-                elif windspeed_element == '-':
+                if windspeed_element == '' or windspeed_element == "-":
                     windspeed_element = 0
 
                 summary_element = self.browser.find_element_by_xpath(
@@ -192,35 +196,27 @@ class MountainWeatherScraper(Scraper):
                     f'//*[@id="forecast-cont"]/table/tbody/tr[5]/td[{y}]/span/span'
                 )
                 rain_element = rain_element.text
-                if rain_element == '':
-                    rain_element = 0
-                elif rain_element == '-':
+                if rain_element == '' or rain_element == "-":
                     rain_element = 0
 
                 snow_element = self.browser.find_element_by_xpath(
                     f'//*[@id="forecast-cont"]/table/tbody/tr[6]/td[{y}]/span/span'
                 )
                 snow_element = snow_element.text
-                if snow_element == '':
-                    snow_element = 0
-                elif snow_element =='-':
+                if snow_element == '' or snow_element == "-":
                     snow_element = 0
 
                 temperature_element = self.browser.find_element_by_xpath(
                     f'//*[@id="forecast-cont"]/table/tbody/tr[7]/td[{y}]/span/span'
                 )
                 temperature_element = temperature_element.text
-                if temperature_element == '':
-                    temperature_element = 0
-                elif temperature_element == '-':
+                if temperature_element == '' or temperature_element == "-":
                     temperature_element = 0
                 chill_temp_element = self.browser.find_element_by_xpath(
                     f'//*[@id="forecast-cont"]/table/tbody/tr[9]/td[{y}]/span/span'
                 )
                 chill_temp_element = chill_temp_element.text
-                if chill_temp_element == '':
-                    chill_temp_element = 0
-                elif chill_temp_element =='-':
+                if chill_temp_element == '' or chill_temp_element == '-':
                     chill_temp_element = 0
 
                 data_weather.append({
@@ -247,6 +243,9 @@ class MountainWeatherScraper(Scraper):
 
 
 def get_pekas_detailed_weather():
+    """
+    generator yield a dictionary with a mountain scraped weather forecast
+    """
     for url in get_url(peaks):
         mountain = MountainWeatherScraper(url)
         mountain_weather = mountain.scrap_data_weather_for_octave_of_a_day()

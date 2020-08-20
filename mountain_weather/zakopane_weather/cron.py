@@ -2,7 +2,7 @@ import logging
 from django_cron import CronJobBase, Schedule
 from zakopane_weather.avalanche import get_avalanche_status
 from zakopane_weather.accu_weather_api import (get_zakopane_daily_weather,
-                                       get_zakopane_hourly_weather)
+                                               get_zakopane_hourly_weather)
 from zakopane_weather.scraper import get_pekas_detailed_weather
 from zakopane_weather.models import (DailyForecast,
                                      HourlyForecast,

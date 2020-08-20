@@ -1,3 +1,8 @@
+"""
+file where is class responsible for geting information about current avalanche
+status in Tatara Mountains
+"""
+
 import logging
 from selenium.common.exceptions import NoSuchElementException
 from zakopane_weather.scraper import Scraper
@@ -16,7 +21,7 @@ class AvalancheWarningScraper(Scraper):
         super().__init__()
         self.url = url
 
-    def _navigate_and_extract_avalanche_data(self):
+    def navigate_and_extract_avalanche_data(self):
         """
         Navigate and extract data about avalanche status
         """
@@ -40,9 +45,12 @@ class AvalancheWarningScraper(Scraper):
 
     def __str__(self):
         return f"that is my {self.url}"
-    
+
 
 def get_avalanche_status():
+    """
+    function returns current avalanche status in Tatra Mountains
+    """
     avalanche = AvalancheWarningScraper("http://lawiny.topr.pl/")
-    avalanche_status = avalanche._navigate_and_extract_avalanche_data()
+    avalanche_status = avalanche.navigate_and_extract_avalanche_data()
     return avalanche_status
