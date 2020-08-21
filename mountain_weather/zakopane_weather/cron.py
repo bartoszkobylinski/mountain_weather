@@ -5,7 +5,7 @@ fiel where all cron jobs are desribed
 import logging
 from django_cron import CronJobBase, Schedule
 from zakopane_weather.avalanche import get_avalanche_status
-from zakopane_weather.mountain import (get_zakopane_daily_weather,
+from zakopane_weather.accu_weather_api import (get_zakopane_daily_weather,
                                        get_zakopane_hourly_weather)
 from zakopane_weather.scraper import get_pekas_detailed_weather
 from zakopane_weather.models import (DailyForecast,
@@ -33,7 +33,7 @@ class DailyForecastAccuweatherJob(CronJobBase):
         current weather forecast for next 5 days.
         """
         DailyForecast.objects.all().delete()
-        daily_weather_forecast_from_accuweather = get_zakopane_daily_weather()
+        daily_weather_forecast_from_accuweather = get_zakopane_daily_weather()pyt
         daily_objects = [DailyForecast(**element)
                          for element in
                          daily_weather_forecast_from_accuweather]
