@@ -1,3 +1,7 @@
+"""
+fiel where all cron jobs are desribed
+"""
+
 import logging
 from django_cron import CronJobBase, Schedule
 from zakopane_weather.avalanche import get_avalanche_status
